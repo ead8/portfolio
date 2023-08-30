@@ -52,7 +52,7 @@ export default function SomethingIveBuilt() {
                 ></div>
               </a>
 
-              <Img src={"/jointapp.PNG"} alt={"Project Screen shot"} className={`w-full rounded h-full `} />
+              <Img src={"/jointapp.png"} alt={"Project Screen shot"} className={`w-full rounded h-full `} />
             </div>
           </div>
 
