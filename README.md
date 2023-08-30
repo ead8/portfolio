@@ -1,1 +1,1 @@
-# portfolio using nextjs,typscript
+# Personal portfolio website using nextjs,typscript
