@@ -259,7 +259,7 @@ export default function SomethingIveBuilt() {
                   Indulge in the culinary delights of our restaurant website,
                   meticulously designed using <span className="text-AAsecondary text-base"> React.js </span> and <span className="text-AAsecondary text-base">CSS </span> . Unearth a world of delectable
                   menus, savor special dishes, and embark on a journey that transcends taste.
-                  As you navigate through our immersive platform, you&apos;ll discover a symphony of flavors and aromas that evoke pure joy.
+                  As you navigate through our immersive platform, you will discover a symphony of flavors and aromas that evoke pure joy.
                 </p>
               </div>
               <ul className="flex flex-wrap w-full text-gray-300 md:text-gray-400 text-sm font-Text2 md:justify-start">
