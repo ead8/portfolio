@@ -55,7 +55,7 @@ export default function Home() {
   console.log("Portfolio Rendered...");
   const meta = {
     title: "Ebisa Dugo - Software Engineer",
-    description: `I've been working on Software development for 2 years straight. Get in touch with me to know more.`,
+    description: `I&apos;ve been working on Software development for 2 years straight. Get in touch with me to know more.`,
     image: "/titofCercle.png",
     type: "website",
   };
