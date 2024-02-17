@@ -10,7 +10,7 @@ import Footer from "../components/Footer/Footer";
 import AppContext from "../components/AppContextFolder/AppContext";
 import Aos from "aos";
 import "aos/dist/aos.css";
-import Head from "next/head";
+import Head from "next/head"; 
 import ScreenSizeDetector from "../components/CustomComponents/ScreenSizeDetector";
 export default function Home() {
   const [ShowElement, setShowElement] = useState(false);
@@ -55,7 +55,7 @@ export default function Home() {
   console.log("Portfolio Rendered...");
   const meta = {
     title: "Ebisa Dugo - Software Engineer",
-    description: `I&apos;ve been working on Software development for 2 years straight. Get in touch with me to know more.`,
+    description: `I&apos;ve been working on Software development for 3 years straight. Get in touch with me to know more.`,
     image: "/titofCercle.png",
     type: "website",
   };
