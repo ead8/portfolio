@@ -63,7 +63,7 @@ const HeroSection = () => {
               variants={contentVariants}
               className="text-base leading-relaxed tracking-normal font-semibold mb-3"
             >
-              I'm a versatile Full-Stack Developer specializing in modern tech stacks including{" "}
+              I&apos;m a versatile Full-Stack Developer specializing in modern tech stacks including{" "}
               <span className="text-secondary">Next.js</span>,{" "}
               <span className="text-secondary">FastAPI</span>, and{" "}
               <span className="text-secondary">NestJS</span>. From crafting elegant{" "}
