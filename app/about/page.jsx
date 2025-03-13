@@ -65,6 +65,7 @@ const AboutPage = () => {
         />
       )}
       <div className="relative w-full flex flex-col items-center justify-between py-10 lg:py-16">
+        {/* WHO AM I */}
         <div className="flex flex-col lg:flex-row items-center justify-between gap-5 z-10">
           <div className="w-full md:w-2/3">
             <motion.h1
@@ -77,55 +78,55 @@ const AboutPage = () => {
               variants={contentVariants}
               className="text-sm leading-relaxed tracking-normal font-medium mb-3"
             >
-              I was born and raised in Karachi, Pakistan with no clear interests
-              except for gaming. Growing up, gaming was my entire world. I spent
-              countless hours exploring the sprawling landscapes of{" "}
-              <Link
-                href="https://www.rockstargames.com/"
-                target="_blank"
-                className="underline underline-offset-2 text-secondary hover:text-accent"
-              >
-                Grand Theft Auto: Vice City
-              </Link>{" "}
-              and mastering tactical maneuvers in{" "}
-              <Link
-                href="https://en.wikipedia.org/wiki/Innerloop_Studios"
-                target="_blank"
-                className="underline underline-offset-2 text-secondary hover:text-accent"
-              >
-                Project I.G.I
-              </Link>
-              .
+              I’m <span className="text-secondary font-bold">Ebisa Dugo</span>,
+              born and raised in Addis Ababa, Ethiopia. From an early age, I’ve
+              been fascinated by the worlds of{" "}
+              <span className="text-secondary">gaming</span>,{" "}
+              <span className="text-secondary">anime</span>,{" "}
+              <span className="text-secondary">mathematics</span>, and{" "}
+              <span className="text-secondary">physics</span>. Whether I was
+              exploring virtual realms, solving tricky math puzzles, or
+              pondering the laws of the universe, I found endless ways to fuel
+              my curiosity.
             </motion.p>
             <motion.p
               variants={contentVariants}
               className="text-sm leading-relaxed tracking-normal font-medium mb-3"
             >
-              These virtual adventures weren&apos;t just fun; they ignited a
-              passion for competition. Counter-Strike became my new obsession,
-              and I dreamed of joining the ranks of legendary players like{" "}
-              <span className="text-secondary">Device</span>,{" "}
-              <span className="text-secondary">Neo</span>, or{" "}
-              <span className="text-secondary">Niko</span> (my personal CS
-              hero!). I practiced relentlessly, strategizing and honing my
-              skills, all with the goal of becoming a pro gamer.
+              Growing up, anime series like{" "}
+              <Link
+                href="https://www.crunchyroll.com/"
+                target="_blank"
+                className="underline underline-offset-2 text-secondary hover:text-accent"
+              >
+                Naruto
+              </Link>{" "}
+              and{" "}
+              <Link
+                href="https://www.crunchyroll.com/attack-on-titan"
+                target="_blank"
+                className="underline underline-offset-2 text-secondary hover:text-accent"
+              >
+                Attack on Titan
+              </Link>{" "}
+              sparked my imagination, while online multiplayer games taught me
+              about collaboration and strategy. It was a thrilling mix of fun
+              and learning that shaped who I am today.
             </motion.p>
           </div>
           <div className="hidden w-full h-full lg:w-1/2 lg:flex justify-center">
             <Figure
               src={aboutImg1.src}
               size="w-[400px] h-[300px]"
-              caption="Wanter to become pro-gamer"
+              caption="Discovering new worlds"
               tag="IMAGINE"
             />
           </div>
         </div>
-        <Stripes
-          position="right"
-          rotation="rotate-45"
-          isTop={true}
-          isLeft={true}
-        />
+
+        <Stripes position="right" rotation="rotate-45" isTop={true} isLeft={true} />
+
+        {/* PRO-GAMING TO PROGRAMMING */}
         <div className="flex flex-col lg:flex-row-reverse items-center justify-between gap-5 z-10">
           <div className="w-full md:w-2/3">
             <motion.h1
@@ -138,106 +139,8 @@ const AboutPage = () => {
               variants={contentVariants}
               className="text-sm leading-relaxed tracking-normal font-medium mb-3"
             >
-              Everything changed thanks to a friend named{" "}
-              <Link
-                href="https://www.linkedin.com/in/b4basitali/"
-                target="_blank"
-                className="underline underline-offset-2 text-secondary hover:text-accent"
-              >
-                Basit
-              </Link>
-              . One day, he told me about a mass training program for{" "}
-              <span className="text-secondary">mobile</span> and{" "}
-              <span className="text-secondary">web development</span> offered by{" "}
-              <Link
-                href="https://www.saylaniwelfare.com/en/services/education/technical-education/saylani-mass-it-training"
-                target="_blank"
-                className="underline underline-offset-2 text-secondary hover:text-accent"
-              >
-                Saylani Welfare
-              </Link>
-              .
-            </motion.p>
-            <motion.p
-              variants={contentVariants}
-              className="text-sm leading-relaxed tracking-normal font-medium mb-3"
-            >
-              Now, coding was a complete mystery to me at the time. But hey,
-              free education? Why not? Little did I know, that decision would
-              spark a whole new passion within me.
-            </motion.p>
-            <motion.p
-              variants={contentVariants}
-              className="text-sm leading-relaxed tracking-normal font-medium mb-3"
-            >
-              So, I enrolled in the{" "}
-              <span className="text-secondary">BS program</span> at{" "}
-              <Link
-                href="https://ilmauniversity.edu.pk/"
-                target="_blank"
-                className="underline underline-offset-2 text-secondary hover:text-accent"
-              >
-                Ilma University
-              </Link>
-              , determined to build a solid foundation in software engineering.
-              There, I immersed myself in learning various web development
-              tools, mastering them to craft incredible experiences for the web.
-            </motion.p>
-          </div>
-          <div className="hidden w-full h-full lg:w-1/2 lg:flex justify-center">
-            <Figure
-              src={aboutImg4.src}
-              size="w-[400px] h-[300px]"
-              caption="Programming As Professional"
-              tag="IMAGINE"
-            />
-          </div>
-        </div>
-        <Stripes
-          position="left"
-          rotation="-rotate-45"
-          isTop={false}
-          isLeft={false}
-        />
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-5 z-10">
-          <div className="w-full md:w-2/3">
-            <motion.h1
-              variants={contentVariants}
-              className="font-display text-xs leading-snug tracking-wider text-secondary font-extrabold mb-2"
-            >
-              HOW DO I SPENT MY SPARE TIME
-            </motion.h1>
-            <motion.p
-              variants={contentVariants}
-              className="text-sm leading-relaxed tracking-normal font-medium mb-3"
-            >
-              When I&apos;m not coding away, you&apos;ll find me diving
-              headfirst into the ever-evolving world of tech. Devouring articles
-              about the latest innovations keeps me inspired.
-            </motion.p>
-            <motion.p
-              variants={contentVariants}
-              className="text-sm leading-relaxed tracking-normal font-medium mb-3"
-            >
-              I&apos;m always eager to explore new web tools that can help me
-              craft even better experiences. But it&apos;s not all work and no
-              play. A touch of creativity sneaks in too I love experimenting
-              with AI art using{" "}
-              <Link
-                href="https://leonardo.ai/"
-                target="_blank"
-                className="underline underline-offset-2 text-secondary hover:text-accent"
-              >
-                Leonardo AI
-              </Link>
-              , the results can be truly mind-blowing!
-            </motion.p>
-            <motion.p
-              variants={contentVariants}
-              className="text-sm leading-relaxed tracking-normal font-medium mb-3"
-            >
-              Of course, the competitive fire still burns. Whether it&apos;s
-              strategizing in a classic game of{" "}
+              At one point, I was fully convinced I’d become a professional
+              gamer. Hours of practice in competitive titles like{" "}
               <Link
                 href="https://store.steampowered.com/app/730/CounterStrike_2/"
                 target="_blank"
@@ -245,15 +148,103 @@ const AboutPage = () => {
               >
                 Counter-Strike
               </Link>{" "}
-              or battling it out on{" "}
+              fueled a dream of competing on the biggest stages. However, an
+              unexpected introduction to{" "}
+              <span className="text-secondary">programming</span> completely
+              changed my trajectory.
+            </motion.p>
+            <motion.p
+              variants={contentVariants}
+              className="text-sm leading-relaxed tracking-normal font-medium mb-3"
+            >
+              I discovered a local initiative offering courses in{" "}
+              <span className="text-secondary">web development</span> and{" "}
+              <span className="text-secondary">mobile app creation</span>.
+              Curious about building my own digital worlds, I dove in headfirst.
+              It was the perfect blend of logical problem-solving (just like
+              math) and boundless creativity (the same spark that drew me to
+              anime and gaming).
+            </motion.p>
+            <motion.p
+              variants={contentVariants}
+              className="text-sm leading-relaxed tracking-normal font-medium mb-3"
+            >
+              Eager to expand my knowledge, I then enrolled in a{" "}
+              <span className="text-secondary">Computer Science</span> program
+              at{" "}
+              <Link
+                href="https://www.aau.edu.et/"
+                target="_blank"
+                className="underline underline-offset-2 text-secondary hover:text-accent"
+              >
+                Addis Ababa University
+              </Link>
+              . Each course and project felt like leveling up in a game—except
+              this time, the high score meant real-world impact.
+            </motion.p>
+          </div>
+          <div className="hidden w-full h-full lg:w-1/2 lg:flex justify-center">
+            <Figure
+              src={aboutImg4.src}
+              size="w-[400px] h-[300px]"
+              caption="From console to code"
+              tag="IMAGINE"
+            />
+          </div>
+        </div>
+
+        <Stripes position="left" rotation="-rotate-45" isTop={false} isLeft={false} />
+
+        {/* HOW DO I SPEND MY SPARE TIME */}
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-5 z-10">
+          <div className="w-full md:w-2/3">
+            <motion.h1
+              variants={contentVariants}
+              className="font-display text-xs leading-snug tracking-wider text-secondary font-extrabold mb-2"
+            >
+              HOW DO I SPEND MY SPARE TIME
+            </motion.h1>
+            <motion.p
+              variants={contentVariants}
+              className="text-sm leading-relaxed tracking-normal font-medium mb-3"
+            >
+              When I’m not coding or reviewing the latest tech news, you’ll
+              likely find me catching up on a new anime series, exploring a
+              complex math problem, or immersing myself in physics articles
+              about the cosmos. I love the way these interests spark my
+              imagination and fuel my desire to create something extraordinary.
+            </motion.p>
+            <motion.p
+              variants={contentVariants}
+              className="text-sm leading-relaxed tracking-normal font-medium mb-3"
+            >
+              I also enjoy experimenting with{" "}
+              <Link
+                href="https://leonardo.ai/"
+                target="_blank"
+                className="underline underline-offset-2 text-secondary hover:text-accent"
+              >
+                AI art tools
+              </Link>
+              , discovering how emerging technologies can bridge art and
+              science. And let’s not forget the occasional online match in{" "}
               <Link
                 href="https://www.chess.com/"
                 target="_blank"
                 className="underline underline-offset-2 text-secondary hover:text-accent"
               >
                 Chess
-              </Link>
-              , I find a healthy dose of competition to keep me sharp.
+              </Link>{" "}
+              to keep my strategic thinking sharp!
+            </motion.p>
+            <motion.p
+              variants={contentVariants}
+              className="text-sm leading-relaxed tracking-normal font-medium mb-3"
+            >
+              Every day, I’m reminded that my passions—gaming, anime, math, and
+              physics—are not just hobbies. They’re lenses through which I view
+              the world, and they continuously inspire me to innovate, explore,
+              and create.
             </motion.p>
           </div>
           <div className="hidden w-full h-full lg:w-1/2 lg:flex justify-center">
