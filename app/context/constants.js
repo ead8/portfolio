@@ -14,16 +14,18 @@ import insureMyHealthImg from "@/public/work/insure-my-health-img.jpg";
 import insureMyHealthCoverImg from "@/public/work/insure-my-health-cover-img.jpg";
 
 // IMAGES FOR PERSONAL PROJECT
-import promptareImg from "@/public/projects/promptare-img.jpg";
+import promptareImg from "@/public/projects/narrator-img.jpg";
 import promptareImgCover from "@/public/projects/promptare-img-cover.jpg";
 import webCrawlerImg from "@/public/projects/webCrawler-img.jpg";
 import webCrawlerImgCover from "@/public/projects/webCrawler-img-cover.jpg";
-import parabotImg from "@/public/projects/parabot-img-cover.jpg";
-import parabotImgCover from "@/public/projects/parabot-img-cover.jpg";
-import narratorImg from "@/public/projects/narrator-img.jpg";
-import narratorImgCover from "@/public/projects/narrator-img-cover.jpg";
+import parabotImg from "@/public/projects/parabot-img-cover.webp";
+import parabotImgCover from "@/public/projects/Pasted image.png";
+import narratorImg from "@/public/projects/webCrawler-img.jpg";
+import narratorImgCover from "@/public/projects/preview_2.png";
 import queryMindImg from "@/public/projects/queryMind-img.jpg";
 import queryMindImgCover from "@/public/projects/queryMind-img-cover.jpg";
+import carCallCenterImg from "@/public/projects/aivoice.webp";
+import carCallCenterImgCover from "@/public/projects/aivoicecover.webp";
 
 export const caseStudyNotFound = {
   id: 0,
@@ -454,41 +456,42 @@ export const workListData = [
 export const projectListData = [
   {
     id: 1,
-    title: "Narrate AI",
-    subTitle: "Image-to-Story Narration System",
+    title: "ScrapeFlow",
+    subTitle: "Workflow Automation & Web Scraping Platform",
     imgSrc: narratorImg.src,
     isFeatured: true,
     isLocked: false,
     details: {
       coverImgSrc: narratorImgCover.src,
       overview: {
-        myRole: "Python Developer",
-        techUsed:
-          "Python, Hugging Face Transformers, LangChain, OpenAI GPT-3.5 Turbo, gTTS",
-        timeline: "Feb 2024",
-        sourceCode: "https://replit.com/@mdazlaan1996/Story-Writer",
-        liveUrl: null,
+        myRole: "Full Stack Developer",
+        techUsed: "Next.js, Tailwind, ShadCn, PostgreSQL, Prisma, Stripe, NextAuth.js",
+        timeline: "March 2024",
+        sourceCode: "https://github.com/ead8/scrapeflow",
+        liveUrl: "https://scrapeflow.vercel.app",
         projectDesc: {
-          para1:
-            "The Image-to-Story Narration System is an innovative project that combines computer vision, natural language processing, and text-to-speech technologies to generate compelling narratives based on images and user-provided comments. This system seamlessly integrates multiple AI models and pipelines to analyze images, extract contextual information, generate engaging stories, and convert text into synthesized speech, offering users a rich and immersive storytelling experience.",
-          para2:
-            "The primary goal of this project is to develop an AI-powered system that can analyze images, generate contextual stories, and convert them into speech. This integration of computer vision, natural language processing, and text-to-speech technologies aims to offer users a unique and immersive storytelling experience.",
+          para1: "ScrapeFlow is a powerful SaaS platform that revolutionizes workflow automation with integrated web scraping capabilities. Built on Next.js, it enables users to automate complex data extraction workflows, securely store credentials, manage billing through Stripe integration, and monitor performance through an intuitive interface. The platform features AI-powered scraping capabilities and real-time analytics for comprehensive workflow monitoring.",
+          para2: "The primary goal of ScrapeFlow is to simplify web data extraction and automation processes for businesses. By combining modern technologies with user-friendly interfaces, it provides a seamless experience for creating, managing, and monitoring automated scraping workflows while ensuring security and scalability.",
         },
       },
       features: {
         para: "Key features:",
         list: [
           {
-            title: "Image-to-Text Conversion",
-            desc: "Extracts contextual information from an image using the Salesforce BLIP image captioning model. Generates a descriptive text based on the image and returns it for further processing.",
+            title: "Workflow Automation",
+            desc: "Build and execute multi-step workflows with distinct phases and assigned credits, providing granular control over scraping executions.",
           },
           {
-            title: "Text-to-Story Generation",
-            desc: "Creates a short, engaging story based on the image context and user comments. Uses a prompt template to guide the story generation process and leverages the GPT-3.5 Turbo model to produce the story.",
+            title: "Advanced Web Scraping Tools",
+            desc: "Access a comprehensive suite of scraping tools to design customized workflows, supporting automated actions and scheduled executions.",
           },
           {
-            title: "Text-to-Speech Conversion",
-            desc: "TConverts the generated text story into speech. Utilizes gTTS to synthesize speech from the text and saves the audio file for playback.",
+            title: "Secure Credential Management",
+            desc: "Encrypted storage for API keys, tokens, and sensitive information, ensuring secure handling of credentials throughout the platform.",
+          },
+          {
+            title: "Stripe Integration & Analytics",
+            desc: "Complete billing system with usage tracking, subscription management, and real-time performance analytics through an intuitive dashboard.",
           },
         ],
       },
@@ -496,53 +499,42 @@ export const projectListData = [
   },
   {
     id: 2,
-    title: "Promptare",
-    subTitle: "Social Media Hub for Chat GPT Users",
+    title: "University Library Management System",
+    subTitle: "Advanced Library Management Platform with Admin Panel",
     imgSrc: promptareImg.src,
     isFeatured: true,
-    isLocked: true,
+    isLocked: false,
     details: {
       coverImgSrc: promptareImgCover.src,
       overview: {
-        myRole: "Fullstack Developer",
-        techUsed:
-          "Next JS, Next Auth, Mongo DB, Mongoose, Tailwind, Daisy UI, React Select, React Spinner, React Toastify, React Multi Select, React Clipboard Copy",
-        timeline: "May 2023 - Aug 2023",
-        sourceCode: "https://github.com/mdazlaanzubair/Promptare",
-        liveUrl: "https://promptare.vercel.app/",
+        myRole: "Full Stack Developer",
+        techUsed: "Next.js, TypeScript, PostgreSQL, Upstash, ImageKit, Tailwind CSS, Resend",
+        timeline: "March 2024",
+        sourceCode: "https://github.com/ead8/high-performant-library-managment",
+        liveUrl: null,
         projectDesc: {
-          para1:
-            "This project entails the development of a comprehensive social media platform designed to elevate the Chat GPT user experience. The platform serves as a dynamic hub for discovering, sharing, and interacting with powerful prompts and commands, fostering a vibrant community of users passionate about leveraging Chat GPT for a myriad of applications.",
-          para2:
-            "Whether for creative writing, problem-solving, or content generation, this social media hub provides a collaborative space for users to explore and enhance their Chat GPT capabilities. The project successfully created a user-centric platform that enhances the Chat GPT experience, promotes community building, and fosters innovation in the use of AI-driven tools.",
+          para1: "The University Library Management System is a production-grade platform built with Next.js, TypeScript, and PostgreSQL, featuring both public-facing and admin interfaces. It delivers advanced functionalities including automated book borrowing workflows, email reminders, receipt generation, and comprehensive user management, all optimized for real-world scalability.",
+          para2: "This system revolutionizes library management by incorporating modern technologies and automated workflows. From seamless authentication to real-time media processing and efficient caching, every aspect is designed for optimal performance and user experience, making it a comprehensive solution for educational institutions.",
         },
       },
       features: {
         para: "Key features:",
         list: [
           {
-            title: "User Authentication",
-            desc: "Implemented secure user authentication using Next Auth, enabling users to create accounts, log in, and manage their profiles.",
+            title: "Advanced Authentication & User Management",
+            desc: "Open-source authentication system with personalized onboarding flows, email notifications, and role-based access control for administrators.",
           },
           {
-            title: "Database Management",
-            desc: "Utilized MongoDB and Mongoose for efficient data storage and retrieval, ensuring scalability and performance.",
+            title: "Automated Workflows & Notifications",
+            desc: "Sophisticated system for book borrowing with automated email reminders, PDF receipt generation, and customized notifications for due dates and account activities.",
           },
           {
-            title: "Responsive Design",
-            desc: "Tailwind CSS and Daisy UI were employed to create a visually appealing, responsive design that works seamlessly across different devices.",
+            title: "Comprehensive Admin Dashboard",
+            desc: "Feature-rich admin panel with analytics, user management, book management, and detailed borrowing records with advanced search and filtering capabilities.",
           },
           {
-            title: "Interactive Components",
-            desc: "Integrated React Select, React Spinner, React Toastify, React Multi Select, and React Clipboard Copy to enhance user interaction and provide a smooth, user-friendly experience.",
-          },
-          {
-            title: "Community Engagement",
-            desc: "The platform allows users to post, share, and discover prompts, encouraging community engagement and collaboration.",
-          },
-          {
-            title: "Content Categorization",
-            desc: "Users can categorize and tag their posts, making it easier to find relevant content and prompts.",
+            title: "Modern Tech Infrastructure",
+            desc: "Built with Next.js, TypeScript, and PostgreSQL, featuring Upstash for caching, ImageKit for media processing, and Resend for email communications.",
           },
         ],
       },
@@ -550,49 +542,42 @@ export const projectListData = [
   },
   {
     id: 3,
-    title: "ParaBot",
-    subTitle: "AI-Powered Text Analyzer",
+    title: "Food Ordering Platform",
+    subTitle: "Modern Food Delivery & Ordering System",
     imgSrc: parabotImg.src,
     isFeatured: true,
-    isLocked: true,
+    isLocked: false,
     details: {
       coverImgSrc: parabotImgCover.src,
       overview: {
-        myRole: "Frontend Developer",
-        techUsed:
-          "React, Vite, Tailwind CSS, DaisyUI, Axios, React Router DOM, React Toastify, React Loader Spinner, React Copy to Clipboard, Hugging Face BART-Large-CNN",
-        timeline: "Mar 2023",
-        sourceCode: "https://github.com/mdazlaanzubair/Parabot",
-        liveUrl: "https://para-bot.netlify.app/summarizer",
+        myRole: "Full Stack Developer",
+        techUsed: "React, Next.js, Redux-Toolkit, MongoDB, Next-Auth, Tailwind CSS, Formik, Yup",
+        timeline: "March 2024",
+        sourceCode: "https://github.com/ead8/food-ordering-project",
+        liveUrl: "http://localhost:3000",
         projectDesc: {
-          para1:
-            "Parabot is an AI-powered chatbot designed to assist with text analysis and summarization. The focus of this project was to streamline the process of understanding and condensing large amounts of text, enhancing efficiency for users engaged in various reading and writing activities. By leveraging advanced AI capabilities, Parabot aims to offer valuable support in summarizing lengthy texts and providing quick insights.",
-          para2:
-            "The primary goal of this project is to develop a powerful AI-driven tool that can assist users with analyzing and summarizing text. By automating the process of text analysis and summarization, Parabot aims to enhance productivity and efficiency for readers, writers, and researchers.",
+          para1: "A comprehensive food ordering web application built as a Single Page Application using React and Next.js. The platform features responsive design with Tailwind CSS, robust state management through Redux-Toolkit, and secure user authentication via Next-Auth. The system includes both customer-facing interfaces and an admin management panel.",
+          para2: "Beyond the core functionality, I enhanced the project with advanced features including optimized state management, user-friendly error handling, efficient MongoDB database queries, and a custom order personalization system. The application demonstrates modern web development practices with a focus on user experience and performance.",
         },
       },
       features: {
         para: "Key features:",
         list: [
           {
-            title: "Text Summarization",
-            desc: "Utilized Hugging Face's BART-Large-CNN model to provide accurate and concise summaries of longer texts.",
+            title: "Advanced State Management",
+            desc: "Implemented Redux-Toolkit for optimized data flow between components, ensuring seamless state updates and improved application performance.",
           },
           {
-            title: "Text Analysis",
-            desc: "Capable of analyzing text to extract key information and insights.",
+            title: "User Authentication & Profiles",
+            desc: "Secure authentication system using Next-Auth with user profile management and admin panel access control.",
           },
           {
-            title: "User-Friendly Interface",
-            desc: "Designed with React, Tailwind CSS, and DaisyUI to create a visually appealing and responsive user interface.",
+            title: "Order Customization System",
+            desc: "Custom-built feature allowing users to personalize their food orders with specific preferences and modifications.",
           },
           {
-            title: "Interactive Components",
-            desc: "Integrated React Router DOM for seamless navigation, React Toastify for notifications, and React Loader Spinner for loading animations.",
-          },
-          {
-            title: "Clipboard Functionality",
-            desc: "Implemented React Copy to Clipboard to easily copy summarized text for use in other applications.",
+            title: "Robust Error Handling",
+            desc: "Comprehensive error management system with user-friendly notifications and form validation using Formik and Yup.",
           },
         ],
       },
@@ -600,45 +585,42 @@ export const projectListData = [
   },
   {
     id: 4,
-    title: "Query Mind",
-    subTitle: "Testing a Pre-Trained QnA Model",
+    title: "Microservice Architecture System",
+    subTitle: "Python & Kubernetes Based Distributed System",
     imgSrc: queryMindImg.src,
     isFeatured: true,
     isLocked: false,
     details: {
       coverImgSrc: queryMindImgCover.src,
       overview: {
-        myRole: "Python Developer",
-        techUsed: "Python, Hugging Face Transformers, Google Colab",
-        timeline: "Feb 2023",
-        sourceCode:
-          "https://github.com/mdazlaanzubair/Google-Collab---Query-Mind",
+        myRole: "Backend Developer & DevOps Engineer",
+        techUsed: "Python, Flask, MySQL, RabbitMQ, JWT, Kubernetes, Docker",
+        timeline: "March 2024",
+        sourceCode: "https://github.com/yourusername/python-kubernetes-microservices",
         liveUrl: null,
         projectDesc: {
-          para1:
-            "Query Mind is a project aimed at testing the performance of a pre-trained Question-Answering (QnA) model for a proposed application. The testing is conducted on Google Colab, an online platform for running machine learning experiments. The goal is to provide quick and accurate answers to user queries by leveraging the power of Natural Language Processing (NLP) and AI.",
-          para2:
-            "The primary goal of this project is to develop and test an AI-powered QnA system that can provide quick and accurate answers to user queries. The performance of the pre-trained QnA model will be evaluated to ensure its effectiveness for the proposed Query Mind application.",
+          para1: "A robust microservices-based system implementing authentication, notification, and file conversion services. The architecture leverages Python and Flask for service development, RabbitMQ for message queuing, and Kubernetes for orchestration. The system demonstrates modern distributed system practices with a focus on scalability and reliability.",
+          para2: "The system comprises four key microservices: Auth Service for user authentication, Gateway Service for API routing, Notification Service for email handling, and Converter Service for file operations. Each service is containerized and orchestrated using Kubernetes, ensuring high availability and efficient resource utilization.",
         },
       },
       features: {
         para: "Key features:",
         list: [
           {
-            title: "Easy Setup",
-            desc: "Users can fork or clone the repository to their Google Drive and run the tests on Google Colab.",
+            title: "Authentication Service",
+            desc: "Handles user authentication with JWT token management and MySQL database integration, running as an independent microservice on port 5000.",
           },
           {
-            title: "Pre-Trained Model",
-            desc: "Uses the DistilBERT model, a distilled version of BERT, which is smaller, faster, and lighter while preserving most of BERT's performance.",
+            title: "API Gateway & Routing",
+            desc: "Centralized gateway service managing request routing and validation, operating on port 8080 with advanced request handling capabilities.",
           },
           {
-            title: "Contextual QnA",
-            desc: "Allows users to input a context paragraph and a query to extract relevant answers.",
+            title: "Message Queue System",
+            desc: "RabbitMQ implementation for asynchronous communication between services, featuring management interface and persistent storage through Kubernetes PVC.",
           },
           {
-            title: "Performance Evaluation",
-            desc: "Measures the model's accuracy and provides insights into its performance.",
+            title: "Containerized Deployment",
+            desc: "Full Kubernetes deployment configuration with Docker containerization, ensuring scalable and maintainable service architecture.",
           },
         ],
       },
@@ -646,43 +628,87 @@ export const projectListData = [
   },
   {
     id: 5,
-    title: "Web Crawler",
-    subTitle: "Web Scraper for Health Information",
+    title: "AI-Resumify Pro",
+    subTitle: "AI-Powered Resume Builder SaaS Platform",
     imgSrc: webCrawlerImg.src,
     isFeatured: true,
     isLocked: false,
     details: {
       coverImgSrc: webCrawlerImgCover.src,
       overview: {
-        myRole: "Python Developer",
-        techUsed: "Python, Beautiful Soup",
-        timeline: "Mar 2020",
-        sourceCode: "https://github.com/mdazlaanzubair/WebScraping",
+        myRole: "Full Stack Developer",
+        techUsed: "Next.js 15, TypeScript, Tailwind CSS, Shadcn UI, React Hook Form, DND Kit, Stripe, OpenAI API, PostgreSQL, Prisma",
+        timeline: "March 2024",
+        sourceCode: "https://github.com/ead8/AI-Resumify.git",
         liveUrl: null,
         projectDesc: {
-          para1:
-            "This project involves the development of a Python script to scrape data from the website https://patient.info/, which contains extensive information regarding various health conditions. The script aims to extract valuable data on diseases and related discussions, making it easier for users to access and analyze health information. The project showcases the use of web scraping techniques to gather structured data for further use.",
-          para2:
-            "The primary goal of this project is to develop a comprehensive web scraper that can systematically extract and organize health information from the PATIENT INFO website. By automating the data collection process, the project aims to provide users with easy access to detailed health data and discussions, facilitating better health information management and research.",
+          para1: "AI-Resumify Pro is a modern full-stack SaaS application that revolutionizes resume creation through AI-powered content generation. Built with Next.js 15, the platform features a sophisticated multi-step form system, dynamic content management with drag-and-drop capabilities, and seamless subscription handling through Stripe integration.",
+          para2: "The application combines cutting-edge technologies to deliver a comprehensive resume building experience. From real-time previews to automated content suggestions powered by OpenAI, every feature is designed to help users create professional resumes efficiently while maintaining a robust and scalable architecture.",
         },
       },
       features: {
         para: "Key features:",
         list: [
           {
-            title: "Data Extraction",
-            desc: "Utilized Beautiful Soup, a Python web scraping library, to efficiently fetch and parse HTML data from the website.",
+            title: "AI-Powered Content Generation",
+            desc: "Leverages OpenAI API to provide intelligent content suggestions and professional writing assistance for resume sections.",
           },
           {
-            title: "Organized Data Storage",
-            desc: "Structured the scraped data into directories and files based on alphabetical groupings for easy access and analysis.",
+            title: "Dynamic Form Management",
+            desc: "Multi-step form system with React Hook Form, featuring drag-and-drop section reordering and real-time content preview.",
           },
           {
-            title: "Automated Data Collection",
-            desc: "Implemented automation to handle repetitive tasks, making the process of data collection seamless and efficient.",
+            title: "Subscription & Storage System",
+            desc: "Integrated Stripe payment processing for subscription tiers, with secure file storage using Vercel Blob and PostgreSQL database management.",
+          },
+          {
+            title: "Advanced Export Capabilities",
+            desc: "Professional PDF export functionality with mobile-responsive design and auto-save features for seamless resume management.",
           },
         ],
       },
     },
   },
+  {
+    id: 6,
+    title: "LiveKit AI Car Call Centre",
+    subTitle: "AI-Powered Automotive Service Assistant",
+    imgSrc: carCallCenterImg.src,
+    isFeatured: true,
+    isLocked: false,
+    details: {
+      coverImgSrc: carCallCenterImgCover.src,
+      overview: {
+        myRole: "Full Stack Developer",
+        techUsed: "React, Python, LiveKit, OpenAI, SQLite, Vite",
+        timeline: "March 2024",
+        sourceCode: "https://github.com/ead8/ai-automotive-assistant.git",
+        projectDesc: {
+          para1: "LiveKit AI Car Call Centre is a modern AI-powered call center application designed specifically for automotive service centers. The system provides a web interface where customers can interact with an AI agent in real-time through voice and text to access vehicle information and receive assistance.",
+          para2: "The application combines React frontend with a Python backend, featuring LiveKit for real-time communication, OpenAI for intelligent responses, and SQLite for efficient vehicle data management. The system streamlines automotive service center operations through automated customer support and vehicle information lookup.",
+        },
+      },
+      features: {
+        para: "Key features:",
+        list: [
+          {
+            title: "Real-time Communication",
+            desc: "Integrated voice and text communication system using LiveKit, enabling seamless interaction between customers and AI agents.",
+          },
+          {
+            title: "Vehicle Management System",
+            desc: "Comprehensive vehicle lookup and profile creation system using VIN, with SQLite database for efficient data storage and retrieval.",
+          },
+          {
+            title: "AI-Powered Responses",
+            desc: "OpenAI integration for intelligent and context-aware responses, with custom prompts system for automotive-specific interactions.",
+          },
+          {
+            title: "Modern Web Interface",
+            desc: "Clean React-based frontend with modal support, providing an intuitive user experience for vehicle searches and support interactions.",
+          },
+        ],
+      },
+    },
+  }
 ];

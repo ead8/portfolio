@@ -102,7 +102,7 @@ const BentoGrid = () => {
             }}
             className={`${boxStyle} rounded-br-[35px] rounded-t-[35px] cursor-pointer hover:text-secondary hover:font-black transition-all ease-in-out duration-500`}
             // onClick={() =>
-            //   downloadPDF("/public/", "Resume - Muhammad Azlaan Zubair.pdf")
+            //   downloadPDF("/public/", "Resume - Ebisa.pdf")
             // }
           >
             <div className="flex items-center justify-center">
@@ -169,7 +169,7 @@ const BentoGrid = () => {
           className={`${boxStyle} group rounded-b-[35px] rounded-tl-[35px] cursor-pointer`}
           onClick={() =>
             window.open(
-              "https://calendly.com/mdazlaanzubair/virtual-interaction/",
+              "https://calendly.com/ebisadugo/30min",
               "_blank"
             )
           }
@@ -220,7 +220,7 @@ const BentoGrid = () => {
           }}
           className={`${boxStyle} rounded-b-[35px] rounded-l-[35px] cursor-pointer hover:text-secondary transition-all ease-in-out duration-500`}
           onClick={() =>
-            window.open("https://www.linkedin.com/in/mdazlaanzubair/", "_blank")
+            window.open("https://www.linkedin.com/in/ebisa-dugo/", "_blank")
           }
         >
           <svg
@@ -241,7 +241,7 @@ const BentoGrid = () => {
           }}
           className={`${boxStyle} rounded-b-[35px] rounded-l-[35px] cursor-pointer hover:text-secondary transition-all ease-in-out duration-500`}
           onClick={() =>
-            window.open("https://twitter.com/mdazlaanzubair", "_blank")
+            window.open("https://twitter.com/ebisaadw", "_blank")
           }
         >
           <svg
@@ -262,7 +262,7 @@ const BentoGrid = () => {
           }}
           className={`${boxStyle} rounded-b-[35px] rounded-r-[35px] cursor-pointer hover:text-secondary transition-all ease-in-out duration-500`}
           onClick={() =>
-            window.open("https://github.com/mdazlaanzubair", "_blank")
+            window.open("https://github.com/ead8", "_blank")
           }
         >
           <svg

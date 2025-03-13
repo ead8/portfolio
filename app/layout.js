@@ -13,7 +13,7 @@ const display = Red_Hat_Display({
 const inter = Inter({ subsets: ["latin"], variable: "--inter" });
 
 export const metadata = {
-  title: "Muhammad Azlaan Zubair - Portfolio Website",
+  title: "Ebisa Dugo - Portfolio Website",
   description:
     "This website showcases my skills as a web developer and designer. I have experience with a variety of programming languages and technologies, and I am always looking for new challenges. I offer here services that matters and you need. I offer here cheap services. Looking for a freelancer, I'm here to help.",
 };
