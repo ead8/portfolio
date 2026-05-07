@@ -1,303 +1,177 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import Figure from "../components/generic/Figure";
-import aboutImg1 from "@/public/other/about-img-1.jpg";
-import aboutImg2 from "@/public/other/about-img-2.jpg";
-import aboutImg3 from "@/public/other/about-img-3.jpg";
-import aboutImg4 from "@/public/other/about-img-4.jpg";
+import React from "react";
+import dynamic from "next/dynamic";
 import { techLogosArrayComplete } from "../utils/iconExporter";
 import Marquee from "react-fast-marquee";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import PlanetBadge from "../components/generic/PlanetBadge";
 
-const spotLightVariants = {
+const ThreeScene = dynamic(() => import("../components/hero/ThreeScene"), { ssr: false });
+
+const containerVariants = {
   hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { duration: 3 } },
+  visible: { opacity: 1, transition: { staggerChildren: 0.12 } },
 };
 
-const contentContainerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.23,
-    },
-  },
+const itemVariants = {
+  hidden: { opacity: 0, y: 12 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: "easeOut" } },
 };
 
-const contentVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      ease: "easeOut",
-      duration: 0.3,
-    },
-  },
-};
+const SectionHeader = ({ index, label, title, accent }) => (
+  <div className="mb-10">
+    <motion.div variants={itemVariants} className="flex items-center justify-between mb-6 meta-mono">
+      <span>
+        <span className="section-index">[ {index} ]</span>
+        <span className="text-ghost ml-2">{label}</span>
+      </span>
+      <span>SECTION</span>
+    </motion.div>
+    <motion.h2 variants={itemVariants} className="heading-section max-w-[24ch]">
+      {title} {accent && <span className="text-ember">{accent}</span>}
+    </motion.h2>
+  </div>
+);
 
 const AboutPage = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  useEffect(() => setIsVisible(true), []);
-
   return (
     <motion.div
-      variants={contentContainerVariants}
+      variants={containerVariants}
       initial="hidden"
-      whileInView="visible"
-      viewport={{
-        once: true,
-      }}
+      animate="visible"
       id="about-section"
-      className="flex flex-col w-full h-full mx-auto px-6 lg:px-32 overflow-hidden"
+      className="page-warp-in flex flex-col w-full"
     >
-      {isVisible && (
-        <motion.div
-          variants={spotLightVariants}
-          initial="hidden"
-          animate="visible"
-          className="absolute flex -top-[300%] -left-[300%] bottom-0 right-0 blur-3xl"
-          style={{
-            background: `radial-gradient(circle at center, rgba(255,93,212, 1) 0%, rgba(255,93,212, 0.9) 50%, rgba(255,93,212, 0.3) 50%, rgba(255,93,212, 0), rgba(255,93,212, 0), transparent, transparent)`,
-          }}
-        />
-      )}
-      <div className="relative w-full flex flex-col items-center justify-between py-10 lg:py-16">
-        {/* WHO AM I */}
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-5 z-10">
-          <div className="w-full md:w-2/3">
-            <motion.h1
-              variants={contentVariants}
-              className="font-display text-xs leading-snug tracking-wider text-secondary font-extrabold mb-2"
-            >
-              WHO AM I
-            </motion.h1>
-            <motion.p
-              variants={contentVariants}
-              className="text-sm leading-relaxed tracking-normal font-medium mb-3"
-            >
-              I’m <span className="text-secondary font-bold">Ebisa Dugo</span>,
-              born and raised in Addis Ababa, Ethiopia. From an early age, I’ve
-              been fascinated by the worlds of{" "}
-              <span className="text-secondary">gaming</span>,{" "}
-              <span className="text-secondary">anime</span>,{" "}
-              <span className="text-secondary">mathematics</span>, and{" "}
-              <span className="text-secondary">physics</span>. Whether I was
-              exploring virtual realms, solving tricky math puzzles, or
-              pondering the laws of the universe, I found endless ways to fuel
-              my curiosity.
-            </motion.p>
-            <motion.p
-              variants={contentVariants}
-              className="text-sm leading-relaxed tracking-normal font-medium mb-3"
-            >
-              Growing up, anime series like{" "}
-              <Link
-                href="https://www.crunchyroll.com/"
-                target="_blank"
-                className="underline underline-offset-2 text-secondary hover:text-accent"
-              >
-                Naruto
-              </Link>{" "}
-              and{" "}
-              <Link
-                href="https://www.crunchyroll.com/attack-on-titan"
-                target="_blank"
-                className="underline underline-offset-2 text-secondary hover:text-accent"
-              >
-                Attack on Titan
-              </Link>{" "}
-              sparked my imagination, while online multiplayer games taught me
-              about collaboration and strategy. It was a thrilling mix of fun
-              and learning that shaped who I am today.
-            </motion.p>
-          </div>
-          <div className="hidden w-full h-full lg:w-1/2 lg:flex justify-center">
-            <Figure
-              src={aboutImg1.src}
-              size="w-[400px] h-[300px]"
-              caption="Discovering new worlds"
-              tag="IMAGINE"
-            />
-          </div>
+      {/* MARS SCENE — about page planet */}
+      <div className="relative w-full mb-12 lg:mb-16 overflow-hidden border border-ghost-16">
+        <div className="absolute inset-0">
+          <ThreeScene variant="mars" />
         </div>
-
-        <Stripes position="right" rotation="rotate-45" isTop={true} isLeft={true} />
-
-        {/* PRO-GAMING TO PROGRAMMING */}
-        <div className="flex flex-col lg:flex-row-reverse items-center justify-between gap-5 z-10">
-          <div className="w-full md:w-2/3">
-            <motion.h1
-              variants={contentVariants}
-              className="font-display text-xs leading-snug tracking-wider text-secondary font-extrabold mb-2"
-            >
-              PRO-GAMING TO PROGRAMMING
-            </motion.h1>
-            <motion.p
-              variants={contentVariants}
-              className="text-sm leading-relaxed tracking-normal font-medium mb-3"
-            >
-              At one point, I was fully convinced I’d become a professional
-              gamer. Hours of practice in competitive titles like{" "}
-              <Link
-                href="https://store.steampowered.com/app/730/CounterStrike_2/"
-                target="_blank"
-                className="underline underline-offset-2 text-secondary hover:text-accent"
-              >
-                Counter-Strike
-              </Link>{" "}
-              fueled a dream of competing on the biggest stages. However, an
-              unexpected introduction to{" "}
-              <span className="text-secondary">programming</span> completely
-              changed my trajectory.
-            </motion.p>
-            <motion.p
-              variants={contentVariants}
-              className="text-sm leading-relaxed tracking-normal font-medium mb-3"
-            >
-              I discovered a local initiative offering courses in{" "}
-              <span className="text-secondary">web development</span> and{" "}
-              <span className="text-secondary">mobile app creation</span>.
-              Curious about building my own digital worlds, I dove in headfirst.
-              It was the perfect blend of logical problem-solving (just like
-              math) and boundless creativity (the same spark that drew me to
-              anime and gaming).
-            </motion.p>
-            <motion.p
-              variants={contentVariants}
-              className="text-sm leading-relaxed tracking-normal font-medium mb-3"
-            >
-              Eager to expand my knowledge, I then enrolled in a{" "}
-              <span className="text-secondary">Computer Science</span> program
-              at{" "}
-              <Link
-                href="https://www.aau.edu.et/"
-                target="_blank"
-                className="underline underline-offset-2 text-secondary hover:text-accent"
-              >
-                Addis Ababa University
-              </Link>
-              . Each course and project felt like leveling up in a game—except
-              this time, the high score meant real-world impact.
-            </motion.p>
-          </div>
-          <div className="hidden w-full h-full lg:w-1/2 lg:flex justify-center">
-            <Figure
-              src={aboutImg4.src}
-              size="w-[400px] h-[300px]"
-              caption="From console to code"
-              tag="IMAGINE"
-            />
-          </div>
-        </div>
-
-        <Stripes position="left" rotation="-rotate-45" isTop={false} isLeft={false} />
-
-        {/* HOW DO I SPEND MY SPARE TIME */}
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-5 z-10">
-          <div className="w-full md:w-2/3">
-            <motion.h1
-              variants={contentVariants}
-              className="font-display text-xs leading-snug tracking-wider text-secondary font-extrabold mb-2"
-            >
-              HOW DO I SPEND MY SPARE TIME
-            </motion.h1>
-            <motion.p
-              variants={contentVariants}
-              className="text-sm leading-relaxed tracking-normal font-medium mb-3"
-            >
-              When I’m not coding or reviewing the latest tech news, you’ll
-              likely find me catching up on a new anime series, exploring a
-              complex math problem, or immersing myself in physics articles
-              about the cosmos. I love the way these interests spark my
-              imagination and fuel my desire to create something extraordinary.
-            </motion.p>
-            <motion.p
-              variants={contentVariants}
-              className="text-sm leading-relaxed tracking-normal font-medium mb-3"
-            >
-              I also enjoy experimenting with{" "}
-              <Link
-                href="https://leonardo.ai/"
-                target="_blank"
-                className="underline underline-offset-2 text-secondary hover:text-accent"
-              >
-                AI art tools
-              </Link>
-              , discovering how emerging technologies can bridge art and
-              science. And let’s not forget the occasional online match in{" "}
-              <Link
-                href="https://www.chess.com/"
-                target="_blank"
-                className="underline underline-offset-2 text-secondary hover:text-accent"
-              >
-                Chess
-              </Link>{" "}
-              to keep my strategic thinking sharp!
-            </motion.p>
-            <motion.p
-              variants={contentVariants}
-              className="text-sm leading-relaxed tracking-normal font-medium mb-3"
-            >
-              Every day, I’m reminded that my passions—gaming, anime, math, and
-              physics—are not just hobbies. They’re lenses through which I view
-              the world, and they continuously inspire me to innovate, explore,
-              and create.
-            </motion.p>
-          </div>
-          <div className="hidden w-full h-full lg:w-1/2 lg:flex justify-center">
-            <Figure
-              src={aboutImg3.src}
-              size="w-[400px] h-[300px]"
-              caption="Learning never stops"
-              tag="IMAGINE"
-            />
-          </div>
+        <div className="relative z-10 px-6 lg:px-12 py-16 lg:py-24 min-h-[360px] flex flex-col items-start justify-end">
+          <PlanetBadge variant="mars" className="mb-4" />
+          <motion.h2
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.45, duration: 0.5 }}
+            className="font-display text-[40px] lg:text-[64px] uppercase tracking-[-0.02em] text-ghost"
+            style={{ textShadow: "0 0 32px rgba(0,0,0,0.85)" }}
+          >
+            APPROACH VECTOR / <span className="text-ember">ARES-002</span>
+          </motion.h2>
         </div>
       </div>
+
+      <section className="pt-8 pb-24 lg:pt-12 lg:pb-32">
+        <motion.div variants={itemVariants} className="flex items-center justify-between mb-8 meta-mono">
+          <span>
+            <span className="section-index">[ 00 ]</span>
+            <span className="text-ghost ml-2">ABOUT // ENGINEER PROFILE</span>
+          </span>
+          <span>{new Date().toISOString().slice(0, 10)}</span>
+        </motion.div>
+        <motion.h1 variants={itemVariants} className="heading-display max-w-[18ch] mb-10">
+          Hi, I&apos;m <span className="text-ember">Ebisa.</span> I build things on the web.
+        </motion.h1>
+        <motion.p variants={itemVariants} className="body-md max-w-[62ch]">
+          Senior full-stack engineer with five-plus years shipping scalable
+          backends, AI-powered platforms, and automation pipelines for global
+          teams. Core stack:{" "}
+          <span className="text-ghost">
+            Python, FastAPI, Django, Next.js, TypeScript
+          </span>
+          . Track record: 20+ production systems for clients across Upwork
+          and direct engagements.
+        </motion.p>
+      </section>
+
+      {/* FOCUS */}
+      <section className="py-16 lg:py-24 border-t border-ghost-16">
+        <SectionHeader index="01" label="FOCUS // SPECIALTIES" title="Three areas where I do my best work." />
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
+          <motion.div variants={itemVariants} className="card-feature">
+            <span className="meta-mono text-ash mb-4 block">[ 01 / 03 ]</span>
+            <h3 className="font-display text-[22px] uppercase tracking-[-0.02em] text-ghost mb-3">
+              AI &amp; LLM SYSTEMS
+            </h3>
+            <p className="body-md">
+              RAG pipelines, multi-agent automations, and LLM evaluation
+              workflows with LangChain and the OpenAI API. Contributor at
+              Outlier and Turing on training and benchmarking projects.
+            </p>
+          </motion.div>
+          <motion.div variants={itemVariants} className="card-feature">
+            <span className="meta-mono text-ash mb-4 block">[ 02 / 03 ]</span>
+            <h3 className="font-display text-[22px] uppercase tracking-[-0.02em] text-ghost mb-3">
+              BACKEND // DATA
+            </h3>
+            <p className="body-md">
+              Scalable APIs and async ETL with FastAPI, Django, Pandas, and
+              PostgreSQL. Processed millions of records and improved
+              production API latency by up to 40%.
+            </p>
+          </motion.div>
+          <motion.div variants={itemVariants} className="card-feature">
+            <span className="meta-mono text-ash mb-4 block">[ 03 / 03 ]</span>
+            <h3 className="font-display text-[22px] uppercase tracking-[-0.02em] text-ghost mb-3">
+              FULL-STACK PRODUCTS
+            </h3>
+            <p className="body-md">
+              End-to-end web products with Next.js, React, TypeScript, and
+              Tailwind on the front, Node.js or Python services behind. Clean
+              APIs and tight feedback loops.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* APPROACH */}
+      <section className="py-16 lg:py-24 border-t border-ghost-16">
+        <SectionHeader index="02" label="APPROACH // PROCESS" title="Pragmatic, fast, transparent." />
+        <motion.p variants={itemVariants} className="body-md max-w-[62ch] mb-4">
+          Every engagement is an engineering problem first: figure out what
+          actually needs to ship, cut everything else, keep the feedback loop
+          tight. Comfortable owning a project end-to-end or plugging into an
+          existing team.
+        </motion.p>
+        <motion.p variants={itemVariants} className="body-md max-w-[62ch]">
+          Studied{" "}
+          <span className="text-ghost">Computer Science</span> at{" "}
+          <Link
+            href="https://www.aau.edu.et/"
+            target="_blank"
+            className="text-ember hover:opacity-70 transition-opacity"
+          >
+            Addis Ababa University
+          </Link>{" "}
+          and pursuing an MSc in Information Technology at the University of
+          the People. Outside work: distributed systems papers, what&apos;s
+          shipping in AI, side projects to stay sharp.
+        </motion.p>
+      </section>
+
+      {/* STACK */}
+      <section className="py-16 lg:py-24 border-t border-ghost-16">
+        <SectionHeader index="03" label="STACK // TOOLBOX" title="A toolbox built around shipping." />
+        <div className="-mx-4 lg:-mx-6 overflow-hidden">
+          <Marquee speed={32} gradient gradientColor="rgb(0 0 0)" gradientWidth={80}>
+            {techLogosArrayComplete?.map((item, index) => (
+              <div
+                key={index}
+                className="mx-2 px-4 py-3 flex items-center gap-2 border border-ghost-16 hover:border-ghost transition-colors"
+              >
+                <img className="w-5 h-5" src={item.src} alt={item?.title} />
+                <span className="font-mono text-[12px] uppercase tracking-[0.14em] text-ghost-64">
+                  {item?.title}
+                </span>
+              </div>
+            ))}
+          </Marquee>
+        </div>
+      </section>
     </motion.div>
   );
 };
 
 export default AboutPage;
-
-const Stripes = ({
-  isTop = true,
-  isLeft = true,
-  position = "left",
-  rotation = "rotate-90",
-}) => {
-  return (
-    <div className="my-10">
-      <div
-        className={`${isTop ? "top-0" : "bottom-0"} ${
-          isLeft ? "left-0" : "right-0"
-        } absolute w-full flex flex-col gap-1 ${rotation}`}
-      >
-        <Marquee
-          direction={position}
-          style={{
-            maskImage:
-              "linear-gradient(90deg, transparent, #fff, #fff, transparent)",
-          }}
-        >
-          {techLogosArrayComplete?.map((item, index) => (
-            <div
-              key={index}
-              className="bg-base-100 p-2 flex items-center gap-1 rounded"
-            >
-              <img
-                className="w-[16px] h-[16px]"
-                src={item.src}
-                alt={item?.title}
-              />
-              <span className="text-sm">{item?.title}</span>
-            </div>
-          ))}
-        </Marquee>
-      </div>
-    </div>
-  );
-};
