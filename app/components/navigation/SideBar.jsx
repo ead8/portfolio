@@ -1,117 +1,139 @@
 "use client";
 
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import Link from "next/link";
-import { navList } from "./navigation-list";
 import { GeneralContext } from "@/app/context/GeneralContext";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
-const SideBar = () => {
-  const router = useRouter();
-  const activeSection = usePathname();
-  const { toggleMenu, isMenuOpen } = useContext(GeneralContext);
+const navItems = [
+  { title: "INDEX", url: "/" },
+  { title: "ABOUT", url: "/about" },
+  { title: "PROJECTS", url: "/projects" },
+];
+
+const TopNav = () => {
+  const pathname = usePathname();
+  const { isMenuOpen, toggleMenu } = useContext(GeneralContext);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <div
-      className={`fixed top-14 bottom-14 left-0 flex flex-col items-center justify-center z-50`}
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 bg-void/95 backdrop-blur transition-all duration-300 ${
+        scrolled ? "border-b border-ghost-16" : "border-b border-transparent"
+      }`}
     >
-      <div
-        className={`flex items-center justify-center bg-base-300/80 flex-col p-3 rounded-lg ${
-          isMenuOpen && activeSection != "/"
-            ? "translate-x-2 opacity-100"
-            : !isMenuOpen && activeSection != "/"
-            ? `-translate-x-full -left-full opacity-0 lg:opacity-100 lg:translate-x-2 lg:left-0`
-            : "-translate-x-full -left-full opacity-0"
-        } transition-all ease-in-out duration-300`}
-      >
+      <div className="max-w-page mx-auto px-4 lg:px-6 h-16 flex items-center justify-between">
+        {/* LOGO */}
+        <Link href="/" className="group flex items-center gap-3">
+          <div className="w-7 h-7 border-hud border-ghost grid place-items-center font-display text-[14px] leading-none text-ghost group-hover:border-ember group-hover:text-ember transition-colors">
+            E
+          </div>
+          <span className="font-mono text-[12px] uppercase tracking-[0.14em] text-ghost group-hover:text-ember transition-colors">
+            EBISA / DUGO
+          </span>
+        </Link>
+
+        {/* CENTER NAV */}
+        <nav className="hidden md:flex items-center gap-1">
+          {navItems.map((item, i) => {
+            const active = pathname === item.url;
+            return (
+              <React.Fragment key={item.url}>
+                {i > 0 && <span className="meta-mono text-ghost-16 px-2">/</span>}
+                <Link
+                  href={item.url}
+                  className={`nav-link px-2 py-1 ${active ? "nav-link-active" : ""}`}
+                >
+                  {item.title}
+                </Link>
+              </React.Fragment>
+            );
+          })}
+        </nav>
+
+        {/* STATUS / CTA */}
+        <div className="hidden md:flex items-center gap-4">
+          <span className="flex items-center gap-2 meta-mono">
+            <span className="status-dot" />
+            <span>AVAILABLE</span>
+          </span>
+          <a
+            href="https://calendly.com/ebisadugo/30min"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-pill-light"
+          >
+            CONTACT
+          </a>
+        </div>
+
+        {/* MOBILE TOGGLE */}
         <button
-          onClick={() => router.back()}
-          className="relative group p-3 bg-base-100 text-primary rounded-lg hover:text-secondary transition-all ease-in-out duration-300"
+          onClick={toggleMenu}
+          className="md:hidden p-2 border-hud border-ghost-32 hover:border-ghost text-ghost transition-colors"
+          aria-label="Toggle menu"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            strokeWidth={1.5}
+            strokeWidth={1.6}
             stroke="currentColor"
             className="w-5 h-5"
           >
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
-              d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
-            />
-          </svg>
-          <p className="hidden lg:flex absolute top-1/2 -translate-y-1/2 left-full opacity-0 group-hover:opacity-100 group-hover:ml-3 z-50 px-5 py-[.6rem] rounded-lg bg-base-100 text-secondary whitespace-nowrap transition-all ease-in-out duration-500">
-            Fall Back
-          </p>
-        </button>
-      </div>
-      <div
-        className={`flex flex-col p-3 items-center justify-center my-5 gap-3 rounded-lg ${
-          isMenuOpen
-            ? "translate-x-2 opacity-100 flex"
-            : "-translate-x-full -left-full opacity-0 lg:translate-x-2 lg:left-0 lg:opacity-100"
-        } bg-base-300/80 transition-all ease-in-out duration-300`}
-      >
-        {navList?.map((nav, index) => (
-          <Link
-            key={index}
-            href={nav?.url}
-            className="relative group flex items-center p-3 bg-base-100 text-primary hover:text-secondary rounded-xl transition-all ease-in-out duration-300"
-            title={nav?.title}
-          >
-            <div className="w-5 h-5">{nav?.icon()}</div>
-            <p className="hidden lg:flex absolute top-1/2 -translate-y-1/2 left-full opacity-0 group-hover:opacity-100 group-hover:ml-3 z-50 px-5 py-[.6rem] rounded-lg bg-base-100 text-secondary whitespace-nowrap transition-all ease-in-out duration-500">
-              {nav?.title}
-            </p>
-          </Link>
-        ))}
-      </div>
-      <div
-        className="flex translate-x-2 flex-col p-3 rounded-lg bg-base-300/80 cursor-pointer"
-        onClick={toggleMenu}
-      >
-        <button
-          onClick={toggleMenu}
-          className="flex lg:hidden relative w-10 h-10 p-3 bg-base-100 text-primary rounded-lg"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className={`absolute inline-block w-5 h-5 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ${
-              isMenuOpen ? "opacity-0 rotate-180" : "opacity-100 rotate-0"
-            } transition-all ease-in-out duration-500`}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M3.75 9h16.5m-16.5 6.75h16.5"
-            />
-          </svg>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className={`absolute inline-block w-5 h-5 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ${
-              isMenuOpen ? "opacity-100 rotate-0" : "opacity-0 -rotate-180"
-            } transition-all ease-in-out duration-500`}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M6 18 18 6M6 6l12 12"
+              d={
+                isMenuOpen
+                  ? "M6 18 18 6M6 6l12 12"
+                  : "M3.75 9h16.5m-16.5 6.75h16.5"
+              }
             />
           </svg>
         </button>
       </div>
-    </div>
+
+      {/* MOBILE DRAWER */}
+      {isMenuOpen && (
+        <div className="md:hidden border-t border-ghost-16 bg-void">
+          <nav className="px-6 py-8 flex flex-col gap-6">
+            {navItems.map((item) => {
+              const active = pathname === item.url;
+              return (
+                <Link
+                  key={item.url}
+                  href={item.url}
+                  onClick={toggleMenu}
+                  className={`font-display text-[28px] uppercase tracking-[-0.02em] leading-none ${
+                    active ? "text-ember" : "text-ghost"
+                  }`}
+                >
+                  {item.title}
+                </Link>
+              );
+            })}
+            <a
+              href="https://calendly.com/ebisadugo/30min"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={toggleMenu}
+              className="btn-pill-light w-fit mt-2"
+            >
+              CONTACT
+            </a>
+          </nav>
+        </div>
+      )}
+    </header>
   );
 };
 
-export default SideBar;
+export default TopNav;

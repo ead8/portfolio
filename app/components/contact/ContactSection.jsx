@@ -1,96 +1,70 @@
 "use client";
 
 import React from "react";
-import Figure from "../generic/Figure";
-import Button from "../generic/Button";
-import contactImage from "@/public/other/contact-img.jpg";
-import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 
-const contentContainerVariants = {
+const containerVariants = {
   hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.23,
-    },
-  },
+  visible: { opacity: 1, transition: { staggerChildren: 0.12 } },
 };
 
-const contentVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      ease: "easeOut",
-      duration: 0.3,
-    },
-  },
+const itemVariants = {
+  hidden: { opacity: 0, y: 12 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: "easeOut" } },
 };
 
 const ContactSection = () => {
-  const router = useRouter();
-
   return (
     <motion.section
-      variants={contentContainerVariants}
+      variants={containerVariants}
       initial="hidden"
       whileInView="visible"
-      viewport={{
-        once: true,
-      }}
+      viewport={{ once: true, amount: 0.2 }}
       id="contact-section"
-      className="relative w-full flex flex-row-reverse items-center justify-between gap-10 my-10 lg:my-16"
+      className="relative w-full py-24 lg:py-32 border-t border-ghost-16"
     >
-      <div className="w-full md:w-2/3">
-        <motion.h1
-          variants={contentVariants}
-          className="font-display text-4xl lg:text-6xl leading-snug text-secondary font-extrabold mb-5"
+      <motion.div variants={itemVariants} className="flex items-center justify-between mb-8 meta-mono">
+        <span>
+          <span className="section-index">[ 99 ]</span>
+          <span className="text-ghost ml-2">CONTACT // INITIATE</span>
+        </span>
+        <span>END OF TRANSMISSION</span>
+      </motion.div>
+
+      <motion.h2
+        variants={itemVariants}
+        className="heading-display max-w-[16ch] mb-8"
+      >
+        Got a project? <span className="text-ember">Open a channel.</span>
+      </motion.h2>
+
+      <motion.p
+        variants={itemVariants}
+        className="body-md max-w-[60ch] mb-12"
+      >
+        Need a full-stack engineer for a sprint? An AI integration to ship a
+        new feature? A sounding board on architecture? Most projects start
+        with a 30-minute call.
+      </motion.p>
+
+      <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-3">
+        <a
+          href="mailto:ebisadugo@gmail.com?subject=Hi%20Ebisa&body=Hi%20Ebisa!%20I'd%20like%20to%20discuss%20a%20project."
+          className="btn-outline"
         >
-          Say hello!
-        </motion.h1>
-        <motion.h2
-          variants={contentVariants}
-          className="text-base text-secondary leading-relaxed tracking-normal font-semibold mb-3"
+          <span className="btn-outline-label">SEND EMAIL</span>
+          <span className="btn-outline-sub">EBISADUGO@GMAIL.COM</span>
+        </a>
+        <a
+          href="https://calendly.com/ebisadugo/30min"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-outline"
         >
-          If you have a question, project idea, or wanted to say hello?{" "}
-          <a
-            className="underline underline-offset-4 text-accent"
-            href="mailto:ebisadugo@gmail.com?subject=Hi%20There!&body=Hi%20Ebisa!%20Hope%20you're%20doin'%20well.%20I%20just%20want%20to%20discuss%20a%20project%20with%20you.%20Please%20contact."
-          >
-            Just shoot me an email
-          </a>
-          !
-        </motion.h2>
-        <motion.p
-          variants={contentVariants}
-          className="text-base leading-relaxed tracking-normal font-semibold mb-10"
-        >
-          You can also connect by scheduling a video call to discuss your goals
-          &amp; ideas.
-        </motion.p>
-        <motion.div
-          variants={contentVariants}
-          className="flex items-center gap-3"
-        >
-          <Button label="About me" onClick={() => router.push("/about")} />
-          <a
-            className={`flex gap-3 whitespace-nowrap font-semibold text-xs text-primary hover:text-accent py-3 pb-[.6rem] rounded-lg transition-all ease-in-out duration-300`}
-            href="https://calendly.com/ebisadugo/30min"
-            target="_blank"
-          >
-            Book a call
-          </a>
-        </motion.div>
-      </div>
-      <div className="hidden w-full h-full lg:w-1/2 lg:flex justify-center">
-        <Figure
-          caption="Feel free to contact"
-          size="w-[300px] h-[300px]"
-          src={contactImage.src}
-        />
-      </div>
+          <span className="btn-outline-label">BOOK CALL</span>
+          <span className="btn-outline-sub">30 MIN / CALENDLY</span>
+        </a>
+      </motion.div>
     </motion.section>
   );
 };

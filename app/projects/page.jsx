@@ -1,120 +1,82 @@
 "use client";
 
-import React, { useContext, useEffect, useState } from "react";
-import Icon from "../components/generic/Icon";
+import React from "react";
+import dynamic from "next/dynamic";
 import ImageCard from "../components/generic/ImageCard";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { GeneralContext } from "../context/GeneralContext";
 import { projectListData } from "../context/constants";
+import PlanetBadge from "../components/generic/PlanetBadge";
 
-const spotLightVariants = {
+const ThreeScene = dynamic(() => import("../components/hero/ThreeScene"), { ssr: false });
+
+const containerVariants = {
   hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { duration: 3 } },
+  visible: { opacity: 1, transition: { staggerChildren: 0.06 } },
 };
 
-const contentContainerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.23,
-    },
-  },
-};
-
-const contentVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      ease: "easeOut",
-      duration: 0.3,
-    },
-  },
+const itemVariants = {
+  hidden: { opacity: 0, y: 12 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
 };
 
 const ProjectsPage = () => {
   const router = useRouter();
-  const [isVisible, setIsVisible] = useState(false);
-  useEffect(() => setIsVisible(true), []);
 
   return (
     <motion.div
-      variants={contentContainerVariants}
+      variants={containerVariants}
       initial="hidden"
-      whileInView="visible"
-      viewport={{
-        once: true,
-      }}
-      className="relative w-full flex flex-col items-center justify-between gap-5 py-6 lg:py-16"
+      animate="visible"
+      className="page-warp-in w-full"
     >
-      {isVisible && (
-        <motion.div
-          variants={spotLightVariants}
-          initial="hidden"
-          animate="visible"
-          className="absolute flex -top-[300%] left-1/2 -translate-x-1/2 bottom-0 right-0 w-2/4 blur-3xl"
-          style={{
-            background: `radial-gradient(circle at center, rgba(254,239,159, 1) 0%, rgba(254,239,159, 0.9) 50%, rgba(254,239,159, 0.3) 50%, rgba(254,239,159, 0), rgba(254,239,159, 0), transparent, transparent)`,
-          }}
-        />
-      )}
-
-      <div className="flex flex-col items-center mt-5 z-10 px-6 lg:px-32">
-        <motion.div variants={contentVariants} className="relative">
-          <motion.div
-            variants={{
-              hidden: { opacity: 0 },
-              visible: {
-                opacity: 1,
-                transition: {
-                  ease: "easeOut",
-                  duration: 0.3,
-                },
-              },
-            }}
-            className="absolute rounded-full top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 w-10 h-10 bg-[#feef9f] blur-2xl transition-all ease-in-out duration-1000"
-          />
-          <Icon size="w-20 h-20" lightColor="254 239 159">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="m6.75 7.5 3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0 0 21 18V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v12a2.25 2.25 0 0 0 2.25 2.25Z"
-              />
-            </svg>
-          </Icon>
-        </motion.div>
-
-        <motion.h1
-          variants={contentVariants}
-          className="font-display text-3xl leading-snug text-secondary text-center font-extrabold mt-5 mb-3"
-        >
-          Personal Projects
-        </motion.h1>
-        <motion.p
-          variants={contentVariants}
-          className="text-sm leading-relaxed tracking-normal font-semibold text-center"
-        >
-          Things I built while learning, exploring, testing and trying the web
-          technologies
-        </motion.p>
+      {/* SATURN SCENE — projects page planet */}
+      <div className="relative w-full mb-12 lg:mb-16 overflow-hidden border border-ghost-16">
+        <div className="absolute inset-0">
+          <ThreeScene variant="saturn" />
+        </div>
+        <div className="relative z-10 px-6 lg:px-12 py-16 lg:py-24 min-h-[360px] flex flex-col items-start justify-end">
+          <PlanetBadge variant="saturn" className="mb-4" />
+          <motion.h2
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.45, duration: 0.5 }}
+            className="font-display text-[40px] lg:text-[64px] uppercase tracking-[-0.02em] text-ghost"
+            style={{ textShadow: "0 0 32px rgba(0,0,0,0.85)" }}
+          >
+            ARRIVED AT <span className="text-ember">CRONUS-006</span>
+          </motion.h2>
+        </div>
       </div>
 
-      <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-10 gap-5 px-6 lg:px-32">
+      <section className="pt-8 pb-16 lg:pt-12 lg:pb-20">
+        <motion.div variants={itemVariants} className="flex items-center justify-between mb-8 meta-mono">
+          <span>
+            <span className="section-index">[ INDEX ]</span>
+            <span className="text-ghost ml-2">PROJECTS // SHIPPED &amp; OPEN-SOURCE</span>
+          </span>
+          <span>
+            COUNT: {String(projectListData?.length ?? 0).padStart(2, "0")}
+          </span>
+        </motion.div>
+
+        <motion.h1 variants={itemVariants} className="heading-display max-w-[18ch] mb-8">
+          Things I&apos;ve built and <span className="text-ember">shipped.</span>
+        </motion.h1>
+
+        <motion.p variants={itemVariants} className="body-md max-w-[62ch]">
+          Personal projects, open-source work, and client builds I&apos;ve
+          contributed to as a full-stack developer. Click any card for the
+          full breakdown.
+        </motion.p>
+      </section>
+
+      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 pb-16">
         {projectListData?.map((project, index) => (
           <motion.div
-            variants={contentVariants}
-            key={index}
-            className={"col-span-1"}
+            variants={itemVariants}
+            key={project?.id ?? index}
+            className="col-span-1"
           >
             <ImageCard
               data={project}
@@ -122,7 +84,7 @@ const ProjectsPage = () => {
             />
           </motion.div>
         ))}
-      </div>
+      </section>
     </motion.div>
   );
 };

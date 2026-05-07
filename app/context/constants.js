@@ -1,31 +1,13 @@
 // THIS FILE HOLD THE DYNAMIC DATA OF THIS WEBSITE
 import noImage from "@/public/backgrounds/card-bg-img.jpg";
 
-// IMAGES FOR WORK PROJECT
-import taskVareImg from "@/public/work/taskvare-img.jpg";
-import taskVareCoverImg from "@/public/work/taskvare-cover-img.jpg";
-import talentVareImg from "@/public/work/talentvare-img.jpg";
-import talentVareCoverImg from "@/public/work/talentvare-cover-img.jpg";
-import insureMyTripImg from "@/public/work/insure-my-trip-img.jpg";
-import insureMyTripCoverImg from "@/public/work/insure-my-trip-cover-img.jpg";
-import loadeImg from "@/public/work/loade-img.jpg";
-import loadeCoverImg from "@/public/work/loade-cover-img.jpg";
-import insureMyHealthImg from "@/public/work/insure-my-health-img.jpg";
-import insureMyHealthCoverImg from "@/public/work/insure-my-health-cover-img.jpg";
-
-// IMAGES FOR PERSONAL PROJECT
-import promptareImg from "@/public/projects/narrator-img.jpg";
-import promptareImgCover from "@/public/projects/promptare-img-cover.jpg";
-import webCrawlerImg from "@/public/projects/webCrawler-img.jpg";
-import webCrawlerImgCover from "@/public/projects/webCrawler-img-cover.jpg";
-import parabotImg from "@/public/projects/parabot-img-cover.webp";
-import parabotImgCover from "@/public/projects/Pasted image.png";
-import narratorImg from "@/public/projects/webCrawler-img.jpg";
-import narratorImgCover from "@/public/projects/preview_2.png";
-import queryMindImg from "@/public/projects/queryMind-img.jpg";
-import queryMindImgCover from "@/public/projects/queryMind-img-cover.jpg";
-import carCallCenterImg from "@/public/projects/aivoice.webp";
-import carCallCenterImgCover from "@/public/projects/aivoicecover.webp";
+// REAL PROJECT SCREENSHOTS — supplied in /public/projects/
+import launchPadImg from "@/public/projects/tokenlaudnch.png";
+import sundialImg from "@/public/projects/sundial.png";
+import withfundImg from "@/public/projects/withfund.png";
+import binzImg from "@/public/projects/thebinzstore.png";
+import predictionMarketImg from "@/public/projects/prediction-market.png";
+import drixxImg from "@/public/projects/drixx.png";
 
 export const caseStudyNotFound = {
   id: 0,
@@ -35,463 +17,46 @@ export const caseStudyNotFound = {
   imgSrc: noImage.src,
 };
 
-export const workListData = [
-  {
-    id: 1,
-    title: "Health Insurance",
-    subTitle: "Insure My Health",
-    url: "https://app.yallacompare.com/insurance/uae/en/health/details",
-    imgSrc: insureMyHealthImg.src,
-    isFeatured: true,
-    isLocked: false,
-    details: {
-      coverImgSrc: insureMyHealthCoverImg.src,
-      overview: {
-        myRole: "Frontend Design, Development & Integration",
-        team: "Muhammad Sufyan Shoaib (Backend)",
-        timeline: "Jul 2024 - Aug 2024",
-        desc: {
-          para1:
-            "Traditional healthcare insurance purchasing is often a complex and time-consuming process for both customers and insurance providers. Insure My Health aims to simplify this process by automating key aspects of the insurance journey.",
-          para2:
-            "By leveraging technology, the platform enhances customer experience and increases operational efficiency for insurance companies.",
-        },
-      },
-      projectDesc: {
-        para1:
-          "Our team, developed Insure My Health to address these challenges. By combining user-centric design, advanced automation, and robust data management, we aimed to create a seamless and efficient healthcare insurance purchasing experience.",
-        // para2:
-        //   "TalentVare simplify employee lifecycle management. From pre-boarding to off-boarding, automate tasks, manage paperwork, and ensure policy compliance. Streamline your processes, enhance efficiency, and seamlessly manage employee transitions.",
-      },
-      problemStatement: {
-        para1:
-          "Complex and lengthy application forms requiring repetitive data entry. Difficulty understanding policy coverage and benefits. Long wait times for policy issuance and claim processing. Lack of transparency in pricing and coverage options",
-        para2:
-          "Manual underwriting and policy issuance leading to operational delays. High customer acquisition costs due to inefficient processes. Difficulty in managing claims and providing accurate customer support.",
-      },
-      solution: {
-        para: "Insure My Health incorporates the following features to address the identified problems:",
-        list: [
-          {
-            title: "Intuitive User Interface",
-            desc: "A user-friendly platform guides customers through the insurance selection process. Clear and concise information about plans, coverage options, and pricing is presented in an easily understandable format. Interactive tools such as health assessment questionnaires and premium calculators assist customers in making informed decisions.",
-          },
-          {
-            title: "Automated Underwriting and Policy Issuance",
-            desc: "Advanced algorithms and data analytics streamline the underwriting process, allowing for real-time risk assessment and instant policy generation. This eliminates manual paperwork and reduces processing time.",
-          },
-          {
-            title: "Seamless Integration",
-            desc: "Integration with various healthcare providers and payment gateways ensures a smooth customer experience. Customers can easily compare plans, select the desired coverage, and complete the purchase process securely.",
-          },
-          {
-            title: "Claims Management",
-            desc: "The platform incorporates a streamlined claims process with online claim filing, real-time status updates, and automated document verification. This reduces processing time and improves customer satisfaction.",
-          },
-        ],
-      },
-      impact: {
-        para: "The implementation of Insure My Health has significantly impacted both customers and insurance providers:",
-        list: [
-          {
-            title: "Enhanced Customer Experience",
-            desc: "Simplified application process, instant policy issuance, and easy access to information improve customer satisfaction.",
-          },
-          {
-            title: "Increased Efficiency",
-            desc: "Automation reduces manual tasks, leading to faster processing times and cost savings for insurance companies.",
-          },
-          {
-            title: "Improved Decision Making",
-            desc: "Data-driven insights enable insurance companies to develop tailored products and pricing strategies.",
-          },
-          {
-            title: "Stronger Customer Relationships",
-            desc: "Proactive customer support and transparent communication build trust and loyalty.",
-          },
-        ],
-      },
-      closingNotes: {
-        para1:
-          "Insure My Health represents a significant step forward in the healthcare insurance industry. By automating key processes and providing a user-centric experience, the platform empowers customers and streamlines operations for insurance providers.",
-        para2:
-          "As a developer, I am proud to have contributed to a solution that improves the overall healthcare insurance experience.",
-      },
-    },
-  },
-  {
-    id: 2,
-    title: "Travel Insurance",
-    subTitle: "Insure My Trip",
-    url: "https://yallacompare.com/uae/en/services/travel-insurance/",
-    imgSrc: insureMyTripImg.src,
-    isFeatured: true,
-    isLocked: false,
-    details: {
-      coverImgSrc: insureMyTripCoverImg.src,
-      overview: {
-        myRole: "Frontend Development & Integration",
-        team: "Mahmoud Abdelnasser (Design), Salal Yousuf (Backend)",
-        timeline: "Jul 2024 - Aug 2024",
-        desc: {
-          para1:
-            "Traditional travel insurance acquisition is often cumbersome for customers and inefficient for providers. Repetitive data entry, limited self-service options, and manual processing lead to frustration and delays.",
-          para2:
-            "Insure My Trip, a web application, revolutionizes the travel insurance purchase process, streamlining customer experience and boosting operational efficiency.",
-        },
-      },
-      projectDesc: {
-        para1:
-          "Our team, tackled these challenges by developing a web application with automation at its core. Insure My Trip streamlines the travel insurance purchase experience for both customers and the company.",
-      },
-      problemStatement: {
-        para1:
-          "The current travel insurance journey suffers from several bottlenecks, like, repetitive data entry across online forms and phone calls creates frustration and slows down the process.",
-        para2:
-          "Lack of self-service options for policy amendments and cancellations limits flexibility and convenience. Manual data entry by agents leads to delays and potential inaccuracies in quotes. Uncertainty about final costs due to inaccurate or delayed price quotes.",
-        para3:
-          "High operational costs incurred through manual processing of applications and queries. Potential loss of customers due to a long and tedious purchase process.",
-      },
-      solution: {
-        para: "Insure My Trip incorporates the following features to address the identified problems:",
-        list: [
-          {
-            title: "Intuitive User Interface",
-            desc: "A user-friendly and responsive interface guides customers through the selection process. Easy navigation, clear product descriptions, and interactive tools like coverage calculators simplify plan selection based on individual needs.",
-          },
-          {
-            title: "Automated Underwriting and Policy Issuance",
-            desc: "Integration of advanced algorithms and data analytics enables real-time risk assessment, automated premium calculations, and instant policy issuance. Customers receive their digital policy documents electronically without manual intervention.",
-          },
-          {
-            title: "Seamless Payment Integration",
-            desc: "The platform supports various payment methods, including credit/debit cards, online banking, and mobile wallets. Secure payment gateways ensure safe and efficient transactions. Customers can manage travel insurance expenses with installment payment options or premium financing. Integrated payment confirmation and receipt generation streamline the purchase process further.",
-          },
-          {
-            title: "Robust Customer Support",
-            desc: "AI-powered chatbots offer instant support, guide users through the application, and assist with plan selection. Live chat and call-back options connect customers with human agents for complex inquiries. Additionally, a comprehensive FAQ section, educational resources, and video tutorials empower customers with information about travel insurance and app usage.",
-          },
-        ],
-      },
-      impact: {
-        para: "The implementation of these features has significantly benefited both customers and the company:",
-        list: [
-          {
-            title: "Enhanced Customer Experience",
-            desc: "Streamlined application process, self-service options, and instant policy issuance eliminate frustration and delays.",
-          },
-          {
-            title: "Improved Operational Efficiency",
-            desc: "Automation reduces manual processing, lowers operational costs, and frees up resources for other tasks.",
-          },
-          {
-            title: "Increased Customer Satisfaction",
-            desc: "Seamless purchasing experience and readily available information promote customer satisfaction and trust.",
-          },
-          {
-            title: "Wider Customer Base",
-            desc: "A faster and more accessible process allows the company to attract a broader customer base.",
-          },
-        ],
-      },
-      closingNotes: {
-        para1:
-          "By automating the travel insurance purchase process, Insure My Trip revolutionizes the experience for both customers and the company. It empowers customers with self-service tools and delivers fast, efficient service.",
-        para2:
-          "As a developer, I am proud to have contributed to a solution that enhances customer satisfaction, improves operational efficiency, and positions Insure My Trip as a leader in the travel insurance landscape.",
-      },
-    },
-  },
-  {
-    id: 3,
-    title: "Logistics and Delivery Ecosystem (LOADe)",
-    subTitle: "Fleet Management & Control System",
-    url: "https://loade.net/",
-    imgSrc: loadeImg.src,
-    isFeatured: true,
-    isLocked: false,
-    details: {
-      coverImgSrc: loadeCoverImg.src,
-      overview: {
-        myRole: "Frontend Development & Integration",
-        team: "Shebaan (Design), Maheer (Backend Lead), Abdul Rehman (Backend)",
-        timeline: "Oct 2023 - Jan 2024",
-        desc: {
-          para1:
-            "A revolutionary Pakistani startup, established itself as a leading force in tech-enabled logistics and delivery. Their platform offered on-demand booking for businesses requiring transportation and logistics services. However, a specific pain point emerged for clients who needed frequent deliveries to the same locations.",
-          para2:
-            "This case study explores the development of a new module within the LOADe platform: Fixed Vehicle Orders. This feature addressed the challenge of repetitive bookings and driver assignments for recurring deliveries.",
-        },
-      },
-      projectDesc: {
-        para1:
-          "LOADe is a pioneering start-up in Pakistan, dedicated to revolutionizing the logistics and delivery sector through the implementation of cutting-edge technology. The company's focus lies in addressing the challenges within the fragmented logistics and delivery landscape, extending from the harbor to end consumers, while also catering to various business verticals seeking comprehensive platform solutions to optimize their operations.",
-        para2:
-          "The primary objective of LOADe is to mitigate supply-demand challenges across the entire logistics service spectrum and offer a unified platform that minimizes capital expenditure and enhances profitability for businesses.",
-      },
-      problemStatement: {
-        para1:
-          "LOADe initially functioned as a ride-hailing app for logistics, similar to Uber or Careem. Businesses could book individual deliveries, but those with frequent or recurring needs faced an inefficient process. Clients requiring deliveries to the same locations multiple times a week or month were forced to create separate requests for each instance.",
-        para2:
-          "Companies had to repeatedly enter delivery details, wasting valuable time and effort.",
-        para3:
-          "Each new request resulted in a different driver assignment, requiring repeated instructions and potentially delaying deliveries.",
-        para4:
-          "Monitoring driver performance and delivery schedules became increasingly cumbersome with numerous individual requests.",
-      },
-      solution: {
-        para: "The Fixed Vehicle Orders module offers companies an alternative booking option specifically designed for recurring deliveries. Key features include:",
-        list: [
-          {
-            title: "Quotation Management",
-            desc: "Businesses can create a single quotation outlining the delivery details, such as pickup and drop-off locations, frequency, and timeframes.",
-          },
-          {
-            title: "Dedicated Driver Assignment",
-            desc: "With a fixed order, a single driver is assigned for the entire duration of the service. This fosters familiarity with the delivery route and reduces the need for repeated instructions.",
-          },
-          {
-            title: "Driver Change Request",
-            desc: "Companies can request a new driver assignment through the LOADe admin panel for unforeseen circumstances.",
-          },
-          {
-            title: "Subscription Model",
-            desc: "Businesses can choose between the existing variable order option (individual bookings) or the new fixed vehicle order module.",
-          },
-          {
-            title: "Driver Monitoring",
-            desc: "Companies can track driver attendance, check-in/check-out locations, and overall performance.",
-          },
-          {
-            title: "Invoice Generation",
-            desc: "LOADe automatically generates invoices based on the chosen subscription type and service consumption. The system supports online payments through IBFT and credit card options.",
-          },
-          {
-            title: "Reporting",
-            desc: "Companies receive monthly reports based on their subscription plan, providing valuable insights into their delivery data.",
-          },
-        ],
-      },
-      impact: {
-        para: "The Fixed Vehicle Orders module has significantly improved the delivery management experience for LOADe's corporate clients. Benefits include:",
-        list: [
-          {
-            title: "Increased Efficiency",
-            desc: "Companies save time with reduced booking requirements and streamlined communication with drivers.",
-          },
-          {
-            title: "Improved Consistency",
-            desc: "Dedicated driver assignments provide a reliable delivery experience with increased familiarity with routes and client needs.",
-          },
-          {
-            title: "Enhanced Control",
-            desc: "Businesses gain greater control over their delivery operations through driver monitoring and flexible driver change requests.",
-          },
-          {
-            title: "Simplified Billing",
-            desc: "Automatic invoice generation and online payment options using PayFast to ensure a seamless financial management experience.",
-          },
-        ],
-      },
-      closingNotes: {
-        para1:
-          "The introduction of Fixed Vehicle Orders demonstrates LOADe's commitment to user-centric innovation. This feature empowers companies with recurring delivery needs, enhancing logistical efficiency and customer satisfaction.",
-        para2:
-          "As a developer, I am proud to have contributed to a solution that directly empowers businesses and strengthens LOADe's position as a leading logistics platform.",
-      },
-    },
-  },
-  {
-    id: 4,
-    title: "TaskVare",
-    subTitle: "Project Management Tool",
-    url: "https://www.taskvare.com/",
-    imgSrc: taskVareImg.src,
-    isFeatured: true,
-    isLocked: false,
-    details: {
-      coverImgSrc: taskVareCoverImg.src,
-      overview: {
-        myRole: "Frontend Development, Research & Integration",
-        team: "Shebaan (Design), Maheer (Backend), Noman (Backend)",
-        timeline: "Jan 2024 - Feb 2024",
-        desc: {
-          para1:
-            "TaskVare is a web-based project and task management software designed to streamline workflows and boost team productivity. It boasts a user-friendly interface, robust features, and seamless integration with various tools. However, a critical limitation existed for organizations using Azure Active Directory (AAD) for employee data management. TaskVare lacked the ability to access and synchronize employee data directly from AAD, hindering a smooth user experience.",
-          para2:
-            "This case study explores the collaborative effort undertaken by a development team to bridge this gap. We successfully implemented Azure Active Directory (AAD) syncing functionality within TaskVare, allowing organizations to leverage their existing employee data structure seamlessly.",
-        },
-      },
-      projectDesc: {
-        para1:
-          "A task management solution designed to streamline work processes and foster seamless teamwork within organizations. With a focus on enhancing productivity and efficiency, TaskVare offers a user-friendly platform that caters to the diverse needs of businesses seeking to optimize their project management workflows.",
-        para2:
-          "The platform aims to elevate efficiency by 20% and establish itself as a leading force within the industry. TaskVare is committed to collaborating closely with customers and partners to shape the future of work and deliver impactful outcomes.",
-      },
-      problemStatement: {
-        para1:
-          "Many organizations rely on Azure Active Directory for centralized user authentication and management. TaskVare, while offering exceptional project management capabilities, lacked integration with AAD. ",
-        para2:
-          "This meant that organizations using AAD had to manually add employee data to both platforms, creating a time-consuming and error-prone process. Additionally, maintaining data consistency across AAD and TaskVare proved challenging.",
-      },
-      solution: {
-        para: "To achieve our goal, we opted following technologies:",
-        list: [
-          {
-            title: "Azure Graph API",
-            desc: "This Microsoft API granted us access to AAD user data, allowing us to retrieve and manipulate employee information programmatically.",
-          },
-          {
-            title: "MSAL Library",
-            desc: "The Microsoft Authentication Library (MSAL) facilitated secure authentication between TaskVare and AAD.",
-          },
-          {
-            title: "Two-Way Data Binding",
-            desc: "We implemented a two-way data binding mechanism, ensuring that any updates made to employee data within TaskVare automatically reflected in AAD, and vice versa. This eliminated the need for manual data entry and ensured consistency across both platforms.",
-          },
-        ],
-      },
-      impact: {
-        para: "The successful integration of AAD syncing into TaskVare yielded significant benefits for organizations using the platform:",
-        list: [
-          {
-            title: "Reduced Administrative Burden",
-            desc: "Manual data entry for employees was eliminated, saving administrators valuable time and minimizing errors.",
-          },
-          {
-            title: "Enhanced Data Consistency",
-            desc: "Two-way data binding ensured that employee data remained consistent across AAD and TaskVare, improving data integrity and reducing the risk of discrepancies.",
-          },
-          {
-            title: "Streamlined User Management",
-            desc: "Organizations could leverage their existing AAD user structure for TaskVare, simplifying user provisioning and access control.",
-          },
-        ],
-      },
-      closingNotes: {
-        para1:
-          "This project exemplifies the power of collaboration and technical expertise. By strategically integrating AAD syncing into TaskVare, we empowered organizations to streamline their user management processes and enhance overall efficiency.",
-        para2:
-          "The success of this project reinforces the importance of staying up-to-date with the latest technologies and adapting software to accommodate evolving user needs. As a developer, I am  proud to have contributed to a solution that directly benefits our users and strengthens TaskVare's position as a leading project management platform.",
-      },
-    },
-  },
-  {
-    id: 5,
-    title: "TalentVare",
-    subTitle: "Workforce Management & Onboarding System",
-    url: "https://transvare.com/talentvare/",
-    imgSrc: talentVareImg.src,
-    isFeatured: true,
-    isLocked: false,
-    details: {
-      coverImgSrc: talentVareCoverImg.src,
-      overview: {
-        myRole: "Frontend Development & Integration",
-        team: "Shebaan (Design), Maheer (Backend Lead), Noman Rehman (Backend), Musadiq Shariq (Sr. Frontend)",
-        timeline: "Feb 2024 - Feb 2025",
-        desc: {
-          para1:
-            "Talent acquisition is a crucial aspect of any organization's success. Traditional methods can be opaque for candidates and require juggling multiple tools for HR teams. TalentVare, a human resource management and job board platform, tackles these challenges by offering a comprehensive solution.",
-          para2:
-            "This case study explores how TalentVare empowers both HR professionals and job seekers through a suite of innovative features.",
-        },
-      },
-      projectDesc: {
-        para1:
-          "Our team, focused on bridging the gap between HR and candidates. We aimed to create a more streamlined and transparent experience for both parties.",
-        para2:
-          "TalentVare simplify employee lifecycle management. From pre-boarding to off-boarding, automate tasks, manage paperwork, and ensure policy compliance. Streamline your processes, enhance efficiency, and seamlessly manage employee transitions.",
-      },
-      problemStatement: {
-        para1:
-          "The job search process often lacks transparency for candidates. They may submit applications with little to no feedback on their status, leading to frustration and uncertainty.",
-        para2:
-          "Additionally, HR teams frequently rely on multiple software solutions to manage the entire hiring process, creating inefficiency and data silos.",
-      },
-      solution: {
-        para: "TalentVare addresses the identified challenges through the following features:",
-        list: [
-          {
-            title: "Real-Time Application Status",
-            desc: "Candidates receive updates on their application progress, eliminating the guesswork and frustration associated with traditional methods.",
-          },
-          {
-            title: "Streamlined Workflow for HR",
-            desc: "TalentVare integrates various recruitment functions into a single platform, allowing HR teams to schedule interviews, generate offer letters, manage interview scores, and create approval workflows for offers and interviews. This reduces reliance on multiple software solutions and centralizes data.",
-          },
-          {
-            title: "Candidate Profile Management",
-            desc: "Job seekers can create and manage their resumes directly within TalentVare. They can download their customized resumes or upload existing ones, providing flexibility and ease of use.",
-          },
-        ],
-      },
-      impact: {
-        para: "The implementation of these features has yielded significant benefits for both HR teams and job seekers using TalentVare:",
-        list: [
-          {
-            title: "Improved Candidate Experience",
-            desc: "Transparency in the application process fosters trust and reduces anxiety for candidates.",
-          },
-          {
-            title: "Enhanced Efficiency for HR",
-            desc: "Centralized features streamline workflows, saving HR teams time and effort. Data consolidation facilitates informed decision-making throughout the recruitment process.",
-          },
-          {
-            title: "Simplified Recruitment Management",
-            desc: "TalentVare eliminates the need for juggling various software tools, simplifying recruitment tasks and data management for HR professionals.",
-          },
-        ],
-      },
-      closingNotes: {
-        para1:
-          "By prioritizing transparency and streamlining workflows, TalentVare empowers both HR teams and job seekers.",
-        para2:
-          "As a developer, I am  proud to have contributed to a solution that  revolutionizes the recruitment process, fostering a more efficient and  positive experience for all stakeholders.",
-      },
-    },
-  },
-];
-
+export const workListData = [];
 export const projectListData = [
   {
     id: 1,
-    title: "ScrapeFlow",
-    subTitle: "Workflow Automation & Web Scraping Platform",
-    imgSrc: narratorImg.src,
+    title: "LaunchPad",
+    subTitle: "Premium Token Launch Platform on BNB Chain",
+    imgSrc: launchPadImg.src,
     isFeatured: true,
     isLocked: false,
     details: {
-      coverImgSrc: narratorImgCover.src,
+      coverImgSrc: launchPadImg.src,
       overview: {
         myRole: "Full Stack Developer",
-        techUsed: "Next.js, Tailwind, ShadCn, PostgreSQL, Prisma, Stripe, NextAuth.js",
-        timeline: "March 2024",
-        sourceCode: "https://github.com/ead8/scrapeflow",
-        liveUrl: "https://scrapeflow.vercel.app",
+        techUsed: "Next.js 16, TypeScript, Tailwind CSS v4, Wagmi, Viem, Neon PostgreSQL, BNB Chain, Stripe, SendGrid, Firebase",
+        timeline: "May 2026",
+        sourceCode: "https://github.com/ead8/bnb-token-launch-platform",
+        liveUrl: null,
         projectDesc: {
-          para1: "ScrapeFlow is a powerful SaaS platform that revolutionizes workflow automation with integrated web scraping capabilities. Built on Next.js, it enables users to automate complex data extraction workflows, securely store credentials, manage billing through Stripe integration, and monitor performance through an intuitive interface. The platform features AI-powered scraping capabilities and real-time analytics for comprehensive workflow monitoring.",
-          para2: "The primary goal of ScrapeFlow is to simplify web data extraction and automation processes for businesses. By combining modern technologies with user-friendly interfaces, it provides a seamless experience for creating, managing, and monitoring automated scraping workflows while ensuring security and scalability.",
+          para1: "LaunchPad is a production-ready Web3 platform for launching, trading, and managing tokens on BNB Chain. Creators get an intuitive token-launch wizard, advanced analytics, and automated fee distribution across social platforms; traders get portfolio tracking, real-time charts, and security risk scoring before they ape in.",
+          para2: "The platform is built on Next.js 16 with App Router, server components, and a Neon Postgres backend. Bonding-curve trading enables fair price discovery, while a referral system, leaderboard, and email/push notifications drive engagement and retention.",
         },
       },
       features: {
         para: "Key features:",
         list: [
           {
-            title: "Workflow Automation",
-            desc: "Build and execute multi-step workflows with distinct phases and assigned credits, providing granular control over scraping executions.",
+            title: "Token Launch Wizard",
+            desc: "Step-by-step token creation flow with Flap.sh smart contracts on BNB Chain, automated bonding curves, and a creator dashboard for multi-token management.",
           },
           {
-            title: "Advanced Web Scraping Tools",
-            desc: "Access a comprehensive suite of scraping tools to design customized workflows, supporting automated actions and scheduled executions.",
+            title: "Real-Time Trading & Analytics",
+            desc: "Interactive Recharts price charts with multiple timeframes, volume tracking, holder distribution, and a price-history pipeline backed by CoinGecko.",
           },
           {
-            title: "Secure Credential Management",
-            desc: "Encrypted storage for API keys, tokens, and sensitive information, ensuring secure handling of credentials throughout the platform.",
+            title: "Security & Trust Layer",
+            desc: "Token security verification with risk scoring, contract audit metadata, honeypot detection, and creator verification badges with reputation scores.",
           },
           {
-            title: "Stripe Integration & Analytics",
-            desc: "Complete billing system with usage tracking, subscription management, and real-time performance analytics through an intuitive dashboard.",
+            title: "Referrals, Notifications & Payments",
+            desc: "Stripe-powered fiat onramps, SendGrid email and Firebase push notifications, plus a referral and leaderboard system that rewards top earners.",
           },
         ],
       },
@@ -499,42 +64,44 @@ export const projectListData = [
   },
   {
     id: 2,
-    title: "University Library Management System",
-    subTitle: "Advanced Library Management Platform with Admin Panel",
-    imgSrc: promptareImg.src,
+    title: "Omilink",
+    subTitle: "Modern Link-in-Bio SaaS Platform",
+    imgSrc: null,
+    artworkKind: "network",
     isFeatured: true,
     isLocked: false,
     details: {
-      coverImgSrc: promptareImgCover.src,
+      coverImgSrc: null,
+      artworkKind: "network",
       overview: {
         myRole: "Full Stack Developer",
-        techUsed: "Next.js, TypeScript, PostgreSQL, Upstash, ImageKit, Tailwind CSS, Resend",
-        timeline: "March 2024",
-        sourceCode: "https://github.com/ead8/high-performant-library-managment",
+        techUsed: "Next.js (App Router), React, shadcn/ui, Tailwind CSS, Clerk, MongoDB, Mongoose",
+        timeline: "March 2026",
+        sourceCode: "https://github.com/ead8/Omilink",
         liveUrl: null,
         projectDesc: {
-          para1: "The University Library Management System is a production-grade platform built with Next.js, TypeScript, and PostgreSQL, featuring both public-facing and admin interfaces. It delivers advanced functionalities including automated book borrowing workflows, email reminders, receipt generation, and comprehensive user management, all optimized for real-world scalability.",
-          para2: "This system revolutionizes library management by incorporating modern technologies and automated workflows. From seamless authentication to real-time media processing and efficient caching, every aspect is designed for optimal performance and user experience, making it a comprehensive solution for educational institutions.",
+          para1: "Omilink is a link-in-bio app that gives users a single shareable page for their socials, dev profiles, tipping links, and contact details. Built with Next.js App Router, shadcn/ui, and a MongoDB backend, it ships authenticated profile management with username-based public pages at the route /<username>.",
+          para2: "The platform supports a wide range of link types — social, professional, dev platforms, creative, messaging, storefront, and miscellaneous — and includes an optional access-key gate for private links so users can share sensitive resources without exposing them publicly.",
         },
       },
       features: {
         para: "Key features:",
         list: [
           {
-            title: "Advanced Authentication & User Management",
-            desc: "Open-source authentication system with personalized onboarding flows, email notifications, and role-based access control for administrators.",
+            title: "Authenticated Profile Management",
+            desc: "Clerk-powered authentication with username, name, bio, and avatar fields, plus a Manage dashboard for live link editing and publishing.",
           },
           {
-            title: "Automated Workflows & Notifications",
-            desc: "Sophisticated system for book borrowing with automated email reminders, PDF receipt generation, and customized notifications for due dates and account activities.",
+            title: "Multi-Type Link Support",
+            desc: "First-class link types covering socials, dev platforms (GitHub, GitLab, etc.), messaging, storefronts, and creative profiles, all reorderable from the dashboard.",
           },
           {
-            title: "Comprehensive Admin Dashboard",
-            desc: "Feature-rich admin panel with analytics, user management, book management, and detailed borrowing records with advanced search and filtering capabilities.",
+            title: "Private Links with Access Keys",
+            desc: "Optional per-link access keys gate sensitive miscellaneous links so users can share private resources alongside public ones on the same page.",
           },
           {
-            title: "Modern Tech Infrastructure",
-            desc: "Built with Next.js, TypeScript, and PostgreSQL, featuring Upstash for caching, ImageKit for media processing, and Resend for email communications.",
+            title: "Responsive Public Profile",
+            desc: "Username-based public pages at /<username> with a fully responsive layout that scales cleanly from mobile to desktop.",
           },
         ],
       },
@@ -542,42 +109,44 @@ export const projectListData = [
   },
   {
     id: 3,
-    title: "Food Ordering Platform",
-    subTitle: "Modern Food Delivery & Ordering System",
-    imgSrc: parabotImg.src,
+    title: "TAO Detector",
+    subTitle: "Cryptocurrency New-Listing Detection System",
+    imgSrc: null,
+    artworkKind: "chart",
     isFeatured: true,
     isLocked: false,
     details: {
-      coverImgSrc: parabotImgCover.src,
+      coverImgSrc: null,
+      artworkKind: "chart",
       overview: {
-        myRole: "Full Stack Developer",
-        techUsed: "React, Next.js, Redux-Toolkit, MongoDB, Next-Auth, Tailwind CSS, Formik, Yup",
-        timeline: "March 2024",
-        sourceCode: "https://github.com/ead8/food-ordering-project",
-        liveUrl: "http://localhost:3000",
+        myRole: "Backend & Data Engineer",
+        techUsed: "Python, Asyncio, Binance API, OKX API, Pandas, CSV-based time-series storage",
+        timeline: "July 2025",
+        sourceCode: "https://github.com/ead8/toa-detector",
+        liveUrl: null,
         projectDesc: {
-          para1: "A comprehensive food ordering web application built as a Single Page Application using React and Next.js. The platform features responsive design with Tailwind CSS, robust state management through Redux-Toolkit, and secure user authentication via Next-Auth. The system includes both customer-facing interfaces and an admin management panel.",
-          para2: "Beyond the core functionality, I enhanced the project with advanced features including optimized state management, user-friendly error handling, efficient MongoDB database queries, and a custom order personalization system. The application demonstrates modern web development practices with a focus on user experience and performance.",
+          para1: "TAO Detector is a cryptocurrency new-listing detection system that continuously monitors Binance and OKX exchanges and identifies newly listed coins as early as possible. As soon as a new listing appears, the system automatically downloads the first 7 days of 1-minute OHLCV data from the genesis candle for early-pattern analysis.",
+          para2: "The pipeline is built around async candle downloaders and per-exchange detection scripts, with structured CSV storage organized for fast downstream analysis. The dataset is designed to support quantitative research on early price movements, volume patterns, and trading-strategy development for newly listed assets.",
         },
       },
       features: {
         para: "Key features:",
         list: [
           {
-            title: "Advanced State Management",
-            desc: "Implemented Redux-Toolkit for optimized data flow between components, ensuring seamless state updates and improved application performance.",
+            title: "Multi-Exchange Listing Detection",
+            desc: "Continuous monitoring of Binance and OKX with detection logic that flags new symbols the moment they become available on each exchange.",
           },
           {
-            title: "User Authentication & Profiles",
-            desc: "Secure authentication system using Next-Auth with user profile management and admin panel access control.",
+            title: "Async OHLCV Backfill",
+            desc: "Async candle downloaders pull the first 7 days of 1-minute OHLCV from the genesis candle, with retry logic and storage management for large datasets.",
           },
           {
-            title: "Order Customization System",
-            desc: "Custom-built feature allowing users to personalize their food orders with specific preferences and modifications.",
+            title: "Structured CSV Storage",
+            desc: "Per-exchange CSV layout with full OHLCV columns plus trade counts and taker base/quote volumes, ready for direct ingestion into Pandas notebooks.",
           },
           {
-            title: "Robust Error Handling",
-            desc: "Comprehensive error management system with user-friendly notifications and form validation using Formik and Yup.",
+            title: "Historical Listing Database",
+            desc: "Maintains a full historical record of detected listings so quants can backtest strategies on early-listing behavior across multiple coins and exchanges.",
           },
         ],
       },
@@ -585,42 +154,44 @@ export const projectListData = [
   },
   {
     id: 4,
-    title: "Microservice Architecture System",
-    subTitle: "Python & Kubernetes Based Distributed System",
-    imgSrc: queryMindImg.src,
+    title: "JSONGuard",
+    subTitle: "Fast & Pythonic JSON Schema Validator",
+    imgSrc: null,
+    artworkKind: "validator",
     isFeatured: true,
     isLocked: false,
     details: {
-      coverImgSrc: queryMindImgCover.src,
+      coverImgSrc: null,
+      artworkKind: "validator",
       overview: {
-        myRole: "Backend Developer & DevOps Engineer",
-        techUsed: "Python, Flask, MySQL, RabbitMQ, JWT, Kubernetes, Docker",
-        timeline: "March 2024",
-        sourceCode: "https://github.com/yourusername/python-kubernetes-microservices",
-        liveUrl: null,
+        myRole: "Library Author",
+        techUsed: "Python, orjson, Type Hints, Pytest, Benchmark Tooling",
+        timeline: "April 2026",
+        sourceCode: "https://github.com/ead8/jsonguard",
+        liveUrl: "https://pypi.org/project/jsonguard/",
         projectDesc: {
-          para1: "A robust microservices-based system implementing authentication, notification, and file conversion services. The architecture leverages Python and Flask for service development, RabbitMQ for message queuing, and Kubernetes for orchestration. The system demonstrates modern distributed system practices with a focus on scalability and reliability.",
-          para2: "The system comprises four key microservices: Auth Service for user authentication, Gateway Service for API routing, Notification Service for email handling, and Converter Service for file operations. Each service is containerized and orchestrated using Kubernetes, ensuring high availability and efficient resource utilization.",
+          para1: "JSONGuard is a fast, pythonic JSON Schema validator distributed on PyPI. Schemas are defined directly with Python's built-in types and type hints (inspired by sqlmodel), so you skip the boilerplate of formal JSON Schema documents while still getting strict type enforcement, optional fields, and custom validator functions.",
+          para2: "The library is roughly 250 lines of optimized code and uses orjson under the hood. Benchmarks place it at ~116x faster than fastjsonschema on basic validation, with depth protection, payload size limits, and either fail-fast or collect-all-errors modes for diagnostics.",
         },
       },
       features: {
         para: "Key features:",
         list: [
           {
-            title: "Authentication Service",
-            desc: "Handles user authentication with JWT token management and MySQL database integration, running as an independent microservice on port 5000.",
+            title: "Pythonic Schema Definitions",
+            desc: "Schemas are plain Python dicts using built-in types, Union, and Optional — no separate JSON Schema document or DSL to learn.",
           },
           {
-            title: "API Gateway & Routing",
-            desc: "Centralized gateway service managing request routing and validation, operating on port 8080 with advanced request handling capabilities.",
+            title: "Composable Custom Validators",
+            desc: "Any callable that returns True on valid input works as a validator, enabling regex, range, and domain-specific checks directly inside the schema.",
           },
           {
-            title: "Message Queue System",
-            desc: "RabbitMQ implementation for asynchronous communication between services, featuring management interface and persistent storage through Kubernetes PVC.",
+            title: "Performance-First Implementation",
+            desc: "Backed by orjson with a tight ~250-line core; benchmarks show ~116x faster basic validation than fastjsonschema and ~298x faster than jsonschema.",
           },
           {
-            title: "Containerized Deployment",
-            desc: "Full Kubernetes deployment configuration with Docker containerization, ensuring scalable and maintainable service architecture.",
+            title: "Hardening Options",
+            desc: "Configurable max_size_in_bytes, max_depth, and loosely_typed flags protect against oversized payloads and deeply nested DoS attempts.",
           },
         ],
       },
@@ -628,42 +199,44 @@ export const projectListData = [
   },
   {
     id: 5,
-    title: "AI-Resumify Pro",
-    subTitle: "AI-Powered Resume Builder SaaS Platform",
-    imgSrc: webCrawlerImg.src,
+    title: "Mobile LMS",
+    subTitle: "Cross-Platform Learning Management System",
+    imgSrc: null,
+    artworkKind: "phone",
     isFeatured: true,
     isLocked: false,
     details: {
-      coverImgSrc: webCrawlerImgCover.src,
+      coverImgSrc: null,
+      artworkKind: "phone",
       overview: {
-        myRole: "Full Stack Developer",
-        techUsed: "Next.js 15, TypeScript, Tailwind CSS, Shadcn UI, React Hook Form, DND Kit, Stripe, OpenAI API, PostgreSQL, Prisma",
-        timeline: "March 2024",
-        sourceCode: "https://github.com/ead8/AI-Resumify.git",
+        myRole: "Mobile Developer",
+        techUsed: "React Native, Expo, TypeScript, Expo Router, EAS Build",
+        timeline: "March 2025",
+        sourceCode: "https://github.com/ead8/mobile-LMS",
         liveUrl: null,
         projectDesc: {
-          para1: "AI-Resumify Pro is a modern full-stack SaaS application that revolutionizes resume creation through AI-powered content generation. Built with Next.js 15, the platform features a sophisticated multi-step form system, dynamic content management with drag-and-drop capabilities, and seamless subscription handling through Stripe integration.",
-          para2: "The application combines cutting-edge technologies to deliver a comprehensive resume building experience. From real-time previews to automated content suggestions powered by OpenAI, every feature is designed to help users create professional resumes efficiently while maintaining a robust and scalable architecture.",
+          para1: "Mobile LMS is a cross-platform learning management system built with React Native and Expo, delivering a native iOS and Android experience from a single TypeScript codebase. The app provides students with a full learning loop — course browsing, lesson playback, and progress tracking — optimized for mobile network conditions.",
+          para2: "The architecture leans on Expo Router for file-based navigation and EAS Build for production binaries, keeping the development feedback loop tight while enabling over-the-air updates for fast iteration on content and UI without a full app-store roundtrip.",
         },
       },
       features: {
         para: "Key features:",
         list: [
           {
-            title: "AI-Powered Content Generation",
-            desc: "Leverages OpenAI API to provide intelligent content suggestions and professional writing assistance for resume sections.",
+            title: "Cross-Platform from One Codebase",
+            desc: "React Native plus Expo delivers identical iOS and Android builds from a single TypeScript codebase, with platform-aware components where it matters.",
           },
           {
-            title: "Dynamic Form Management",
-            desc: "Multi-step form system with React Hook Form, featuring drag-and-drop section reordering and real-time content preview.",
+            title: "Native-Feel Navigation",
+            desc: "Expo Router's file-based navigation produces native stack and tab transitions out of the box, plus deep linking support for shareable course URLs.",
           },
           {
-            title: "Subscription & Storage System",
-            desc: "Integrated Stripe payment processing for subscription tiers, with secure file storage using Vercel Blob and PostgreSQL database management.",
+            title: "Progress Tracking & Lesson Playback",
+            desc: "Course catalog with lesson-level progress tracking and a media player tuned for mobile network conditions, including resumable playback positions.",
           },
           {
-            title: "Advanced Export Capabilities",
-            desc: "Professional PDF export functionality with mobile-responsive design and auto-save features for seamless resume management.",
+            title: "OTA Updates via EAS",
+            desc: "EAS Build for production binaries paired with over-the-air content and UI updates, enabling rapid iteration without store-review delays.",
           },
         ],
       },
@@ -671,41 +244,333 @@ export const projectListData = [
   },
   {
     id: 6,
-    title: "LiveKit AI Car Call Centre",
-    subTitle: "AI-Powered Automotive Service Assistant",
-    imgSrc: carCallCenterImg.src,
+    title: "Sundial Lands",
+    subTitle: "Land-Buying & Cash-Offer Real Estate Platform",
+    imgSrc: sundialImg.src,
     isFeatured: true,
     isLocked: false,
     details: {
-      coverImgSrc: carCallCenterImgCover.src,
+      coverImgSrc: sundialImg.src,
       overview: {
-        myRole: "Full Stack Developer",
-        techUsed: "React, Python, LiveKit, OpenAI, SQLite, Vite",
-        timeline: "March 2024",
-        sourceCode: "https://github.com/ead8/ai-automotive-assistant.git",
+        myRole: "Lead Full-Stack Developer (Solo Build)",
+        techUsed: "Next.js, TypeScript, Node.js, FastAPI, PostgreSQL",
+        timeline: "2024",
+        sourceCode: null,
+        liveUrl: "https://sundiallands.com/",
         projectDesc: {
-          para1: "LiveKit AI Car Call Centre is a modern AI-powered call center application designed specifically for automotive service centers. The system provides a web interface where customers can interact with an AI agent in real-time through voice and text to access vehicle information and receive assistance.",
-          para2: "The application combines React frontend with a Python backend, featuring LiveKit for real-time communication, OpenAI for intelligent responses, and SQLite for efficient vehicle data management. The system streamlines automotive service center operations through automated customer support and vehicle information lookup.",
+          para1: "Sundial Lands is a land-buying platform that helps property owners sell raw land for cash by connecting them directly with high-value buyers and generating data-driven offers within days. The product replaces traditional real-estate agents and lengthy listing cycles with a streamlined evaluation pipeline backed by parcel-level property data.",
+          para2: "I built the entire platform end-to-end — Next.js frontend, Node.js and FastAPI backend services, evaluation pipeline, and admin tooling. The backend integrates with the Sundial evaluation API to score parcels, generate offers, and manage the seller workflow from inquiry through close.",
         },
       },
       features: {
         para: "Key features:",
         list: [
           {
-            title: "Real-time Communication",
-            desc: "Integrated voice and text communication system using LiveKit, enabling seamless interaction between customers and AI agents.",
+            title: "Automated Property Evaluation",
+            desc: "Backend pipeline that ingests parcel data, scores properties against valuation models, and produces cash-offer ranges within days of submission.",
           },
           {
-            title: "Vehicle Management System",
-            desc: "Comprehensive vehicle lookup and profile creation system using VIN, with SQLite database for efficient data storage and retrieval.",
+            title: "Seller Onboarding Flow",
+            desc: "Guided intake form that captures parcel and contact details with progressive validation, designed for landowners with no real-estate experience.",
           },
           {
-            title: "AI-Powered Responses",
-            desc: "OpenAI integration for intelligent and context-aware responses, with custom prompts system for automotive-specific interactions.",
+            title: "Internal Admin & Offer Tooling",
+            desc: "Admin dashboard for the operations team to review submissions, adjust offers, track status across the buying pipeline, and manage closings.",
           },
           {
-            title: "Modern Web Interface",
-            desc: "Clean React-based frontend with modal support, providing an intuitive user experience for vehicle searches and support interactions.",
+            title: "FastAPI Evaluation Service",
+            desc: "Python FastAPI service exposes the parcel scoring and valuation logic to the Next.js frontend through a typed REST interface.",
+          },
+        ],
+      },
+    },
+  },
+  {
+    id: 7,
+    title: "OfBusiness",
+    subTitle: "B2B Raw Materials Procurement & Credit Platform",
+    imgSrc: null,
+    artworkKind: "supply",
+    isFeatured: true,
+    isLocked: false,
+    details: {
+      coverImgSrc: null,
+      artworkKind: "supply",
+      overview: {
+        myRole: "Full-Stack Developer (Team Member)",
+        techUsed: "Next.js, TypeScript, Node.js, FastAPI",
+        timeline: "Client Engagement",
+        sourceCode: null,
+        liveUrl: "https://www.ofbusiness.com/",
+        projectDesc: {
+          para1: "OfBusiness is one of India's largest B2B raw-materials procurement and credit platforms, serving SMEs and corporations across steel, chemicals, polymers, energy, and agriculture sectors. The platform offers live commodity pricing across 500+ products, working-capital credit, and order tracking across 26+ Indian states and 15+ countries.",
+          para2: "I contributed as a full-stack developer on the engineering team, working across Next.js/TypeScript frontend surfaces and Node.js/FastAPI backend services. My work spanned feature development, integration with internal pricing and credit services, and performance improvements across customer-facing flows.",
+        },
+      },
+      features: {
+        para: "Key contributions:",
+        list: [
+          {
+            title: "Frontend Feature Development",
+            desc: "Built and shipped customer-facing flows in Next.js and TypeScript, contributing to the live-pricing and ordering surfaces used by manufacturers and contractors.",
+          },
+          {
+            title: "Backend API Integration",
+            desc: "Wired Node.js and FastAPI services to the frontend, integrating with internal pricing, inventory, and credit-evaluation endpoints.",
+          },
+          {
+            title: "Cross-Platform Order Tracking",
+            desc: "Worked on order-tracking surfaces supporting the platform's reach across 26+ Indian states and 15+ international markets.",
+          },
+        ],
+      },
+    },
+  },
+  {
+    id: 8,
+    title: "Withfund",
+    subTitle: "Crowdfunding & Fundraising Platform for Ethiopia",
+    imgSrc: withfundImg.src,
+    isFeatured: true,
+    isLocked: false,
+    details: {
+      coverImgSrc: withfundImg.src,
+      overview: {
+        myRole: "Full-Stack Developer (Team Member)",
+        techUsed: "Next.js, TypeScript, Node.js, FastAPI",
+        timeline: "Client Engagement",
+        sourceCode: null,
+        liveUrl: "https://www.withfund.org/",
+        projectDesc: {
+          para1: "Withfund is a crowdfunding and fundraising platform built for Ethiopia, enabling individuals to launch campaigns and receive donations for medical emergencies, education costs, and personal causes. The platform has connected 740+ donors and processed 340,500+ ETB in cumulative donations.",
+          para2: "I contributed as a full-stack developer on the team, working across the Next.js/TypeScript frontend and Node.js/FastAPI backend. My work covered campaign creation flows, real-time donation tracking, encrypted transactions, and direct bank-account withdrawal integration for fundraisers.",
+        },
+      },
+      features: {
+        para: "Key contributions:",
+        list: [
+          {
+            title: "Campaign Launch Workflow",
+            desc: "Built guided campaign-creation flows that let users set goals, describe causes, and publish campaigns within minutes from any device.",
+          },
+          {
+            title: "Real-Time Donation Tracking",
+            desc: "Implemented live-updating donation feeds and progress tracking so campaign owners and donors see contributions land in real time.",
+          },
+          {
+            title: "Secure Payments & Withdrawals",
+            desc: "Worked on encrypted-transaction handling and direct bank-account withdrawal flows tailored to Ethiopian payment rails.",
+          },
+        ],
+      },
+    },
+  },
+  {
+    id: 9,
+    title: "MoezBinz",
+    subTitle: "Treasure-Hunt E-Commerce Liquidation Store",
+    imgSrc: binzImg.src,
+    isFeatured: true,
+    isLocked: false,
+    details: {
+      coverImgSrc: binzImg.src,
+      overview: {
+        myRole: "Full-Stack Developer (Team Member)",
+        techUsed: "Next.js, TypeScript, Node.js, FastAPI",
+        timeline: "Client Engagement",
+        sourceCode: null,
+        liveUrl: "https://www.thebinzstore.com/",
+        projectDesc: {
+          para1: "MoezBinz is a treasure-hunt-themed e-commerce platform built around the bin-store retail model, where shoppers browse rotating inventory of liquidation merchandise at discount price tiers. The product blends a content-driven storefront with an inventory engine tuned for fast-moving, frequently changing stock.",
+          para2: "I contributed as a full-stack developer on the team, working across the Next.js/TypeScript frontend storefront and Node.js/FastAPI backend services. My work covered product surfaces, inventory rotation flows, and integration between the storefront and internal merchandising tooling.",
+        },
+      },
+      features: {
+        para: "Key contributions:",
+        list: [
+          {
+            title: "Storefront & Catalog Surfaces",
+            desc: "Built customer-facing product browsing, catalog filtering, and price-tier surfaces in Next.js and TypeScript.",
+          },
+          {
+            title: "Rotating Inventory Engine",
+            desc: "Worked on backend logic for the bin-store model, including inventory rotation cycles and price-tier transitions tied to the treasure-hunt experience.",
+          },
+          {
+            title: "Backend API Layer",
+            desc: "Integrated Node.js and FastAPI services with the storefront, exposing typed APIs for catalog, inventory, and merchandising operations.",
+          },
+        ],
+      },
+    },
+  },
+  {
+    id: 10,
+    title: "Shopcart",
+    subTitle: "Multi-Category E-Commerce Storefront",
+    imgSrc: null,
+    artworkKind: "cart",
+    isFeatured: true,
+    isLocked: false,
+    details: {
+      coverImgSrc: null,
+      artworkKind: "cart",
+      overview: {
+        myRole: "Full-Stack Developer (Team Member)",
+        techUsed: "Next.js, TypeScript, Node.js, FastAPI",
+        timeline: "Client Engagement",
+        sourceCode: null,
+        liveUrl: "https://shopcart.reactbd.com/",
+        projectDesc: {
+          para1: "Shopcart is a multi-category online storefront covering electronics, home appliances, and gadget accessories from brands like Apple, HP, Sony, and Huawei. The product spans browsing, wishlist, cart, and order flows with a content-driven blog layer for lifestyle and product education.",
+          para2: "I contributed as a full-stack developer on the team across the Next.js/TypeScript frontend and Node.js/FastAPI backend. My work covered catalog and cart surfaces, the wishlist and order pipeline, and backend integrations for product, pricing, and promotions data.",
+        },
+      },
+      features: {
+        para: "Key contributions:",
+        list: [
+          {
+            title: "Catalog, Cart & Wishlist Flows",
+            desc: "Built catalog browsing, wishlist management, and cart/checkout surfaces in Next.js and TypeScript across multiple product categories.",
+          },
+          {
+            title: "Promotions & Delivery Logic",
+            desc: "Implemented promotional banners, free-delivery thresholds, and money-back-guarantee surfaces tied to backend promotion rules.",
+          },
+          {
+            title: "Backend Catalog & Order APIs",
+            desc: "Wired Node.js and FastAPI services to the storefront, exposing typed endpoints for products, pricing, orders, and customer accounts.",
+          },
+        ],
+      },
+    },
+  },
+  {
+    id: 11,
+    title: "ContentFlow",
+    subTitle: "AI-Powered Content Creation & Multi-Platform Management",
+    imgSrc: null,
+    artworkKind: "flow",
+    isFeatured: true,
+    isLocked: false,
+    details: {
+      coverImgSrc: null,
+      artworkKind: "flow",
+      overview: {
+        myRole: "Full Stack Developer",
+        techUsed: "Next.js 14, React 18, TypeScript, Tailwind CSS, Radix UI, shadcn/ui, Supabase (Auth + Postgres), React Hook Form, Zod, Stripe, Shotstack, Tavus",
+        timeline: "2025",
+        sourceCode: "https://github.com/ead8/ContentFlow",
+        liveUrl: null,
+        projectDesc: {
+          para1: "ContentFlow is an AI-powered content creation and management platform that helps creators generate, organize, and distribute social media content across multiple platforms from a single workspace. It pairs an AI generation pipeline with media management, post scheduling, and analytics so creators can take an idea from prompt to published post without leaving the dashboard.",
+          para2: "The platform is built on Next.js 14 with App Router and TypeScript, backed by Supabase for Postgres and email-OTP authentication. Stripe handles billing, while Shotstack and Tavus power video generation and AI video creation respectively, all wrapped in a polished UI built on Radix and shadcn/ui.",
+        },
+      },
+      features: {
+        para: "Key features:",
+        list: [
+          {
+            title: "AI Content Generation",
+            desc: "AI-assisted generation pipeline that produces social media posts and creatives, with Shotstack and Tavus integrations for video and AI-avatar content.",
+          },
+          {
+            title: "Email-OTP Authentication & Roles",
+            desc: "Custom Supabase email-OTP flow with 6-digit codes (sign up, verify, set password, onboarding) plus role-based permissions for Creator and Admin user types.",
+          },
+          {
+            title: "Media Library & Post Scheduling",
+            desc: "Centralized media management for assets and a scheduling layer that queues posts for future publishing across connected social platforms.",
+          },
+          {
+            title: "Analytics Dashboard & Billing",
+            desc: "Performance and engagement analytics surfaces paired with Stripe-powered subscription billing for creator accounts.",
+          },
+        ],
+      },
+    },
+  },
+  {
+    id: 12,
+    title: "Prediction Market Terminal",
+    subTitle: "Real-Time Arbitrage Detection Across Polymarket & Kalshi",
+    imgSrc: predictionMarketImg.src,
+    isFeatured: true,
+    isLocked: false,
+    details: {
+      coverImgSrc: predictionMarketImg.src,
+      overview: {
+        myRole: "Full Stack Developer",
+        techUsed: "Next.js 16, React 19, TypeScript, Tailwind CSS v4, shadcn/ui, Recharts, SWR, Socket.io, Neon PostgreSQL",
+        timeline: "March 2026",
+        sourceCode: "https://github.com/ead8/prediction-market-platform",
+        liveUrl: "https://v0-prediction-market-platform.vercel.app/",
+        projectDesc: {
+          para1: "Prediction Market Terminal is a real-time analysis and arbitrage-detection platform that aggregates live market data from Polymarket and Kalshi — the two largest prediction-market exchanges. The dashboard surfaces 400+ live markets, cross-exchange arbitrage opportunities, and category-level analytics in a single unified interface.",
+          para2: "The arbitrage engine uses fuzzy matching with Jaccard similarity to pair equivalent markets across exchanges, then computes spread percentages, profit margins net of trading fees, and a confidence score for every opportunity. Real-time updates flow through Socket.io and persistent alerts live in Neon Postgres — all on a Next.js 16 + React 19 server-component stack.",
+        },
+      },
+      features: {
+        para: "Key features:",
+        list: [
+          {
+            title: "Multi-Exchange Aggregation",
+            desc: "Real-time market data from Polymarket and Kalshi unified into a single browser, with category filtering and full-text search across 400+ live markets.",
+          },
+          {
+            title: "Cross-Exchange Arbitrage Engine",
+            desc: "Fuzzy market matching using Jaccard similarity, with spread % and profit-margin calculations net of ~1% trading fees and a 0–1 confidence score per opportunity.",
+          },
+          {
+            title: "Real-Time Updates & Alerts",
+            desc: "Socket.io streams live market data to the dashboard; alerts persist in Neon Postgres and notify users when configured spread, category, and confidence thresholds are met.",
+          },
+          {
+            title: "Analytics Dashboard",
+            desc: "Aggregate market stats, category breakdowns, trending markets by 24h volume, top movers by price change, and price-distribution charts via Recharts.",
+          },
+        ],
+      },
+    },
+  },
+  {
+    id: 13,
+    title: "Drixx",
+    subTitle: "USDT-Based Crypto Draw & Raffle Platform",
+    imgSrc: drixxImg.src,
+    isFeatured: true,
+    isLocked: false,
+    details: {
+      coverImgSrc: drixxImg.src,
+      overview: {
+        myRole: "Full Stack Developer",
+        techUsed: "Next.js 15, Supabase (Postgres + Auth), Tailwind CSS, Radix UI, React Hook Form, Zod, Recharts, Lucide",
+        timeline: "March 2026",
+        sourceCode: "https://github.com/ead8/Raffle-Crpto",
+        liveUrl: "https://raffle-crpto-snvu.vercel.app/",
+        projectDesc: {
+          para1: "Drixx is a USDT-based crypto draw and raffle platform that lets users buy tickets and join hourly draws across multiple tiers — Fast, Mega, Express, and Premium — with transparent winner selection and instant USDT payouts.",
+          para2: "The platform supports multi-network deposits and withdrawals across TRON, Solana, and BSC, layered with a referral system, daily-task rewards, and a leaderboard ranking players by winnings. The admin console manages draws, user balances, and the withdrawal approval pipeline.",
+        },
+      },
+      features: {
+        para: "Key features:",
+        list: [
+          {
+            title: "Multi-Tier Draw System",
+            desc: "Fast, Mega, Express, and Premium draws with random 6-digit ticket generation, automatic next-round recreation when a draw closes, and transparent winner selection.",
+          },
+          {
+            title: "Multi-Network USDT Wallet",
+            desc: "Native USDT balance tracking with deposits and withdrawals across TRON, Solana, and BSC; withdrawal flow gated by admin approval with full transaction history.",
+          },
+          {
+            title: "Referrals, Tasks & Leaderboard",
+            desc: "Commission-based referral tracking on tickets bought by invitees, daily tasks plus registration bonuses, and a leaderboard ranking players by winnings and participation.",
+          },
+          {
+            title: "Admin Console",
+            desc: "Full draw management (create, update, status control), user administration (balances, roles, account state), and a withdrawal approval pipeline with audit trail.",
           },
         ],
       },

@@ -1,35 +1,65 @@
 import "./globals.css";
+import dynamic from "next/dynamic";
 import SideBar from "./components/navigation/SideBar";
 import Footer from "./components/generic/Footer";
 import GeneralProvider from "./context/GeneralContext";
-import { Red_Hat_Display, Inter } from "next/font/google";
+import { Staatliches, Inter, JetBrains_Mono } from "next/font/google";
 
-const display = Red_Hat_Display({
+// Persistent multi-layer starfield behind every page — client-only WebGL
+const BackgroundStars = dynamic(
+  () => import("./components/generic/BackgroundStars"),
+  { ssr: false }
+);
+
+// Warp-jump overlay shown briefly on every route change
+const WarpOverlay = dynamic(
+  () => import("./components/generic/WarpOverlay"),
+  { ssr: false }
+);
+
+const display = Staatliches({
   subsets: ["latin"],
   variable: "--display",
-  weight: "variable",
+  weight: ["400"],
 });
 
-const inter = Inter({ subsets: ["latin"], variable: "--inter" });
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--inter",
+  weight: ["400", "500"],
+});
+
+const mono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--mono",
+  weight: ["400", "500"],
+});
 
 export const metadata = {
-  title: "Ebisa Dugo - Portfolio Website",
+  title: "Ebisa Dugo — Full-Stack Developer",
   description:
-    "This website showcases my skills as a web developer and designer. I have experience with a variety of programming languages and technologies, and I am always looking for new challenges. I offer here services that matters and you need. I offer here cheap services. Looking for a freelancer, I'm here to help.",
+    "Senior full-stack developer building AI-powered platforms, scalable backend systems, and modern web products with Next.js, FastAPI, and Python.",
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="text-primary bg-base-300">
+    <html lang="en" className="bg-void text-ghost">
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
-      <body className={`${display.variable} ${inter.variable}`}>
+      <body className={`${display.variable} ${inter.variable} ${mono.variable}`}>
         <GeneralProvider>
-          <main className="font-inter relative flex flex-col items-center bg-base-300 w-full h-[100vh] lg:px-28 p-5 overflow-hidden">
+          {/* Persistent universe background — sits behind all content */}
+          <BackgroundStars />
+          {/* Warp transition between routes */}
+          <WarpOverlay />
+
+          <main className="font-inter relative z-10 flex flex-col items-center bg-transparent text-ghost w-full min-h-screen">
             <SideBar />
-            <div className="view-port-container w-full h-full bg-base-100/35 scroll-smooth">
-              <div className="relative w-full h-auto">{children}</div>
+            <div className="relative w-full min-h-screen scroll-smooth">
+              <div className="relative w-full max-w-page mx-auto px-4 lg:px-6 pt-20 pb-20">
+                {children}
+              </div>
               <Footer />
             </div>
           </main>
