@@ -53,7 +53,7 @@ const HeroSection = () => {
         {/* Hero text overlaid — centered, transparent backdrop */}
         <div className="relative z-10 px-6 lg:px-12 py-10 lg:py-14 min-h-[380px] lg:min-h-[420px] flex flex-col items-center justify-center text-center">
           <motion.span variants={itemVariants} className="eyebrow block mb-8">
-            // SELECT YOUR ENTRY POINT
+            {"// SELECT YOUR ENTRY POINT"}
           </motion.span>
 
           <motion.h1

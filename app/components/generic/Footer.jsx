@@ -18,14 +18,14 @@ const Footer = () => {
         </div>
 
         <div className="flex flex-col gap-2">
-          <span className="meta-mono text-ash mb-1">// LINKS</span>
+          <span className="meta-mono text-ash mb-1">{"// LINKS"}</span>
           <Link href="/" className="nav-link">INDEX</Link>
           <Link href="/about" className="nav-link">ABOUT</Link>
           <Link href="/projects" className="nav-link">PROJECTS</Link>
         </div>
 
         <div className="flex flex-col gap-2">
-          <span className="meta-mono text-ash mb-1">// CHANNELS</span>
+          <span className="meta-mono text-ash mb-1">{"// CHANNELS"}</span>
           <a href="https://github.com/ead8" target="_blank" rel="noopener noreferrer" className="nav-link">GITHUB · @EAD8</a>
           <a href="https://www.linkedin.com/in/ebisa-dugo/" target="_blank" rel="noopener noreferrer" className="nav-link">LINKEDIN · EBISA-DUGO</a>
           <a href="https://twitter.com/ebisaadw" target="_blank" rel="noopener noreferrer" className="nav-link">TWITTER · @EBISAADW</a>

@@ -104,25 +104,25 @@ const ProjectPage = ({ params }) => {
       <section className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-16 pb-16 border-t border-ghost-16 pt-12">
         <motion.aside variants={itemVariants} className="lg:col-span-1 flex flex-col gap-8">
           <div>
-            <p className="meta-mono mb-2">// ROLE</p>
+            <p className="meta-mono mb-2">{"// ROLE"}</p>
             <p className="text-[15px] text-ghost leading-[1.55]">
               {projectData?.details?.overview?.myRole}
             </p>
           </div>
           <div>
-            <p className="meta-mono mb-2">// TIMELINE</p>
+            <p className="meta-mono mb-2">{"// TIMELINE"}</p>
             <p className="text-[15px] text-ghost leading-[1.55]">
               {projectData?.details?.overview?.timeline}
             </p>
           </div>
           <div>
-            <p className="meta-mono mb-2">// STACK</p>
+            <p className="meta-mono mb-2">{"// STACK"}</p>
             <p className="text-[15px] text-ghost leading-[1.55]">
               {projectData?.details?.overview?.techUsed}
             </p>
           </div>
           <div>
-            <p className="meta-mono mb-2">// LINKS</p>
+            <p className="meta-mono mb-2">{"// LINKS"}</p>
             <div className="flex flex-col gap-2">
               {projectData?.details?.overview?.sourceCode && (
                 <a
@@ -153,7 +153,7 @@ const ProjectPage = ({ params }) => {
         </motion.aside>
 
         <motion.div variants={itemVariants} className="lg:col-span-2">
-          <h2 className="heading-section mb-8">// OVERVIEW</h2>
+          <h2 className="heading-section mb-8">{"// OVERVIEW"}</h2>
           <p className="body-md mb-4">
             {projectData?.details?.overview?.projectDesc?.para1}
           </p>
@@ -169,7 +169,7 @@ const ProjectPage = ({ params }) => {
           <motion.div variants={itemVariants} className="flex items-center justify-between mb-10 meta-mono">
             <span>
               <span className="section-index">[ FEATURES ]</span>
-              <span className="text-ghost ml-2">// WHAT I BUILT</span>
+              <span className="text-ghost ml-2">{"// WHAT I BUILT"}</span>
             </span>
             <span>
               COUNT: {String(projectData?.details?.features?.list?.length ?? 0).padStart(2, "0")}
