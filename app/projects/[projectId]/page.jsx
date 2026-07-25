@@ -115,7 +115,7 @@ export default function ProjectPage({ params }) {
         <Figure
           number={pad(project.id, 2)}
           caption={project.role}
-          aspect="aspect-[16/9]"
+          mounted={Boolean(project.cover)}
         >
           {project.cover ? (
             <Image
@@ -125,7 +125,7 @@ export default function ProjectPage({ params }) {
               priority
               sizes="(max-width: 1240px) 100vw, 1240px"
               placeholder="blur"
-              className="object-cover object-top"
+              className="object-contain"
             />
           ) : (
             <ProjectArtwork kind={project.artwork} />

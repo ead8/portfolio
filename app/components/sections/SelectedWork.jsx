@@ -52,12 +52,14 @@ export default function SelectedWork() {
 function WorkPlate({ project, number, flipped, priority }) {
   return (
     <article className="group relative grid items-center gap-8 lg:grid-cols-[1.15fr_1fr] lg:gap-14">
+      {/* contain, not cover: every cover is a full browser screenshot, and
+          cropping one to fill the plate hides most of the page. */}
       <Figure
         number={number}
         // The title is the heading immediately beside this plate; repeating it
         // in the caption is the same text twice in one container.
         caption={project.timeline}
-        aspect="aspect-[4/3]"
+        mounted={Boolean(project.cover)}
         className={cn(flipped && "lg:order-2")}
       >
         {project.cover ? (
@@ -68,7 +70,7 @@ function WorkPlate({ project, number, flipped, priority }) {
             priority={priority}
             sizes="(max-width: 1024px) 100vw, 620px"
             placeholder="blur"
-            className="object-cover object-top"
+            className="object-contain"
           />
         ) : (
           <ProjectArtwork kind={project.artwork} />
