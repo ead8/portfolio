@@ -107,7 +107,14 @@ export function Figure({
   children,
   number,
   caption,
-  aspect = "aspect-[4/3]",
+  // 21/10 ≈ 2.1, which is the middle of the range the real covers occupy
+  // (browser screenshots run 1.92–2.27). Sizing the plate to the artefact keeps
+  // the letterboxing down to single digits either side.
+  aspect = "aspect-[21/10]",
+  // `mounted` insets the content so a screenshot sits on the plate with a
+  // visible margin, like a specimen mounted on a sheet. Generated artwork bleeds
+  // to the frame instead, so it leaves this off.
+  mounted = false,
   reveal = true,
   className,
 }) {
@@ -123,7 +130,16 @@ export function Figure({
           element so it can never cut them off. */}
       <div className={cn("plate plate-grid relative bg-surface", aspect)}>
         <div className="absolute inset-0 overflow-hidden">
-          <div className={cn("absolute inset-0", reveal && "clip-reveal")}>
+          {/* The margin has to come from insetting this box, not from padding:
+              next/image with `fill` renders as absolute inset-0, which ignores
+              its parent's padding entirely. */}
+          <div
+            className={cn(
+              "absolute",
+              mounted ? "inset-[1.6%]" : "inset-0",
+              reveal && "clip-reveal"
+            )}
+          >
             {children}
           </div>
         </div>

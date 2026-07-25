@@ -26,16 +26,16 @@ export default function ProjectRow({ project, index = 0, priority = false }) {
 
         {/* A plain bordered thumbnail. Registration ticks on all fourteen rows
             would be noise; they belong to full plates. */}
-        <div className="relative hidden h-14 w-20 shrink-0 overflow-hidden border border-line bg-surface sm:block">
+        <div className="relative hidden h-14 w-28 shrink-0 overflow-hidden border border-line bg-surface sm:block">
           {project.cover ? (
             <Image
               src={project.cover}
               alt=""
               fill
               priority={priority}
-              sizes="80px"
+              sizes="112px"
               placeholder="blur"
-              className="object-cover object-top"
+              className="object-contain"
             />
           ) : (
             <ProjectArtwork kind={project.artwork} />
