@@ -2,261 +2,462 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================================================
+   INSTRUMENT — DESIGN TOKENS
+
+   Vocabulary from the drawing office:
+     vellum     the sheet
+     graphite   the pencil, i.e. all text
+     cyanotype  the annotation layer — dimensions, leaders, figure numbers
+     vermilion  the mark that draws the eye to a value
+
+   Three rules hold the palette together:
+
+   1. Everything is OKLCH. Lightness is perceptual, so a 46% muted grey and a
+      55% vermilion genuinely read as the same weight on the page. This is not
+      true of HSL or hex.
+
+   2. Neutrals are never dead grey. They carry a small chroma (0.003–0.016) at a
+      fixed hue, so the sheet reads as warm paper and the plate as cool
+      graphite. Chroma on the sheet stays under 0.008; past that it stops being
+      warm white and becomes beige, which is its own tell.
+
+   3. Rules are the ink colour at low alpha, never a separate grey. A border can
+      therefore never drift out of harmony with the text sitting next to it.
+
+   Every value below was checked against WCAG AA on its own background. The
+   faint tier is 54% rather than 56% for exactly that reason.
+   ========================================================================= */
+
+:root,
+[data-theme="light"] {
+  color-scheme: light;
+
+  --paper: 98.5% 0.005 78; /* #FCFAF6 */
+  --raised: 99.2% 0.003 78;
+  --surface: 96.3% 0.007 78;
+
+  --ink: 24% 0.016 62; /* #251E18 — 15.8:1 on paper */
+  --ink-muted: 46% 0.014 62; /*  6.9:1 */
+  --ink-faint: 54% 0.012 62; /*  4.9:1 */
+
+  --vermilion: 55% 0.17 38; /*  5.0:1 */
+  --cyanotype: 50% 0.13 254; /*  5.8:1 */
+  --on-vermilion: 99% 0 0;
+
+  --rule-a: 0.14;
+  --rule-strong-a: 0.32;
+
+  --grid-a: 0.05;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --paper: 16% 0.01 250; /* #0A0E11 */
+  --raised: 20% 0.011 250;
+  --surface: 23.5% 0.012 250;
+
+  --ink: 93% 0.004 78; /* #E9E7E5 — 15.8:1, matched to light */
+  --ink-muted: 72% 0.008 78; /*  7.8:1 */
+  --ink-faint: 60% 0.008 78; /*  4.9:1 */
+
+  --vermilion: 70% 0.16 40; /*  6.8:1 */
+  --cyanotype: 75% 0.12 254; /*  8.7:1 */
+  --on-vermilion: 16% 0.01 250;
+
+  /* Hairlines need slightly more presence against a dark plate */
+  --rule-a: 0.16;
+  --rule-strong-a: 0.34;
+
+  --grid-a: 0.045;
+}
+
 :root {
-  --color-void: #000000;
-  --color-ghost: #ffffff;
-  --color-ash: #666666;
-  --color-ember: #ff5c00;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+
+  --press: 160ms;
+  --hover: 150ms;
+  --swap: 200ms;
+  --enter: 360ms;
+  --draw: 620ms;
+
+  --header-height: 56px;
 }
 
-html,
-body {
-  padding: 0;
-  margin: 0;
-  background-color: var(--color-void);
-  color: var(--color-ghost);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* Custom cursor kept available — re-enable by mounting <CustomCursor /> in layout */
+/* ============================================================================
+   BASE
+   ========================================================================= */
 
 @layer base {
+  * {
+    border-color: oklch(var(--ink) / var(--rule-a));
+  }
+
+  html {
+    scroll-behavior: auto;
+    scroll-padding-top: calc(var(--header-height) + 24px);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: oklch(var(--paper));
+    color: oklch(var(--ink));
+    font-synthesis-weight: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
   ::selection {
-    background: var(--color-ember);
-    color: var(--color-void);
+    background: oklch(var(--vermilion));
+    color: oklch(var(--on-vermilion));
+  }
+
+  :focus-visible {
+    outline: 2px solid oklch(var(--cyanotype));
+    outline-offset: 3px;
+    border-radius: 1px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: oklch(var(--ink) / var(--rule-strong-a));
+    border: 3px solid oklch(var(--paper));
+    border-radius: 8px;
+  }
+
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-stopped {
+    overflow: hidden;
   }
 }
+
+/* ============================================================================
+   COMPONENTS
+   ========================================================================= */
 
 @layer components {
-  /* OUTLINED BUTTONS — Virtual signature with 3D lift */
-  .btn-outline {
-    @apply relative inline-flex flex-col items-center justify-center text-center
-           bg-void text-ghost border-hud border-ghost
-           rounded-pill px-8 py-5
-           hover:bg-ghost hover:text-void
-           will-change-transform;
-    transform: translate3d(0, 0, 0);
-    transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
-                background-color 0.2s ease-out,
-                color 0.2s ease-out,
-                box-shadow 0.25s ease-out;
-  }
-  .btn-outline:hover {
-    transform: translate3d(0, -4px, 0);
-    box-shadow: 0 6px 0 0 rgba(255, 92, 0, 0.9), 0 12px 24px -8px rgba(255, 92, 0, 0.4);
-  }
-  .btn-outline:active {
-    transform: translate3d(0, -1px, 0);
-    transition-duration: 0.08s;
+  .container-page {
+    @apply mx-auto w-full max-w-page px-5 sm:px-8 lg:px-12;
   }
 
-  .btn-outline-label {
-    @apply font-display text-[26px] lg:text-[30px] leading-none tracking-[-0.02em];
+  /* --- Typography ---------------------------------------------------------
+     Weight carries the hierarchy downward as size goes up: display is light,
+     body is regular, small labels are medium. Heavy type at display size is
+     what made the previous pass read as a generic landing page — a drawing is
+     set in fine, even line weights.
+     --------------------------------------------------------------------- */
+
+  .display {
+    @apply font-sans text-fluid-4xl font-light tracking-headline text-fg;
+    text-wrap: balance;
   }
 
-  .btn-outline-sub {
-    @apply font-mono text-[11px] uppercase tracking-[0.12em] mt-2 opacity-60;
+  .headline {
+    @apply font-sans text-fluid-2xl font-normal tracking-headline text-fg;
+    text-wrap: balance;
   }
 
-  /* LEGACY BUTTON ALIASES — pill names redirect to outline */
-  .btn-pill-dark {
-    @apply inline-flex items-center justify-center
-           bg-ghost text-void border-hud border-ghost
-           font-mono text-[12px] uppercase tracking-[0.14em] font-medium
-           rounded-pill px-5 py-3 transition-colors duration-200 ease-out
-           hover:bg-void hover:text-ghost whitespace-nowrap;
+  .title {
+    @apply font-sans text-fluid-lg font-medium tracking-title text-fg;
+    text-wrap: balance;
   }
 
-  .btn-pill-light {
-    @apply inline-flex items-center justify-center
-           bg-void text-ghost border-hud border-ghost
-           font-mono text-[12px] uppercase tracking-[0.14em] font-medium
-           rounded-pill px-5 py-3 transition-colors duration-200 ease-out
-           hover:bg-ghost hover:text-void whitespace-nowrap;
+  .lede {
+    @apply font-sans text-fluid-lg font-light leading-[1.65] text-fg-muted;
+    text-wrap: pretty;
   }
 
-  .btn-ghost-link {
-    @apply inline-flex items-center gap-2 text-ember
-           font-mono text-[12px] uppercase tracking-[0.14em] font-medium
-           hover:opacity-70 transition-opacity duration-200;
+  .body {
+    @apply font-sans text-fluid-base font-normal leading-[1.75] text-fg-muted;
+    text-wrap: pretty;
   }
 
-  /* CARDS — outlined panels with HUD corner brackets */
-  .card-feature {
-    @apply relative bg-void border border-ghost-16 p-6 lg:p-8 rounded-card
-           transition-colors duration-200
-           hover:border-ghost;
+  /* The annotation layer. Cyanotype is reserved for this and for focus rings —
+     nothing else on the page is allowed to use it. */
+  .annot {
+    @apply font-mono text-[0.625rem] font-medium uppercase leading-none text-annot;
+    letter-spacing: 0.18em;
   }
 
-  .card-recessed {
-    @apply relative bg-void border border-ghost-16 rounded-card overflow-hidden;
+  .meta {
+    @apply font-mono text-[0.625rem] font-normal uppercase leading-none text-fg-faint;
+    letter-spacing: 0.18em;
   }
 
-  .card-elevated {
-    @apply relative bg-void border-hud border-ghost rounded-card p-8;
+  /* --- Buttons ----------------------------------------------------------- */
+
+  .btn {
+    @apply relative inline-flex select-none items-center justify-center gap-2
+           whitespace-nowrap font-sans text-[0.875rem] font-medium leading-none
+           tracking-[-0.005em];
+    height: 2.625rem;
+    padding-inline: 1.125rem;
+    border-radius: 2px;
+    transition: background-color var(--hover) ease, color var(--hover) ease,
+      border-color var(--hover) ease, opacity var(--hover) ease,
+      transform var(--press) var(--ease-out);
   }
 
-  /* TYPOGRAPHY TOKENS */
-  .heading-display {
-    @apply font-display text-[44px] sm:text-[60px] lg:text-[88px] leading-[0.95] tracking-[-0.02em] text-ghost uppercase;
+  .btn:active {
+    transform: scale(0.97);
   }
 
-  .heading-section {
-    @apply font-display text-[32px] lg:text-[44px] leading-[1.05] tracking-[-0.02em] text-ghost uppercase;
+  .btn-accent {
+    @apply btn bg-accent text-accent-fg;
+  }
+  .btn-accent:hover {
+    opacity: 0.88;
   }
 
-  .body-md {
-    @apply font-inter text-[15px] lg:text-[16px] font-normal text-ghost-64 leading-[1.55];
+  .btn-secondary {
+    @apply btn border border-fg text-fg;
+  }
+  .btn-secondary:hover {
+    background-color: oklch(var(--ink));
+    color: oklch(var(--paper));
   }
 
-  .eyebrow {
-    @apply font-mono text-[11px] font-medium text-ember uppercase tracking-[0.18em];
+  .btn-ghost {
+    @apply btn -mx-3 text-fg-muted;
+  }
+  .btn-ghost:hover {
+    color: oklch(var(--ink));
   }
 
-  .meta-mono {
-    @apply font-mono text-[11px] uppercase tracking-[0.14em] text-ash;
+  .btn-sm {
+    height: 2rem;
+    padding-inline: 0.75rem;
+    @apply text-[0.8125rem];
   }
 
-  /* SECTION INDEX NUMBER (01, 02, ...) */
-  .section-index {
-    @apply font-mono text-[11px] uppercase tracking-[0.14em] text-ember;
+  /* --- Chips ------------------------------------------------------------- */
+
+  .chip {
+    @apply inline-flex items-center border border-line px-1.5 py-1 font-mono
+           text-[0.5625rem] uppercase leading-none text-fg-faint;
+    letter-spacing: 0.14em;
+    border-radius: 1px;
   }
 
-  /* NAVIGATION */
-  .nav-link {
-    @apply font-mono text-[12px] uppercase tracking-[0.14em] text-ghost-64
-           hover:text-ghost transition-colors duration-200 cursor-pointer;
+  /* --- Links ------------------------------------------------------------- */
+
+  .link-underline {
+    @apply relative inline-block text-fg;
+    background-image: linear-gradient(
+      oklch(var(--vermilion)),
+      oklch(var(--vermilion))
+    );
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 1px;
+    transition: background-size var(--swap) var(--ease-out), color var(--hover) ease;
+  }
+  .link-underline:hover {
+    background-size: 100% 1px;
+    color: oklch(var(--vermilion));
   }
 
-  .nav-link-active {
-    @apply text-ember;
+  .link-arrow {
+    @apply inline-flex items-center gap-1.5 font-mono text-[0.6875rem] uppercase text-fg-muted;
+    letter-spacing: 0.14em;
+    transition: color var(--hover) ease;
   }
-
-  /* HUD CORNER BRACKETS — wrap any element with .hud-frame */
-  .hud-frame {
-    @apply relative;
+  .link-arrow:hover {
+    color: oklch(var(--vermilion));
   }
-  .hud-frame::before,
-  .hud-frame::after {
-    content: "";
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    border-color: var(--color-ghost);
-    border-style: solid;
-    pointer-events: none;
+  .link-arrow svg {
+    transition: transform var(--swap) var(--ease-out);
   }
-  .hud-frame::before {
-    top: -8px;
-    left: -8px;
-    border-width: 1px 0 0 1px;
-  }
-  .hud-frame::after {
-    bottom: -8px;
-    right: -8px;
-    border-width: 0 1px 1px 0;
-  }
-
-  /* STATUS DOT */
-  .status-dot {
-    @apply inline-block w-1.5 h-1.5 rounded-full bg-ember align-middle;
-    animation: pulse-dot 2s ease-in-out infinite;
-  }
-
-  /* LEGACY PROJECT/WORK PARA STYLES */
-  .project-heading-style {
-    @apply text-ghost mb-2 font-mono text-[11px] uppercase tracking-[0.14em] font-medium;
-  }
-
-  .project-para-style {
-    @apply text-[15px] mb-3 font-normal leading-[1.55] text-ghost-64;
-  }
-
-  .work-heading-style {
-    @apply text-ghost mb-2 font-mono text-[11px] uppercase tracking-[0.14em] font-medium;
-  }
-
-  .work-para-style {
-    @apply text-[15px] mb-3 font-normal leading-[1.55] text-ghost-64;
-  }
-
-  .view-port-container {
-    @apply relative flex flex-col items-center w-full bg-void min-h-screen;
-  }
-
-  .header-section {
-    @apply flex w-full text-ghost;
-  }
-
-  .footer-section {
-    @apply flex items-center justify-between w-full p-6 text-ghost-64;
+  .link-arrow:hover svg {
+    transform: translate3d(3px, 0, 0);
   }
 }
 
-@keyframes pulse-dot {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.3; }
-}
+/* ============================================================================
+   DRAWING PRIMITIVES
+   ========================================================================= */
 
-/* 3D WIREFRAME CUBE — slow tumble */
-.wireframe-cube-scene {
-  transform-style: preserve-3d;
-}
-.wireframe-cube {
+/* A plate on the sheet. The frame carries the registration ticks; the inner
+   element does the clipping, so the ticks are never cut off by it. */
+.plate {
   position: relative;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-  animation: cube-tumble 18s linear infinite;
+  border: 1px solid oklch(var(--ink) / var(--rule-a));
 }
-@keyframes cube-tumble {
-  0%   { transform: rotateX(-22deg) rotateY(0deg) rotateZ(0deg); }
-  100% { transform: rotateX(-22deg) rotateY(360deg) rotateZ(360deg); }
+.plate::before,
+.plate::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  width: 9px;
+  height: 9px;
+  border-color: oklch(var(--cyanotype));
+  border-style: solid;
+  pointer-events: none;
+}
+.plate::before {
+  top: -1px;
+  left: -1px;
+  border-width: 1px 0 0 1px;
+}
+.plate::after {
+  right: -1px;
+  bottom: -1px;
+  border-width: 0 1px 1px 0;
 }
 
-/* CARD 3D LIFT — used by tilt wrapper */
-.tilt-3d {
-  transform-style: preserve-3d;
-  perspective: 1200px;
-}
-.tilt-3d > * {
-  transform-style: preserve-3d;
+/* Measurement grid, confined to plate interiors. Across a whole page this is
+   decoration; inside a plate it is the surface being measured on. */
+.plate-grid {
+  background-image: linear-gradient(
+      to right,
+      oklch(var(--ink) / var(--grid-a)) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      oklch(var(--ink) / var(--grid-a)) 1px,
+      transparent 1px
+    );
+  background-size: 28px 28px;
 }
 
-/* PAGE WARP-IN — applied to top-level page wrappers (subtle slide + fade) */
-.page-warp-in {
-  animation: page-warp-in 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+/* Dimension line, drawing out from its left origin. */
+.dim-line {
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform var(--draw) var(--ease-out);
 }
-@keyframes page-warp-in {
-  0% {
-    opacity: 0;
-    transform: translateY(8px);
+[data-revealed="true"] .dim-line {
+  transform: scaleX(1);
+}
+
+.dim-tick {
+  opacity: 0;
+  transition: opacity var(--swap) ease;
+  transition-delay: calc(var(--draw) * 0.7);
+}
+[data-revealed="true"] .dim-tick {
+  opacity: 1;
+}
+
+/* Datum rule under a section heading. */
+.datum {
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform var(--draw) var(--ease-out);
+}
+[data-revealed="true"] .datum {
+  transform: scaleX(1);
+}
+
+/* Plate reveal: the image is uncovered from its lower edge rather than faded,
+   so it reads as a drawing being laid down. */
+.clip-reveal {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path var(--draw) var(--ease-out);
+}
+[data-revealed="true"] .clip-reveal {
+  clip-path: inset(0 0 0 0);
+}
+
+/* ============================================================================
+   MOTION
+   Only transform, opacity, and clip-path.
+   ========================================================================= */
+
+[data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, var(--reveal-y, 10px), 0);
+  transition: opacity var(--enter) var(--ease-out),
+    transform var(--enter) var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+[data-reveal][data-revealed="true"] {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.text-reveal-line {
+  display: block;
+  overflow: hidden;
+  /* Grow the box so descenders survive the mask, then reclaim the space */
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
+}
+.text-reveal-word {
+  display: inline-block;
+  transform: translate3d(0, 105%, 0);
+  transition: transform 420ms var(--ease-out);
+  transition-delay: var(--word-delay, 0ms);
+}
+[data-revealed="true"] .text-reveal-word {
+  transform: translate3d(0, 0, 0);
+}
+
+/* ============================================================================
+   REDUCED MOTION
+   Fewer and gentler, not none. Opacity survives; everything positional and
+   every drawing animation lands instantly at its final state.
+   ========================================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    transform: none;
+    transition: opacity var(--swap) ease;
   }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
+  [data-reveal][data-revealed="true"] {
+    transform: none;
   }
-}
 
-/* SCROLLBAR */
-::-webkit-scrollbar {
-  height: 6px;
-  width: 6px;
-}
-::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.16);
-  border-radius: 8px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.32);
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
+  .text-reveal-word {
+    transform: none !important;
+    transition: none;
+  }
 
-/* BENTO GRID — disabled in dark theme */
-.bento-grid-container h1 {
-  color: var(--color-ghost);
-  text-align: center;
+  .dim-line,
+  .datum {
+    transform: scaleX(1) !important;
+    transition: none;
+  }
+
+  .dim-tick {
+    opacity: 1 !important;
+    transition: none;
+  }
+
+  .clip-reveal {
+    clip-path: inset(0 0 0 0) !important;
+    transition: none;
+  }
+
+  .btn:active {
+    transform: none;
+  }
+
+  .link-arrow:hover svg {
+    transform: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
 }

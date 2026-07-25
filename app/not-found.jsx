@@ -1,58 +1,60 @@
-"use client";
-
 import Link from "next/link";
-import React from "react";
-import dynamic from "next/dynamic";
-import PlanetBadge from "./components/generic/PlanetBadge";
+import Reveal from "./components/ui/Reveal";
+import TextReveal from "./components/ui/TextReveal";
+import ProjectRow from "./components/ui/ProjectRow";
+import { ArrowUpRight } from "./components/ui/Icons";
+import { featuredProjects } from "./data/projects";
 
-const ThreeScene = dynamic(() => import("./components/hero/ThreeScene"), { ssr: false });
+export const metadata = {
+  title: "Page not found",
+  robots: { index: false, follow: true },
+};
 
-export default function Custom404() {
+export default function NotFound() {
+  const suggestions = featuredProjects.slice(0, 3);
+
   return (
-    <div className="page-warp-in w-full">
-      {/* DEEP VOID SCENE */}
-      <div className="relative w-full mb-12 lg:mb-16 overflow-hidden border border-ghost-16">
-        <div className="absolute inset-0">
-          <ThreeScene variant="void" />
-        </div>
-        <div className="relative z-10 px-6 lg:px-12 py-16 lg:py-24 min-h-[400px] flex flex-col items-start justify-end">
-          <PlanetBadge variant="void" className="mb-4" />
-          <h2
-            className="font-display text-[40px] lg:text-[64px] uppercase tracking-[-0.02em] text-ghost"
-            style={{ textShadow: "0 0 32px rgba(0,0,0,0.85)" }}
-          >
-            DRIFTED OFF <span className="text-ember">CHARTS</span>
-          </h2>
-        </div>
-      </div>
+    <section className="container-page py-24 sm:py-32">
+      <Reveal className="mb-5">
+        <span className="meta">404</span>
+      </Reveal>
 
-      <div className="w-full flex flex-col items-start justify-center pb-24 lg:pb-32">
-        <div className="flex items-center justify-between mb-8 meta-mono w-full">
-          <span>
-            <span className="section-index">[ ERR ]</span>
-            <span className="text-ghost ml-2">404 // SIGNAL LOST</span>
-          </span>
-          <span>STATUS: NOT FOUND</span>
-        </div>
-        <h1 className="heading-display max-w-[18ch] mb-6">
-          That page doesn&apos;t <span className="text-ember">exist.</span>
-        </h1>
-        <p className="body-md max-w-[58ch] mb-12">
-          The page you&apos;re looking for has either moved or never existed in
-          the first place. Try one of the routes below to return to a known
-          orbit.
+      <TextReveal
+        as="h1"
+        className="display max-w-[14ch]"
+        text={["This page doesn't ", { text: "exist", accent: true }, "."]}
+      />
+
+      <Reveal delay={180}>
+        <p className="lede mt-6 max-w-prose">
+          The link is broken or the page has moved. Here&apos;s the work index
+          instead, or press{" "}
+          <kbd className="rounded-xs border border-line px-1.5 py-0.5 font-mono text-[0.75rem] text-fg">
+            ⌘K
+          </kbd>{" "}
+          to search everything.
         </p>
-        <div className="flex flex-col sm:flex-row gap-3">
-          <Link href="/" className="btn-outline">
-            <span className="btn-outline-label">RETURN HOME</span>
-            <span className="btn-outline-sub">/ TERRA-001</span>
-          </Link>
-          <Link href="/projects" className="btn-outline">
-            <span className="btn-outline-label">SEE PROJECTS</span>
-            <span className="btn-outline-sub">/ CRONUS-006</span>
-          </Link>
-        </div>
+      </Reveal>
+
+      <Reveal delay={250} className="mt-9 flex flex-wrap gap-3">
+        <Link href="/" className="btn btn-accent">
+          Back to home
+        </Link>
+        <Link href="/projects" className="btn btn-secondary">
+          Browse all work
+          <ArrowUpRight className="h-4 w-4" />
+        </Link>
+      </Reveal>
+
+      <div className="mt-20">
+        <Reveal>
+          <h2 className="meta mb-2">Popular case studies</h2>
+        </Reveal>
+        {suggestions.map((project, i) => (
+          <ProjectRow key={project.slug} project={project} index={i} />
+        ))}
+        <div className="border-t border-line" />
       </div>
-    </div>
+    </section>
   );
 }

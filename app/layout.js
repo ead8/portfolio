@@ -1,69 +1,123 @@
 import "./globals.css";
-import dynamic from "next/dynamic";
-import SideBar from "./components/navigation/SideBar";
-import Footer from "./components/generic/Footer";
-import GeneralProvider from "./context/GeneralContext";
-import { Staatliches, Inter, JetBrains_Mono } from "next/font/google";
+import { Archivo, Martian_Mono } from "next/font/google";
 
-// Persistent multi-layer starfield behind every page — client-only WebGL
-const BackgroundStars = dynamic(
-  () => import("./components/generic/BackgroundStars"),
-  { ssr: false }
-);
+import Header from "./components/layout/Header";
+import Footer from "./components/layout/Footer";
+import ScaleAxis from "./components/layout/ScaleAxis";
+import SmoothScroll from "./components/layout/SmoothScroll";
+import { ThemeProvider, themeScript } from "./components/layout/ThemeProvider";
 
-// Warp-jump overlay shown briefly on every route change
-const WarpOverlay = dynamic(
-  () => import("./components/generic/WarpOverlay"),
-  { ssr: false }
-);
+import { profile, socials } from "./data/profile";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL, personJsonLd } from "./lib/site";
 
-const display = Staatliches({
+// Archivo: an industrial grotesque with enough character to carry a headline,
+// and not one of the three faces every generated interface defaults to.
+const sans = Archivo({
   subsets: ["latin"],
-  variable: "--display",
-  weight: ["400"],
+  variable: "--font-sans",
+  display: "swap",
 });
 
-const inter = Inter({
+// Martian Mono is drawn for exactly this job — small technical labels — and is
+// wide and mechanical enough to read as instrumentation rather than as code.
+const mono = Martian_Mono({
   subsets: ["latin"],
-  variable: "--inter",
+  variable: "--font-mono",
   weight: ["400", "500"],
-});
-
-const mono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--mono",
-  weight: ["400", "500"],
+  display: "swap",
 });
 
 export const metadata = {
-  title: "Ebisa Dugo — Full-Stack Developer",
-  description:
-    "Senior full-stack developer building AI-powered platforms, scalable backend systems, and modern web products with Next.js, FastAPI, and Python.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: SITE_NAME,
+    template: `%s — ${profile.name}`,
+  },
+  description: SITE_DESCRIPTION,
+  applicationName: profile.name,
+  authors: [{ name: profile.name, url: SITE_URL }],
+  creator: profile.name,
+  keywords: [
+    profile.name,
+    "full-stack engineer",
+    "software engineer portfolio",
+    "Next.js developer",
+    "FastAPI",
+    "Python developer",
+    "AI engineer",
+    "TypeScript",
+    "Ethiopia",
+  ],
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    url: SITE_URL,
+    siteName: profile.name,
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    creator: "@ebisaadw",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large" },
+  },
+  icons: { icon: "/favicon.ico" },
+  category: "technology",
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#0b0b0e" },
+    { media: "(prefers-color-scheme: light)", color: "#fbfbfd" },
+  ],
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="bg-void text-ghost">
+    <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
+        {/* Sets data-theme before first paint so the page never flashes */}
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(personJsonLd({ socials })),
+          }}
+        />
+        {/* Scroll entrances start at opacity 0 and are flipped by JS. Without
+            this, a visitor with scripting off would get a blank page. */}
+        <noscript>
+          <style>{`[data-reveal]{opacity:1!important;transform:none!important}.text-reveal-word{transform:none!important}`}</style>
+        </noscript>
       </head>
-      <body className={`${display.variable} ${inter.variable} ${mono.variable}`}>
-        <GeneralProvider>
-          {/* Persistent universe background — sits behind all content */}
-          <BackgroundStars />
-          {/* Warp transition between routes */}
-          <WarpOverlay />
+      <body className={`${sans.variable} ${mono.variable} font-sans`}>
+        <ThemeProvider>
+          <a
+            href="#main"
+            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:rounded focus:bg-accent focus:px-4 focus:py-2 focus:text-accent-fg"
+          >
+            Skip to content
+          </a>
 
-          <main className="font-inter relative z-10 flex flex-col items-center bg-transparent text-ghost w-full min-h-screen">
-            <SideBar />
-            <div className="relative w-full min-h-screen scroll-smooth">
-              <div className="relative w-full max-w-page mx-auto px-4 lg:px-6 pt-20 pb-20">
-                {children}
-              </div>
-              <Footer />
-            </div>
+          <SmoothScroll />
+          <ScaleAxis />
+          <Header />
+
+          <main id="main" className="relative pt-[var(--header-height)]">
+            {children}
           </main>
-        </GeneralProvider>
+
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );

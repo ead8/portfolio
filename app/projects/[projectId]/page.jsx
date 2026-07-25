@@ -1,214 +1,254 @@
-"use client";
-
-import React, { useContext, useEffect } from "react";
-import dynamic from "next/dynamic";
-import { motion } from "framer-motion";
-import { GeneralContext } from "@/app/context/GeneralContext";
-import { useRouter } from "next/navigation";
+import React from "react";
+import Image from "next/image";
 import Link from "next/link";
-import PlanetBadge from "@/app/components/generic/PlanetBadge";
-import ProjectArtwork from "@/app/components/generic/ProjectArtwork";
+import { notFound } from "next/navigation";
 
-const ThreeScene = dynamic(() => import("@/app/components/hero/ThreeScene"), { ssr: false });
+import Reveal from "@/app/components/ui/Reveal";
+import TextReveal from "@/app/components/ui/TextReveal";
+import ProjectArtwork from "@/app/components/ui/ProjectArtwork";
+import Contact from "@/app/components/sections/Contact";
+import { ArrowLeft, ArrowUpRight } from "@/app/components/ui/Icons";
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
-};
+import { allProjectParams, getProject, nextProject } from "@/app/data/projects";
+import { projectJsonLd } from "@/app/lib/site";
+import { Figure } from "@/app/components/ui/Measure";
+import { pad, prettyUrl } from "@/app/lib/utils";
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 12 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
-};
+/**
+ * Case study.
+ *
+ * Server-rendered and statically generated, so crawlers and link previews get
+ * the full page rather than an empty shell.
+ */
 
-const ProjectPage = ({ params }) => {
-  const { projectData, selectProject } = useContext(GeneralContext);
-  const router = useRouter();
+export function generateStaticParams() {
+  return allProjectParams();
+}
 
-  useEffect(() => {
-    selectProject(params?.projectId);
-  }, [params]);
+export function generateMetadata({ params }) {
+  const project = getProject(params.projectId);
+  if (!project) return { title: "Project not found" };
 
-  if (projectData?.id === 0 || projectData?.isLocked === true) {
-    router.push(`/not-found`);
-    return null;
-  }
+  const url = `/projects/${project.slug}`;
+
+  return {
+    title: project.title,
+    description: `${project.tagline}. ${project.summary[0].slice(0, 150)}…`,
+    alternates: { canonical: url },
+    openGraph: {
+      type: "article",
+      title: `${project.title} — ${project.tagline}`,
+      description: project.summary[0],
+      url,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${project.title} — ${project.tagline}`,
+      description: project.tagline,
+    },
+  };
+}
+
+export default function ProjectPage({ params }) {
+  const project = getProject(params.projectId);
+  if (!project) notFound();
+
+  const next = nextProject(project.slug);
+  const { links } = project;
 
   return (
-    <motion.div
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-      className="page-warp-in w-full"
-    >
-      {/* ASTEROID SCENE — project detail planet */}
-      <div className="relative w-full mb-10 lg:mb-14 overflow-hidden border border-ghost-16">
-        <div className="absolute inset-0">
-          <ThreeScene variant="asteroid" />
-        </div>
-        <div className="relative z-10 px-6 lg:px-12 py-12 lg:py-16 min-h-[260px] flex flex-col items-start justify-end">
-          <PlanetBadge variant="asteroid" className="mb-3" />
-          <span
-            className="font-display text-[24px] lg:text-[32px] uppercase tracking-[-0.02em] text-ghost"
-            style={{ textShadow: "0 0 32px rgba(0,0,0,0.85)" }}
-          >
-            CASE FILE / <span className="text-ember">{String(projectData?.id ?? "—").padStart(3, "0")}</span>
-          </span>
-        </div>
-      </div>
+    <article>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(projectJsonLd(project)) }}
+      />
 
-      <section className="pt-8 pb-12 lg:pt-12">
-        <motion.div variants={itemVariants} className="flex items-center justify-between mb-10 meta-mono">
-          <button onClick={() => router.back()} className="btn-ghost-link">
-            ← BACK / INDEX
-          </button>
-          <span>
-            <span className="text-ghost">ID</span>{" "}
-            <span className="text-ember">
-              {String(projectData?.id ?? "—").padStart(3, "0")}
-            </span>
-          </span>
-        </motion.div>
+      <header className="container-page pb-12 pt-16 sm:pt-20">
+        <Reveal className="mb-12">
+          <Link href="/projects" className="link-arrow">
+            <ArrowLeft className="h-3.5 w-3.5" />
+            All work
+          </Link>
+        </Reveal>
 
-        <motion.span variants={itemVariants} className="eyebrow block mb-6">
-          {projectData?.details?.overview?.timeline}
-        </motion.span>
+        <Reveal className="mb-5 flex items-center gap-3">
+          <span className="meta">{project.year}</span>
+          <span className="h-px w-6 bg-line-strong" aria-hidden="true" />
+          <span className="meta">{project.category}</span>
+        </Reveal>
 
-        <motion.h1 variants={itemVariants} className="heading-display max-w-[20ch] mb-6">
-          {projectData?.title}
-        </motion.h1>
+        <TextReveal as="h1" className="display max-w-[14ch]" text={project.title} />
 
-        <motion.p variants={itemVariants} className="body-md max-w-[62ch] text-ash">
-          {projectData?.subTitle}
-        </motion.p>
-      </section>
+        <Reveal delay={180}>
+          <p className="lede mt-6 max-w-prose">{project.tagline}</p>
+        </Reveal>
 
-      {/* COVER — real image OR generated artwork (full image, no cropping) */}
-      <motion.div variants={itemVariants} className="card-recessed mb-16 lg:mb-24 bg-void">
-        <div className="relative w-full aspect-video overflow-hidden">
-          {projectData?.details?.coverImgSrc ? (
-            <img
-              src={projectData?.details?.coverImgSrc}
-              alt={projectData?.title}
-              className="absolute inset-0 w-full h-full object-contain object-center grayscale hover:grayscale-0 transition-all duration-700"
+        {(links.live || links.source) && (
+          <Reveal delay={250} className="mt-9 flex flex-wrap gap-3">
+            {links.live && (
+              <a
+                href={links.live}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-accent"
+              >
+                Visit live site
+                <ArrowUpRight className="h-4 w-4" />
+              </a>
+            )}
+            {links.source && (
+              <a
+                href={links.source}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-secondary"
+              >
+                Source code
+              </a>
+            )}
+          </Reveal>
+        )}
+      </header>
+
+      {/* Cover plate */}
+      <div className="container-page">
+        <Figure
+          number={pad(project.id, 2)}
+          caption={project.role}
+          aspect="aspect-[16/9]"
+        >
+          {project.cover ? (
+            <Image
+              src={project.cover}
+              alt={`${project.title} interface`}
+              fill
+              priority
+              sizes="(max-width: 1240px) 100vw, 1240px"
+              placeholder="blur"
+              className="object-cover object-top"
             />
           ) : (
-            <ProjectArtwork
-              kind={projectData?.details?.artworkKind ?? projectData?.artworkKind}
-            />
+            <ProjectArtwork kind={project.artwork} />
           )}
-        </div>
-      </motion.div>
+        </Figure>
+      </div>
 
-      {/* OVERVIEW BLOCK */}
-      <section className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-16 pb-16 border-t border-ghost-16 pt-12">
-        <motion.aside variants={itemVariants} className="lg:col-span-1 flex flex-col gap-8">
-          <div>
-            <p className="meta-mono mb-2">{"// ROLE"}</p>
-            <p className="text-[15px] text-ghost leading-[1.55]">
-              {projectData?.details?.overview?.myRole}
-            </p>
-          </div>
-          <div>
-            <p className="meta-mono mb-2">{"// TIMELINE"}</p>
-            <p className="text-[15px] text-ghost leading-[1.55]">
-              {projectData?.details?.overview?.timeline}
-            </p>
-          </div>
-          <div>
-            <p className="meta-mono mb-2">{"// STACK"}</p>
-            <p className="text-[15px] text-ghost leading-[1.55]">
-              {projectData?.details?.overview?.techUsed}
-            </p>
-          </div>
-          <div>
-            <p className="meta-mono mb-2">{"// LINKS"}</p>
-            <div className="flex flex-col gap-2">
-              {projectData?.details?.overview?.sourceCode && (
-                <a
-                  href={projectData?.details?.overview?.sourceCode}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-pill-light w-fit"
-                >
-                  SOURCE
-                </a>
-              )}
-              {projectData?.details?.overview?.liveUrl && (
-                <a
-                  href={projectData?.details?.overview?.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-pill-dark w-fit"
-                >
-                  LIVE SITE
-                </a>
-              )}
-              {!projectData?.details?.overview?.liveUrl &&
-                !projectData?.details?.overview?.sourceCode && (
-                  <p className="meta-mono text-ash">PRIVATE ENGAGEMENT</p>
-                )}
-            </div>
-          </div>
-        </motion.aside>
-
-        <motion.div variants={itemVariants} className="lg:col-span-2">
-          <h2 className="heading-section mb-8">{"// OVERVIEW"}</h2>
-          <p className="body-md mb-4">
-            {projectData?.details?.overview?.projectDesc?.para1}
-          </p>
-          <p className="body-md">
-            {projectData?.details?.overview?.projectDesc?.para2}
-          </p>
-        </motion.div>
-      </section>
-
-      {/* FEATURES */}
-      {projectData?.details?.features?.list && (
-        <section className="border-t border-ghost-16 pt-12 pb-16">
-          <motion.div variants={itemVariants} className="flex items-center justify-between mb-10 meta-mono">
-            <span>
-              <span className="section-index">[ FEATURES ]</span>
-              <span className="text-ghost ml-2">{"// WHAT I BUILT"}</span>
-            </span>
-            <span>
-              COUNT: {String(projectData?.details?.features?.list?.length ?? 0).padStart(2, "0")}
-            </span>
-          </motion.div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {projectData?.details?.features?.list?.map((item, index) => (
-              <motion.div
-                key={index}
-                variants={itemVariants}
-                className="card-feature"
-              >
-                <span className="meta-mono text-ash mb-4 block">
-                  [ {String(index + 1).padStart(2, "0")} ]
-                </span>
-                <h3 className="font-display text-[22px] uppercase tracking-[-0.02em] text-ghost mb-3">
-                  {item?.title}
-                </h3>
-                <p className="body-md">{item?.desc}</p>
-              </motion.div>
+      {/* Headline figures, annotated on a datum */}
+      {project.metrics?.length > 0 && (
+        <div className="container-page mt-14">
+          <dl className="grid gap-6 border-t border-fg pt-6 sm:grid-cols-3">
+            {project.metrics.map((metric, i) => (
+              <Reveal key={metric.label} delay={i * 60}>
+                <div className="sm:pr-8">
+                  <dt className="annot">{metric.label}</dt>
+                  <dd className="mt-2.5 text-fluid-2xl font-medium tracking-headline text-accent">
+                    {metric.value}
+                  </dd>
+                </div>
+              </Reveal>
             ))}
-          </div>
-        </section>
+          </dl>
+        </div>
       )}
 
-      <section className="border-t border-ghost-16 pt-12 pb-8">
-        <motion.div variants={itemVariants} className="flex flex-wrap gap-3">
-          <Link href="/projects" className="btn-outline">
-            <span className="btn-outline-label">ALL PROJECTS</span>
-            <span className="btn-outline-sub">RETURN TO INDEX</span>
-          </Link>
-          <Link href="/#contact-section" className="btn-outline">
-            <span className="btn-outline-label">GET IN TOUCH</span>
-            <span className="btn-outline-sub">START A PROJECT</span>
-          </Link>
-        </motion.div>
-      </section>
-    </motion.div>
-  );
-};
+      {/* Body + fact sheet */}
+      <section className="container-page grid gap-12 py-20 lg:grid-cols-[1fr_17rem] lg:gap-20">
+        <div>
+          {project.summary.map((paragraph, i) => (
+            <Reveal key={i} delay={i * 70}>
+              <p className="mb-6 max-w-prose text-fluid-lg leading-[1.7] text-fg-muted last:mb-0">
+                {paragraph}
+              </p>
+            </Reveal>
+          ))}
 
-export default ProjectPage;
+          <Reveal>
+            <h2 className="headline mt-16">What I built</h2>
+          </Reveal>
+
+          <dl className="mt-8">
+            {project.highlights.map((highlight, i) => (
+              <Reveal key={highlight.title} delay={i * 55}>
+                <div className="grid gap-2 border-t border-line py-6 sm:grid-cols-[14rem_1fr] sm:gap-8">
+                  <dt className="title text-fluid-base">{highlight.title}</dt>
+                  <dd className="body max-w-prose text-fluid-sm">{highlight.desc}</dd>
+                </div>
+              </Reveal>
+            ))}
+            <div className="border-t border-line" />
+          </dl>
+        </div>
+
+        {/* Follows the reader on desktop */}
+        <Reveal delay={120} className="lg:sticky lg:top-24 lg:self-start">
+          <dl className="flex flex-col gap-6 border-t border-line pt-6">
+            <div>
+              <dt className="meta">Role</dt>
+              <dd className="mt-1.5 text-fluid-sm text-fg">{project.role}</dd>
+            </div>
+            <div>
+              <dt className="meta">Timeline</dt>
+              <dd className="mt-1.5 text-fluid-sm text-fg">{project.timeline}</dd>
+            </div>
+            <div>
+              <dt className="meta">Stack</dt>
+              <dd className="mt-2 text-fluid-sm leading-[1.7] text-fg-muted">
+                {project.stack.join(", ")}
+              </dd>
+            </div>
+            <div>
+              <dt className="meta">Links</dt>
+              <dd className="mt-2 flex flex-col gap-2">
+                {links.live && (
+                  <a
+                    href={links.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="link-arrow"
+                  >
+                    {prettyUrl(links.live)}
+                    <ArrowUpRight className="h-3.5 w-3.5" />
+                  </a>
+                )}
+                {links.source && (
+                  <a
+                    href={links.source}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="link-arrow"
+                  >
+                    Source on GitHub
+                    <ArrowUpRight className="h-3.5 w-3.5" />
+                  </a>
+                )}
+                {!links.live && !links.source && (
+                  <span className="text-fluid-sm text-fg-faint">
+                    Private engagement, details on request
+                  </span>
+                )}
+              </dd>
+            </div>
+          </dl>
+        </Reveal>
+      </section>
+
+      {/* Up next */}
+      <section className="border-t border-line">
+        <Link href={`/projects/${next.slug}`} className="group block">
+          <div className="container-page flex items-center justify-between gap-6 py-14">
+            <div>
+              <span className="meta">Up next</span>
+              <p className="mt-2 text-fluid-2xl font-medium tracking-headline text-fg transition-colors duration-150 group-hover:text-accent">
+                {next.title}
+              </p>
+              <p className="body mt-2">{next.tagline}</p>
+            </div>
+            <ArrowUpRight className="h-6 w-6 shrink-0 text-fg-faint transition-colors duration-150 group-hover:text-accent" />
+          </div>
+        </Link>
+      </section>
+
+      <Contact />
+    </article>
+  );
+}
