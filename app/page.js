@@ -1,13 +1,23 @@
-"use client";
+import Hero from "./components/sections/Hero";
+import SelectedWork from "./components/sections/SelectedWork";
+import Capabilities from "./components/sections/Capabilities";
+import Experience from "./components/sections/Experience";
+import Stack from "./components/sections/Stack";
+import Contact from "./components/sections/Contact";
 
-import ContactSection from "./components/contact/ContactSection";
-import HeroSection from "./components/hero/HeroSection";
+export const metadata = {
+  alternates: { canonical: "/" },
+};
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="page-warp-in flex flex-col w-full">
-      <HeroSection />
-      <ContactSection />
-    </div>
+    <>
+      <Hero />
+      <SelectedWork />
+      <Capabilities />
+      <Experience />
+      <Stack />
+      <Contact />
+    </>
   );
 }
