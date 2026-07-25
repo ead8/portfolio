@@ -374,6 +374,86 @@
   clip-path: inset(0 0 0 0);
 }
 
+/* --- Exploded assembly ----------------------------------------------------
+   Real 3D from the platform: a perspective root, a preserve-3d assembly, and
+   layers separated along Z. Scroll writes the transforms directly to these
+   nodes, so nothing here animates on its own.
+   ---------------------------------------------------------------------- */
+
+.assembly-scene {
+  perspective: 1500px;
+  /* Centred: an off-centre origin makes the layers fan away from the middle of
+     the box and the group drifts out of the column. */
+  perspective-origin: 50% 50%;
+  /* Clips here rather than on the sticky wrapper. Clipping the wrapper would
+     cut off the heading and parts list on short viewports. */
+  overflow: hidden;
+}
+
+.assembly {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform-origin: 50% 50%;
+  /* No transition: the transform is scroll-linked, and easing it would make the
+     scene lag behind the reader's finger. */
+  will-change: transform;
+}
+
+.assembly-layer {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  /* Fixed px rather than a percentage: Z separation and perspective only read
+     correctly against a stable footprint. The assembly is scaled to fit its box
+     (see PLATE_W / PLATE_H in Assembly.jsx — keep these in sync). */
+  width: 430px;
+  height: 210px;
+  transform: translate3d(-50%, -50%, 0);
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* Sheets in the assembly need a harder edge than a figure frame does. The paper
+   and the raised fill are only 0.7% apart in lightness, so the border is doing
+   all the work of separating one plate from the next — at the figure frame's
+   0.14 alpha they disappeared into the page. */
+.assembly-plate {
+  position: relative;
+  /* Recessed while still stacked, so an unplaced layer reads as sitting in the
+     shadow of the ones above it. */
+  background-color: oklch(var(--surface));
+  border: 1px solid oklch(var(--ink) / 0.45);
+  transition: border-color var(--swap) ease, background-color var(--swap) ease;
+}
+
+/* A separated layer reads as lifted clear of the sheet: near-white fill, a hard
+   edge, and the two registration ticks that mark it as a placed part. */
+.assembly-plate.is-separated {
+  background-color: oklch(var(--raised));
+  border-color: oklch(var(--ink) / 0.8);
+}
+.assembly-plate.is-separated::before,
+.assembly-plate.is-separated::after {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-color: oklch(var(--cyanotype));
+  border-style: solid;
+  pointer-events: none;
+}
+.assembly-plate.is-separated::before {
+  top: -1px;
+  left: -1px;
+  border-width: 1px 0 0 1px;
+}
+.assembly-plate.is-separated::after {
+  right: -1px;
+  bottom: -1px;
+  border-width: 0 1px 1px 0;
+}
+
 /* ============================================================================
    MOTION
    Only transform, opacity, and clip-path.
@@ -443,6 +523,14 @@
   .clip-reveal {
     clip-path: inset(0 0 0 0) !important;
     transition: none;
+  }
+
+  /* The assembly is rendered in its separated state and never animates. The
+     component drops the scroll runway entirely in this mode, so there is no
+     tall empty section left behind either. */
+  .assembly-layer,
+  .assembly {
+    transition: none !important;
   }
 
   .btn:active {
