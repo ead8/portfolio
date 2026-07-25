@@ -109,6 +109,40 @@ export const disciplines = [
 ];
 
 /**
+ * Layers of a typical build, ordered top of the stack downward.
+ *
+ * Drives the exploded assembly diagram on the home page. Index 0 ends up
+ * nearest the viewer when the assembly separates, so the order here is the
+ * order the reader sees from the top down.
+ */
+export const systemLayers = [
+  {
+    id: "interface",
+    label: "Interface",
+    stack: "Next.js · React · Vue · Tailwind",
+    note: "Server components by default, client only where state lives",
+  },
+  {
+    id: "contract",
+    label: "Contract",
+    stack: "REST · WebSockets · Zod",
+    note: "Typed at the boundary, so the client cannot ask a wrong question",
+  },
+  {
+    id: "services",
+    label: "Services",
+    stack: "FastAPI · Laravel · Node.js",
+    note: "Async handlers, queue-backed work, no request left holding a lock",
+  },
+  {
+    id: "data",
+    label: "Data",
+    stack: "PostgreSQL · MySQL · Redis",
+    note: "Migrations in version control, indices chosen from real query plans",
+  },
+];
+
+/**
  * Career timeline. Entries are ordered newest-first and reflect the
  * engagements represented in the project index.
  */
@@ -133,13 +167,15 @@ export const experience = [
     org: "Client engagements",
     location: "Remote",
     description:
-      "Team member on large-scale commerce and fintech platforms, working across Next.js/TypeScript surfaces and Node.js/FastAPI services.",
+      "Delivery work for clients across commerce, fintech, professional services, and education, on stacks chosen by the product rather than by preference.",
     highlights: [
       "OfBusiness, one of India's largest B2B procurement platforms: live pricing across 500+ products and 26+ states",
+      "NLE Ltd, an accounting firm in London and Paris: bilingual Laravel platform with French payroll and income calculators",
+      "LeapForWord: Vue and Nuxt frontend for an English-literacy platform serving six Indian languages",
       "Withfund, an Ethiopian crowdfunding platform: campaign flows, real-time donation tracking, and bank withdrawal integration",
       "MoezBinz and Shopcart: storefront, catalog, and inventory-rotation surfaces",
     ],
-    stack: ["Next.js", "TypeScript", "Node.js", "FastAPI"],
+    stack: ["Next.js", "TypeScript", "Node.js", "FastAPI", "Laravel", "Vue"],
   },
   {
     period: "2021 – 2022",

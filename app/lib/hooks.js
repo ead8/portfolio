@@ -100,3 +100,24 @@ export function useLocalTime(timeZone) {
   return time;
 }
 
+/**
+ * Media-query match as a boolean.
+ *
+ * Returns `false` on the server and first paint, then corrects after mount, so
+ * callers must treat `false` as "assume the smaller/simpler case" rather than as
+ * a definitive answer.
+ */
+export function useMediaQuery(query) {
+  const [matches, setMatches] = useState(false);
+
+  useEffect(() => {
+    const list = window.matchMedia(query);
+    const update = () => setMatches(list.matches);
+    update();
+    list.addEventListener("change", update);
+    return () => list.removeEventListener("change", update);
+  }, [query]);
+
+  return matches;
+}
+

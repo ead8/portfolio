@@ -80,8 +80,11 @@ export default function ScaleAxis() {
         />
       </div>
 
-      {/* Readout, rotated to run along the axis */}
-      <div className="absolute -left-1 top-6 origin-top-left rotate-90">
+      {/* Readout running along the axis.
+          `writing-mode` rather than rotate(90deg): rotating about the top-left
+          corner pushes the glyph box off the left edge of the window, where it
+          was getting clipped. Vertical writing mode reserves the space properly. */}
+      <div className="absolute left-0 top-6 [writing-mode:vertical-rl]">
         <span className="annot tabular-nums whitespace-nowrap">
           Y<span ref={offsetRef}>0000</span>
           <span className="text-fg-faint"> / </span>

@@ -15,6 +15,8 @@ import withfundCover from "@/public/projects/withfund.png";
 import binzCover from "@/public/projects/thebinzstore.png";
 import predictionMarketCover from "@/public/projects/prediction-market.png";
 import drixxCover from "@/public/projects/drixx.png";
+import nleCover from "@/public/projects/nle-accounting.webp";
+import leapforwordCover from "@/public/projects/leapforword.webp";
 
 export const projects = [
   {
@@ -575,6 +577,94 @@ export const projects = [
       {
         title: "Backend catalog & order APIs",
         desc: "Wired Node.js and FastAPI services to the storefront, exposing typed endpoints for products, pricing, orders, and customer accounts.",
+      },
+    ],
+  },
+
+  {
+    id: 14,
+    slug: "nle-accounting",
+    title: "NLE Accounting",
+    tagline: "Bilingual accounting and tax platform for a London–Paris firm",
+    category: "Client engagement",
+    year: "2022",
+    timeline: "2022",
+    role: "Full-Stack Developer",
+    featured: false,
+    cover: nleCover,
+    artwork: "chart",
+    // Verified from the live site. Extend this list with the packages and
+    // tooling you actually used — I only had "Laravel / PHP" to go on.
+    stack: ["PHP", "Laravel", "MySQL"],
+    links: { source: null, live: "https://nle-accounting.com/en" },
+    metrics: [
+      { value: "EN / FR", label: "Bilingual throughout" },
+      { value: "2", label: "Tax jurisdictions" },
+      { value: "Calculators", label: "Payroll & income simulators" },
+    ],
+    summary: [
+      "NLE is an accounting, taxation, and financial services firm with offices in London and Paris, serving start-ups, SMEs, and international corporations that operate in France, the UK, or both. The platform is the firm's public product: service and advisory content, news, contact and onboarding flows, and a set of fee calculators, all delivered in English and French.",
+      "I built it as a Laravel application. Every page, service module, and calculator exists in both languages, so localisation had to be part of the data model rather than a translation layer bolted on afterwards. The calculators — a French payroll estimator and a professional income simulator — encode real tax rules, which makes them the part of the site where correctness matters most.",
+    ],
+    highlights: [
+      {
+        title: "Bilingual by construction",
+        desc: "English and French across every route, with locale carried through URLs so either language is directly shareable and indexable rather than hidden behind a client-side toggle.",
+      },
+      {
+        title: "Fee calculators",
+        desc: "A French payroll calculator and a professional income simulator that turn the firm's fee and tax rules into self-service tools, giving prospects a number before they ever make contact.",
+      },
+      {
+        title: "Service and advisory content",
+        desc: "Structured modules for accounting, taxation, business start-up, payroll, and individual tax services, each maintainable by the firm without a developer in the loop.",
+      },
+      {
+        title: "Cross-border positioning",
+        desc: "Content architecture built around the firm's dual British and French accreditation, so a visitor can find the treatment for their own jurisdiction quickly.",
+      },
+    ],
+  },
+
+  {
+    id: 15,
+    slug: "leapforword",
+    title: "LeapForWord",
+    tagline: "English-literacy platform for India, in six languages",
+    category: "Client engagement",
+    year: "Client",
+    timeline: "Client engagement",
+    role: "Frontend Developer",
+    featured: false,
+    cover: leapforwordCover,
+    artwork: "phone",
+    stack: ["Vue.js", "Nuxt", "JavaScript"],
+    links: { source: null, live: "https://app.leapforword.org" },
+    metrics: [
+      { value: "6", label: "Interface languages" },
+      { value: "WhatsApp", label: "Verification flow" },
+      { value: "Nuxt", label: "Vue SSR frontend" },
+    ],
+    summary: [
+      "LeapForWord is an English-literacy platform built around the goal of making India English literate. It teaches English through the learner's own first language, so the interface ships in English, Hindi, Marathi, Tamil, Telugu, and Gujarati, and the language choice is available before sign-in rather than buried in settings.",
+      "I built the frontend in Vue with Nuxt. Two constraints shaped it: the audience is mobile-first on inconsistent connections, and authentication runs through WhatsApp number verification instead of email, because WhatsApp is the account these learners already have. That removes the password reset problem entirely and meets users where they are.",
+    ],
+    highlights: [
+      {
+        title: "Six-language interface",
+        desc: "English, Hindi, Marathi, Tamil, Telugu, and Gujarati, selectable on the login screen so a learner never has to read English to start learning English.",
+      },
+      {
+        title: "WhatsApp verification",
+        desc: "Sign-in by WhatsApp number rather than email and password, matching the account the audience already uses daily and removing password recovery as a support burden.",
+      },
+      {
+        title: "Nuxt frontend",
+        desc: "Vue with Nuxt for server-rendered routes and file-based routing, keeping first paint fast on the low-bandwidth connections much of the audience is on.",
+      },
+      {
+        title: "Mobile-first learning flows",
+        desc: "Lesson and teaching-technique surfaces laid out for small screens first, since the platform is reached predominantly from phones.",
       },
     ],
   },
