@@ -76,6 +76,56 @@ export const projects = [
   },
 
   {
+    id: 16,
+    slug: "riskrabbit",
+    title: "RiskRabbit",
+    tagline: "Zero-dependency position-size calculator for prop-firm traders",
+    category: "Open source · Extension",
+    year: "2026",
+    timeline: "May – July 2026",
+    role: "Author",
+    featured: true,
+    cover: null,
+    artwork: "ladder",
+    stack: [
+      "JavaScript",
+      "Chrome MV3",
+      "Service Worker",
+      "WebSocket",
+      "Binance API",
+      "Stooq",
+    ],
+    links: { source: "https://github.com/ead8/RiskRabbit", live: null },
+    metrics: [
+      { value: "118 KB", label: "Bundle, no framework" },
+      { value: "0", label: "Runtime dependencies" },
+      { value: "<100ms", label: "Popup interactive" },
+    ],
+    summary: [
+      "RiskRabbit is a browser extension that answers one question fast: given this account, this risk tolerance, and this stop, how large should the position be? It opens over a live chart with Ctrl+Shift+Y, recalculates on every keystroke with no submit button anywhere, and Enter copies the size straight to the clipboard. It covers crypto on live Binance prices, plus US stocks and forex/metals, sizing forex in standard lots with the currency conversion handled.",
+      "The engineering constraint was self-imposed and strict: no framework, no bundler runtime, no CSS framework, no web fonts, zero runtime dependencies. It ships at 118 KB against a 150 KB budget, and the popup is interactive in under 100 ms because the critical CSS is inlined, the form markup is static, and the service worker holds the price socket open so the popup reads the latest tick from memory instead of the network. All the sizing and prop-firm math lives in pure, unit-tested functions.",
+    ],
+    highlights: [
+      {
+        title: "Prop-firm rule engine",
+        desc: "One-click FTMO, Topstep, and Apex templates with daily-loss and drawdown headroom, static or trailing. A trade that would breach a rule is hard-blocked, with the largest compliant size offered instead. Only realised losses consume headroom — a green day does not buy extra room.",
+      },
+      {
+        title: "Three markets, one sizing model",
+        desc: "Live Binance WebSocket prices across roughly 300 USDT pairs, with US stocks and forex/metals on batched Stooq quotes cached for the session. Delayed quotes are labelled as such, because they are fine for sizing and wrong for execution timing.",
+      },
+      {
+        title: "A feed that survives a bad network",
+        desc: "Exponential backoff from 250ms to a 30s cap, reset on every successful open, with favourites applied as SUBSCRIBE/UNSUBSCRIBE deltas rather than dropping the socket. Prices older than 5s are visibly marked stale, so a silent disconnect shows up within a second.",
+      },
+      {
+        title: "Honest cost accounting",
+        desc: "Effective risk includes round-trip fees and stop slippage, with break-even price and a red warning when liquidation would be reached before the stop loss. Leverage never changes the position size — size is risk-driven — it only affects margin and liquidation.",
+      },
+    ],
+  },
+
+  {
     id: 1,
     slug: "launchpad",
     title: "LaunchPad",
