@@ -21,9 +21,12 @@ const paper = "oklch(var(--paper))";
 
 function Frame({ children, className }) {
   return (
+    /* `meet`, not `slice`: the plate is 21/10 while this viewBox is 8/5, and
+       slice was cropping the top and bottom off every diagram. Same reasoning as
+       object-contain on the screenshot covers. */
     <svg
       viewBox="0 0 640 400"
-      preserveAspectRatio="xMidYMid slice"
+      preserveAspectRatio="xMidYMid meet"
       className={cn("h-full w-full", className)}
       role="img"
       aria-hidden="true"
@@ -260,6 +263,81 @@ const Cart = () => (
   </Frame>
 );
 
+/**
+ * Risk sizing — a price ladder with entry, stop and target levels, the risk band
+ * shaded between entry and stop, and the resulting position size as a bar.
+ * Text-free like the rest of the set; the geometry carries the meaning.
+ */
+const Ladder = () => {
+  const TP = 104;
+  const ENTRY = 196;
+  const SL = 268;
+  const x0 = 96;
+  const x1 = 512;
+
+  return (
+    <Frame>
+      {/* Price axis with graduations */}
+      <line x1="72" y1="56" x2="72" y2="344" stroke={stroke} strokeWidth="1.2" />
+      {Array.from({ length: 13 }).map((_, i) => (
+        <line
+          key={i}
+          x1="72"
+          y1={62 + i * 23}
+          x2={i % 3 === 0 ? 86 : 79}
+          y2={62 + i * 23}
+          stroke={faint}
+          strokeWidth="1.2"
+        />
+      ))}
+
+      {/* Reward band, entry up to target */}
+      <rect x={x0} y={TP} width={x1 - x0} height={ENTRY - TP} fill={stroke} opacity="0.05" />
+      {/* Risk band, entry down to stop */}
+      <rect x={x0} y={ENTRY} width={x1 - x0} height={SL - ENTRY} fill={accent} opacity="0.14" />
+
+      {/* Target */}
+      <line x1={x0} y1={TP} x2={x1} y2={TP} stroke={stroke} strokeWidth="1.4" strokeDasharray="7 5" />
+      {/* Entry, the only solid level */}
+      <line x1={x0} y1={ENTRY} x2={x1} y2={ENTRY} stroke={stroke} strokeWidth="2.2" />
+      {/* Stop */}
+      <line x1={x0} y1={SL} x2={x1} y2={SL} stroke={accent} strokeWidth="2" strokeDasharray="7 5" />
+
+      {/* Dimension arrow spanning the risk band */}
+      <line x1={x1 + 28} y1={ENTRY} x2={x1 + 28} y2={SL} stroke={accent} strokeWidth="1.2" />
+      <line x1={x1 + 21} y1={ENTRY} x2={x1 + 35} y2={ENTRY} stroke={accent} strokeWidth="1.2" />
+      <line x1={x1 + 21} y1={SL} x2={x1 + 35} y2={SL} stroke={accent} strokeWidth="1.2" />
+
+      {/* Resulting size, as a stack of units */}
+      {Array.from({ length: 7 }).map((_, i) => (
+        <rect
+          key={i}
+          x={x1 + 62}
+          y={300 - i * 17}
+          width={26 + i * 9}
+          height={11}
+          fill={i > 4 ? accent : paper}
+          stroke={i > 4 ? accent : stroke}
+          strokeWidth="1.2"
+        />
+      ))}
+
+      {/* Level markers on the axis */}
+      {[TP, ENTRY, SL].map((y, i) => (
+        <circle
+          key={y}
+          cx="72"
+          cy={y}
+          r="4"
+          fill={i === 2 ? accent : paper}
+          stroke={i === 2 ? accent : stroke}
+          strokeWidth="1.6"
+        />
+      ))}
+    </Frame>
+  );
+};
+
 const artworks = {
   chart: Chart,
   network: Network,
@@ -268,6 +346,7 @@ const artworks = {
   supply: Supply,
   flow: Flow,
   cart: Cart,
+  ladder: Ladder,
 };
 
 export default function ProjectArtwork({ kind = "network", className }) {
