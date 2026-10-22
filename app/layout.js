@@ -1,29 +1,37 @@
 import "./globals.css";
-import { Archivo, Martian_Mono } from "next/font/google";
+import { Bricolage_Grotesque, Caveat, Silkscreen } from "next/font/google";
 
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
-import ScaleAxis from "./components/layout/ScaleAxis";
 import SmoothScroll from "./components/layout/SmoothScroll";
+import PixelField from "./components/layout/PixelField";
 import { ThemeProvider, themeScript } from "./components/layout/ThemeProvider";
 
 import { profile, socials } from "./data/profile";
-import { SITE_DESCRIPTION, SITE_NAME, SITE_URL, personJsonLd } from "./lib/site";
+import { commandItems } from "./data/projectIndex";
+import { BUILD_DATE, SITE_DESCRIPTION, SITE_NAME, SITE_URL, personJsonLd } from "./lib/site";
 
-// Archivo: an industrial grotesque with enough character to carry a headline,
-// and not one of the three faces every generated interface defaults to.
-const sans = Archivo({
+// One variable family carries every heading and paragraph (groq: never a second
+// display face). Its weight axis is what the hero name plays with.
+const sans = Bricolage_Grotesque({
   subsets: ["latin"],
   variable: "--font-sans",
+  axes: ["opsz", "wdth"],
   display: "swap",
 });
 
-// Martian Mono is drawn for exactly this job — small technical labels — and is
-// wide and mechanical enough to read as instrumentation rather than as code.
-const mono = Martian_Mono({
+// Handwriting for notes in the margins (novatsega)
+const hand = Caveat({
   subsets: ["latin"],
-  variable: "--font-mono",
-  weight: ["400", "500"],
+  variable: "--font-hand",
+  display: "swap",
+});
+
+// Pixel face for labels, figures and the critters' scoreboard
+const pixel = Silkscreen({
+  subsets: ["latin"],
+  variable: "--font-pixel",
+  weight: ["400", "700"],
   display: "swap",
 });
 
@@ -39,14 +47,17 @@ export const metadata = {
   creator: profile.name,
   keywords: [
     profile.name,
-    "full-stack engineer",
-    "software engineer portfolio",
-    "Next.js developer",
+    "Ebisa Dugo",
+    "Senior Full-Stack Engineer",
+    "AI Platform Developer",
     "FastAPI",
-    "Python developer",
-    "AI engineer",
+    "Python",
+    "Next.js",
     "TypeScript",
-    "Ethiopia",
+    "JSONGuard PyPI",
+    "Prediction Market Terminal",
+    "Web3 Engineer",
+    "Ethiopia Software Engineer",
   ],
   alternates: { canonical: "/" },
   openGraph: {
@@ -76,8 +87,8 @@ export const viewport = {
   width: "device-width",
   initialScale: 1,
   themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#0b0b0e" },
-    { media: "(prefers-color-scheme: light)", color: "#fbfbfd" },
+    { media: "(prefers-color-scheme: dark)", color: "#0d0d0b" },
+    { media: "(prefers-color-scheme: light)", color: "#f2efe4" },
   ],
 };
 
@@ -85,7 +96,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* Sets data-theme before first paint so the page never flashes */}
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <script
           type="application/ld+json"
@@ -93,13 +103,11 @@ export default function RootLayout({ children }) {
             __html: JSON.stringify(personJsonLd({ socials })),
           }}
         />
-        {/* Scroll entrances start at opacity 0 and are flipped by JS. Without
-            this, a visitor with scripting off would get a blank page. */}
         <noscript>
-          <style>{`[data-reveal]{opacity:1!important;transform:none!important}.text-reveal-word{transform:none!important}`}</style>
+          <style>{`[data-reveal]{opacity:1!important;transform:none!important;filter:none!important}.text-reveal-word{transform:none!important}`}</style>
         </noscript>
       </head>
-      <body className={`${sans.variable} ${mono.variable} font-sans`}>
+      <body className={`${sans.variable} ${hand.variable} ${pixel.variable} font-sans relative antialiased`}>
         <ThemeProvider>
           <a
             href="#main"
@@ -109,14 +117,14 @@ export default function RootLayout({ children }) {
           </a>
 
           <SmoothScroll />
-          <ScaleAxis />
-          <Header />
+          <PixelField />
+          <Header paletteProjects={commandItems()} />
 
           <main id="main" className="relative pt-[var(--header-height)]">
             {children}
           </main>
 
-          <Footer />
+          <Footer revised={BUILD_DATE} />
         </ThemeProvider>
       </body>
     </html>

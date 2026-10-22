@@ -17,7 +17,8 @@ const VERMILION = "#BF4213";
 const BLUEPRINT = "#2564AB";
 
 export default async function ProjectOpenGraphImage({ params }) {
-  const project = getProject(params.projectId);
+  const { projectId } = await params;
+  const project = getProject(projectId);
 
   if (!project) {
     return new ImageResponse(

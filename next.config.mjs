@@ -32,13 +32,9 @@ const nextConfig = {
           },
         ],
       },
-      {
-        // Fingerprinted build assets are safe to cache forever
-        source: "/_next/static/:path*",
-        headers: [
-          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
-        ],
-      },
+      // No Cache-Control rule for /_next/static: Next already serves those as
+      // immutable in production, and forcing it in dev made the browser keep
+      // stale Turbopack chunks (dev chunk names are reused across edits).
     ];
   },
 };

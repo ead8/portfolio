@@ -3,86 +3,110 @@
 @tailwind utilities;
 
 /* ============================================================================
-   INSTRUMENT — DESIGN TOKENS
+   PIXEL SCRAPBOOK — DESIGN TOKENS
 
-   Vocabulary from the drawing office:
-     vellum     the sheet
-     graphite   the pencil, i.e. all text
-     cyanotype  the annotation layer — dimensions, leaders, figure numbers
-     vermilion  the mark that draws the eye to a value
+   Three references, one page:
+     groq.com       warm near-white paper, one vivid ember, huge tight type,
+                    pixel creatures loose on the page, prose that inks in
+     novatsega.com  a scrapbook: taped polaroids, sticky notes, handwriting,
+                    solid offset shadows, a dark band with a scalloped edge
+     virvid.ai      the night: near-black with a neon-lime accent, a pill
+                    marquee, a highlighted word in every heading, glowing cards
 
-   Three rules hold the palette together:
+   Rules that hold it together:
+   1. Ember is the only colour that means "do this". Lime is a highlighter,
+      never a button, and it always carries dark text.
+   2. Depth is a solid offset shadow (a cut-out on the page) or, at night, a
+      lime glow. Never a soft grey blur.
+   3. Every text pair below was checked against WCAG AA on its background.
+      Ember on paper is 4.1:1, so ember *text* is only ever display size; small
+      accent text uses --cyanotype (5.2:1).
 
-   1. Everything is OKLCH. Lightness is perceptual, so a 46% muted grey and a
-      55% vermilion genuinely read as the same weight on the page. This is not
-      true of HSL or hex.
-
-   2. Neutrals are never dead grey. They carry a small chroma (0.003–0.016) at a
-      fixed hue, so the sheet reads as warm paper and the plate as cool
-      graphite. Chroma on the sheet stays under 0.008; past that it stops being
-      warm white and becomes beige, which is its own tell.
-
-   3. Rules are the ink colour at low alpha, never a separate grey. A border can
-      therefore never drift out of harmony with the text sitting next to it.
-
-   Every value below was checked against WCAG AA on its own background. The
-   faint tier is 54% rather than 56% for exactly that reason.
+   Token names are kept from the previous system so nothing that reads them
+   (artwork, inner pages) has to change: --vermilion is ember, --cyanotype is
+   the small-accent ink.
    ========================================================================= */
 
 :root,
 [data-theme="light"] {
   color-scheme: light;
 
-  --paper: 98.5% 0.005 78; /* #FCFAF6 */
-  --raised: 99.2% 0.003 78;
-  --surface: 96.3% 0.007 78;
+  --paper: 95.1% 0.015 94; /* #F2EFE4 */
+  --raised: 98.2% 0.009 94; /* #FBF9F2 */
+  --surface: 91.2% 0.022 93; /* #E7E2D2 */
 
-  --ink: 24% 0.016 62; /* #251E18 — 15.8:1 on paper */
-  --ink-muted: 46% 0.014 62; /*  6.9:1 */
-  --ink-faint: 54% 0.012 62; /*  4.9:1 */
+  --ink: 22.2% 0.014 72; /* #1F1A14 — 15.0:1 */
+  --ink-muted: 42.9% 0.025 79; /* #574E40 —  7.1:1 */
+  --ink-faint: 51% 0.027 82; /* #6E6555 —  5.0:1 */
 
-  --vermilion: 55% 0.17 38; /*  5.0:1 */
-  --cyanotype: 50% 0.13 254; /*  5.8:1 */
-  --on-vermilion: 99% 0 0;
+  --vermilion: 58% 0.2 36; /* #D63A00 ember — white on it 4.7:1 */
+  --on-vermilion: 100% 0 0;
+  --cyanotype: 51.9% 0.177 36; /* #B83200 — 5.2:1 */
+  --sprite: 63.5% 0.224 35; /* #F43E01, groq's own ember, for pixels only */
 
-  --rule-a: 0.14;
-  --rule-strong-a: 0.32;
+  --lime: 94.5% 0.219 118; /* #E0FF10 — ink on it 15.2:1 */
+  --sand: 89.7% 0.062 93; /* #EBDDAF sticky note — ink on it 12.7:1 */
+  --hard: 22.2% 0.014 72; /* offset shadows are ink by day */
 
-  --grid-a: 0.05;
-}
+  --night: 15.8% 0.004 107; /* #0D0D0B */
+  --night-raised: 20.3% 0.006 107; /* #171714 */
+  --night-ink: 95.1% 0.015 94;
+  --night-muted: 75% 0.021 95; /* 8.8:1 on night */
 
-[data-theme="dark"] {
-  color-scheme: dark;
-
-  --paper: 16% 0.01 250; /* #0A0E11 */
-  --raised: 20% 0.011 250;
-  --surface: 23.5% 0.012 250;
-
-  --ink: 93% 0.004 78; /* #E9E7E5 — 15.8:1, matched to light */
-  --ink-muted: 72% 0.008 78; /*  7.8:1 */
-  --ink-faint: 60% 0.008 78; /*  4.9:1 */
-
-  --vermilion: 70% 0.16 40; /*  6.8:1 */
-  --cyanotype: 75% 0.12 254; /*  8.7:1 */
-  --on-vermilion: 16% 0.01 250;
-
-  /* Hairlines need slightly more presence against a dark plate */
   --rule-a: 0.16;
   --rule-strong-a: 0.34;
+}
 
-  --grid-a: 0.045;
+/* `.theme-night` is the dark theme scoped to one element: the night band
+   wears it in both themes, so everything inside (text, artwork, buttons) reads
+   the night tokens without a single special-cased class. */
+[data-theme="dark"],
+.theme-night {
+  color-scheme: dark;
+
+  --paper: 15.8% 0.004 107; /* #0D0D0B */
+  --raised: 20.3% 0.006 107;
+  --surface: 23.8% 0.007 107;
+
+  --ink: 95.1% 0.015 94; /* 16.9:1 */
+  --ink-muted: 75% 0.021 95; /*  8.8:1 */
+  --ink-faint: 63.6% 0.021 94; /*  5.7:1 */
+
+  --vermilion: 70.2% 0.196 41; /* #FF6A2B — 6.8:1, dark text on it */
+  --on-vermilion: 15.8% 0.004 107;
+  --cyanotype: 94.5% 0.219 118; /* small accents go lime at night */
+  --sprite: 70.2% 0.196 41;
+
+  --lime: 94.5% 0.219 118;
+  --sand: 89.7% 0.062 93;
+  /* At night a cut-out casts lime, the way virvid's cards glow */
+  --hard: 94.5% 0.219 118;
+
+  /* The band sits a step darker than the page so its edge still reads */
+  --night: 11.4% 0.004 107;
+  --night-raised: 20.3% 0.006 107;
+  --night-ink: 95.1% 0.015 94;
+  --night-muted: 75% 0.021 95;
+
+  --rule-a: 0.16;
+  --rule-strong-a: 0.32;
+}
+
+.theme-night {
+  color: oklch(var(--ink));
 }
 
 :root {
-  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  /* groq's curve: fast out of the gate, long settle */
+  --ease-out: cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-soft: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
-  --press: 160ms;
-  --hover: 150ms;
-  --swap: 200ms;
-  --enter: 360ms;
-  --draw: 620ms;
+  --press: 120ms;
+  --hover: 180ms;
+  --swap: 250ms;
+  --enter: 700ms;
 
-  --header-height: 56px;
+  --header-height: 64px;
 }
 
 /* ============================================================================
@@ -95,6 +119,7 @@
   }
 
   html {
+    position: relative;
     scroll-behavior: auto;
     scroll-padding-top: calc(var(--header-height) + 24px);
     -webkit-text-size-adjust: 100%;
@@ -109,15 +134,29 @@
     overflow-x: hidden;
   }
 
+  h1,
+  h2,
+  h3,
+  p,
+  li,
+  blockquote {
+    text-wrap: pretty;
+  }
+
+  /* groq's selection: a highlighter pass, not a system blue */
   ::selection {
-    background: oklch(var(--vermilion));
-    color: oklch(var(--on-vermilion));
+    background: oklch(var(--lime));
+    color: oklch(15.8% 0.004 107);
   }
 
   :focus-visible {
-    outline: 2px solid oklch(var(--cyanotype));
+    outline: 3px solid oklch(var(--vermilion));
     outline-offset: 3px;
-    border-radius: 1px;
+    border-radius: 6px;
+  }
+
+  a {
+    text-underline-offset: 0.22em;
   }
 
   ::-webkit-scrollbar {
@@ -130,7 +169,7 @@
   ::-webkit-scrollbar-thumb {
     background: oklch(var(--ink) / var(--rule-strong-a));
     border: 3px solid oklch(var(--paper));
-    border-radius: 8px;
+    border-radius: 9999px;
   }
 
   html.lenis,
@@ -151,133 +190,166 @@
 
 @layer components {
   .container-page {
-    @apply mx-auto w-full max-w-page px-5 sm:px-8 lg:px-12;
+    @apply mx-auto w-full max-w-page px-4 sm:px-8 lg:px-12;
   }
 
   /* --- Typography ---------------------------------------------------------
-     Weight carries the hierarchy downward as size goes up: display is light,
-     body is regular, small labels are medium. Heavy type at display size is
-     what made the previous pass read as a generic landing page — a drawing is
-     set in fine, even line weights.
+     Heavy and tight at the top, quiet underneath (groq's 8× jump). The
+     display face is variable, so weight can answer the pointer in the hero.
      --------------------------------------------------------------------- */
 
   .display {
-    @apply font-sans text-fluid-4xl font-light tracking-headline text-fg;
+    @apply font-sans text-fluid-4xl font-extrabold tracking-headline text-fg;
     text-wrap: balance;
   }
 
   .headline {
-    @apply font-sans text-fluid-2xl font-normal tracking-headline text-fg;
+    @apply font-sans text-fluid-3xl font-extrabold tracking-headline text-fg;
     text-wrap: balance;
   }
 
   .title {
-    @apply font-sans text-fluid-lg font-medium tracking-title text-fg;
+    @apply font-sans text-fluid-lg font-bold tracking-title text-fg;
     text-wrap: balance;
   }
 
   .lede {
-    @apply font-sans text-fluid-lg font-light leading-[1.65] text-fg-muted;
-    text-wrap: pretty;
+    @apply font-sans text-fluid-lg font-normal leading-[1.55] text-fg-muted;
   }
 
   .body {
-    @apply font-sans text-fluid-base font-normal leading-[1.75] text-fg-muted;
-    text-wrap: pretty;
+    @apply font-sans text-fluid-base font-normal leading-[1.7] text-fg-muted;
   }
 
-  /* The annotation layer. Cyanotype is reserved for this and for focus rings —
-     nothing else on the page is allowed to use it. */
+  /* Pixel labels. Silkscreen is drawn on a pixel grid, so it is set a touch
+     larger than a mono label would be and never tracked wide. */
   .annot {
-    @apply font-mono text-[0.625rem] font-medium uppercase leading-none text-annot;
-    letter-spacing: 0.18em;
+    @apply font-mono text-[0.6875rem] font-normal uppercase leading-none text-annot;
+    letter-spacing: 0.04em;
   }
 
   .meta {
-    @apply font-mono text-[0.625rem] font-normal uppercase leading-none text-fg-faint;
-    letter-spacing: 0.18em;
+    @apply font-mono text-[0.6875rem] font-normal uppercase leading-none text-fg-faint;
+    letter-spacing: 0.04em;
   }
 
-  /* --- Buttons ----------------------------------------------------------- */
+  /* Handwriting in the margins */
+  .hand {
+    @apply font-hand text-[1.5rem] font-semibold leading-[1.05] text-fg-muted;
+  }
+
+  /* --- Highlighter ------------------------------------------------------
+     virvid's highlighted word, drawn as a marker stroke that sweeps in when
+     its heading is revealed. The text on it is always dark. */
+  .mark {
+    color: oklch(15.8% 0.004 107);
+    background-image: linear-gradient(oklch(var(--lime)), oklch(var(--lime)));
+    background-repeat: no-repeat;
+    background-position: 0 88%;
+    background-size: 100% 78%;
+    padding-inline: 0.08em;
+    margin-inline: -0.04em;
+    border-radius: 0.12em 0.3em 0.16em 0.26em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+  [data-revealed] .mark {
+    background-size: 0% 78%;
+    transition: background-size 650ms var(--ease-out) 260ms;
+  }
+  [data-revealed="true"] .mark {
+    background-size: 100% 78%;
+  }
+
+  /* --- Buttons ------------------------------------------------------------
+     Pills cut from card: an ink outline and a solid offset shadow. Hover lifts
+     the card a pixel; pressing pushes it flat onto the page. */
 
   .btn {
     @apply relative inline-flex select-none items-center justify-center gap-2
-           whitespace-nowrap font-sans text-[0.875rem] font-medium leading-none
-           tracking-[-0.005em];
-    height: 2.625rem;
-    padding-inline: 1.125rem;
-    border-radius: 2px;
-    transition: background-color var(--hover) ease, color var(--hover) ease,
-      border-color var(--hover) ease, opacity var(--hover) ease,
-      transform var(--press) var(--ease-out);
+           whitespace-nowrap rounded-full border-[1.5px] font-sans text-[0.9375rem]
+           font-semibold leading-none;
+    height: 2.875rem;
+    padding-inline: 1.375rem;
+    border-color: oklch(var(--ink));
+    box-shadow: 3px 3px 0 0 oklch(var(--hard));
+    transition: transform var(--press) var(--ease-out), box-shadow var(--press) var(--ease-out),
+      background-color var(--hover) ease, color var(--hover) ease;
   }
-
+  .btn:hover {
+    transform: translate3d(-1px, -1px, 0);
+    box-shadow: 4px 4px 0 0 oklch(var(--hard));
+  }
   .btn:active {
-    transform: scale(0.97);
+    transform: translate3d(3px, 3px, 0);
+    box-shadow: 0 0 0 0 oklch(var(--hard));
   }
 
   .btn-accent {
     @apply btn bg-accent text-accent-fg;
   }
-  .btn-accent:hover {
-    opacity: 0.88;
-  }
 
   .btn-secondary {
-    @apply btn border border-fg text-fg;
-  }
-  .btn-secondary:hover {
-    background-color: oklch(var(--ink));
-    color: oklch(var(--paper));
+    @apply btn bg-elevated text-fg;
   }
 
+  /* Text-only: no card, no shadow */
   .btn-ghost {
-    @apply btn -mx-3 text-fg-muted;
+    @apply btn border-transparent bg-transparent text-fg-muted;
+    box-shadow: none;
   }
-  .btn-ghost:hover {
-    color: oklch(var(--ink));
+  .btn-ghost:hover,
+  .btn-ghost:active {
+    @apply text-fg;
+    transform: none;
+    box-shadow: none;
   }
 
   .btn-sm {
-    height: 2rem;
-    padding-inline: 0.75rem;
+    height: 2.25rem;
+    padding-inline: 1rem;
     @apply text-[0.8125rem];
+  }
+
+  /* groq's header pill: outline only, ember */
+  .btn-outline {
+    @apply relative inline-flex select-none items-center justify-center gap-2 whitespace-nowrap
+           rounded-full border-[1.5px] border-accent px-4 font-mono text-[0.6875rem] uppercase
+           leading-none text-annot;
+    height: 2.125rem;
+    transition: background-color var(--hover) ease, color var(--hover) ease;
+  }
+  .btn-outline:hover {
+    @apply bg-accent text-accent-fg;
   }
 
   /* --- Chips ------------------------------------------------------------- */
 
   .chip {
-    @apply inline-flex items-center border border-line px-1.5 py-1 font-mono
-           text-[0.5625rem] uppercase leading-none text-fg-faint;
-    letter-spacing: 0.14em;
-    border-radius: 1px;
+    @apply inline-flex items-center rounded-full border border-line-strong px-2.5 py-1.5 font-mono
+           text-[0.625rem] uppercase leading-none text-fg-muted;
   }
 
   /* --- Links ------------------------------------------------------------- */
 
   .link-underline {
     @apply relative inline-block text-fg;
-    background-image: linear-gradient(
-      oklch(var(--vermilion)),
-      oklch(var(--vermilion))
-    );
-    background-position: 0 100%;
+    background-image: linear-gradient(oklch(var(--lime)), oklch(var(--lime)));
+    background-position: 0 92%;
     background-repeat: no-repeat;
-    background-size: 0% 1px;
-    transition: background-size var(--swap) var(--ease-out), color var(--hover) ease;
+    background-size: 0% 40%;
+    transition: background-size var(--swap) var(--ease-out);
   }
   .link-underline:hover {
-    background-size: 100% 1px;
-    color: oklch(var(--vermilion));
+    background-size: 100% 40%;
   }
 
   .link-arrow {
     @apply inline-flex items-center gap-1.5 font-mono text-[0.6875rem] uppercase text-fg-muted;
-    letter-spacing: 0.14em;
     transition: color var(--hover) ease;
   }
   .link-arrow:hover {
-    color: oklch(var(--vermilion));
+    color: oklch(var(--cyanotype));
   }
   .link-arrow svg {
     transition: transform var(--swap) var(--ease-out);
@@ -288,188 +360,186 @@
 }
 
 /* ============================================================================
-   DRAWING PRIMITIVES
+   SCRAPBOOK PRIMITIVES
    ========================================================================= */
 
-/* A plate on the sheet. The frame carries the registration ticks; the inner
-   element does the clipping, so the ticks are never cut off by it. */
+/* A card cut out and laid on the page. The old drawing "plate" keeps its name
+   so inner pages pick the new look up without edits. */
 .plate {
   position: relative;
-  border: 1px solid oklch(var(--ink) / var(--rule-a));
+  border: 1.5px solid oklch(var(--ink));
+  border-radius: 14px;
+  box-shadow: 4px 4px 0 0 oklch(var(--hard));
 }
-.plate::before,
-.plate::after {
-  content: "";
+
+/* Dotted paper inside a card */
+.plate-grid {
+  background-image: radial-gradient(oklch(var(--ink) / 0.14) 1px, transparent 1.2px);
+  background-size: 18px 18px;
+}
+
+/* Polaroid: white border, thick chin for the caption. No `position` here:
+   these rules load after Tailwind's utilities, so setting one would override
+   an `absolute` on the element. Callers position it. */
+.polaroid {
+  background: oklch(var(--raised));
+  padding: 10px 10px 0;
+  border-radius: 4px;
+  box-shadow: 0 1px 0 oklch(var(--ink) / 0.06), 0 14px 28px -14px oklch(22% 0.014 72 / 0.45),
+    3px 3px 0 0 oklch(var(--ink) / 0.12);
+}
+[data-theme="dark"] .polaroid,
+.theme-night .polaroid {
+  background: oklch(96% 0.012 94);
+  color: oklch(22.2% 0.014 72);
+}
+
+/* Washi tape. --tape-r sets its angle. */
+.tape {
   position: absolute;
-  z-index: 1;
-  width: 9px;
-  height: 9px;
-  border-color: oklch(var(--cyanotype));
-  border-style: solid;
+  z-index: 2;
+  width: 76px;
+  height: 22px;
+  background: oklch(var(--lime) / 0.55);
+  border-left: 2px dotted oklch(100% 0 0 / 0.5);
+  border-right: 2px dotted oklch(100% 0 0 / 0.5);
+  transform: rotate(var(--tape-r, -4deg));
+  mix-blend-mode: multiply;
   pointer-events: none;
 }
-.plate::before {
-  top: -1px;
-  left: -1px;
-  border-width: 1px 0 0 1px;
+.tape-ember {
+  background: oklch(var(--sprite) / 0.4);
 }
-.plate::after {
-  right: -1px;
-  bottom: -1px;
-  border-width: 0 1px 1px 0;
+[data-theme="dark"] .tape,
+.theme-night .tape {
+  mix-blend-mode: normal;
+  background: oklch(var(--lime) / 0.7);
 }
 
-/* Measurement grid, confined to plate interiors. Across a whole page this is
-   decoration; inside a plate it is the surface being measured on. */
-.plate-grid {
-  background-image: linear-gradient(
-      to right,
-      oklch(var(--ink) / var(--grid-a)) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      to bottom,
-      oklch(var(--ink) / var(--grid-a)) 1px,
-      transparent 1px
-    );
-  background-size: 28px 28px;
+/* Sticky note */
+.note {
+  position: relative;
+  background: oklch(var(--sand));
+  color: oklch(22.2% 0.014 72);
+  border: 1.5px solid oklch(22.2% 0.014 72);
+  border-radius: 6px;
+  box-shadow: 5px 5px 0 0 oklch(var(--hard));
 }
 
-/* Dimension line, drawing out from its left origin. */
-.dim-line {
-  transform-origin: left center;
-  transform: scaleX(0);
-  transition: transform var(--draw) var(--ease-out);
-}
-[data-revealed="true"] .dim-line {
-  transform: scaleX(1);
-}
-
-.dim-tick {
-  opacity: 0;
-  transition: opacity var(--swap) ease;
-  transition-delay: calc(var(--draw) * 0.7);
-}
-[data-revealed="true"] .dim-tick {
-  opacity: 1;
+/* Scalloped edges on the night band, from novatsega's wavy-edged section */
+.scallop {
+  --scallop: 14px;
+  -webkit-mask: radial-gradient(var(--scallop) at 50% var(--scallop), #000 98%, transparent 101%)
+      50% calc(-1 * var(--scallop)) / calc(var(--scallop) * 2.6) 51% repeat-x,
+    radial-gradient(var(--scallop) at 50% calc(100% - var(--scallop)), #000 98%, transparent 101%)
+      50% calc(100% + var(--scallop)) / calc(var(--scallop) * 2.6) 51% repeat-x,
+    linear-gradient(#000 0 0) 0 50% / 100% calc(100% - var(--scallop) * 2 + 1px) no-repeat;
+  mask: radial-gradient(var(--scallop) at 50% var(--scallop), #000 98%, transparent 101%)
+      50% calc(-1 * var(--scallop)) / calc(var(--scallop) * 2.6) 51% repeat-x,
+    radial-gradient(var(--scallop) at 50% calc(100% - var(--scallop)), #000 98%, transparent 101%)
+      50% calc(100% + var(--scallop)) / calc(var(--scallop) * 2.6) 51% repeat-x,
+    linear-gradient(#000 0 0) 0 50% / 100% calc(100% - var(--scallop) * 2 + 1px) no-repeat;
 }
 
-/* Datum rule under a section heading. */
+/* Night-band cards: virvid's dark card with a lime glow that wakes on hover */
+.night-card {
+  background: oklch(var(--night-raised));
+  border: 1px solid oklch(var(--night-ink) / 0.09);
+  border-radius: 18px;
+  transition: transform 450ms var(--ease-out), box-shadow 450ms var(--ease-out),
+    border-color 250ms ease;
+}
+.night-card:hover,
+.night-card:focus-within {
+  border-color: oklch(var(--lime) / 0.55);
+  box-shadow: 0 24px 50px -18px oklch(var(--lime) / 0.35);
+}
+
+/* Pixel square, for bullets and separators */
+.px-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+/* Twinkle: novatsega's rotating list, five stars taking turns */
+.twinkle {
+  animation: twinkle 3200ms ease-in-out infinite;
+  animation-delay: calc(var(--i, 0) * 600ms);
+}
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.25;
+    transform: scale(0.6);
+  }
+}
+
+/* Spin on hover (novatsega) */
+.spin-on-hover:hover .spinner {
+  animation: spin 1800ms linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Old drawing primitives still referenced by inner pages */
 .datum {
   transform-origin: left center;
   transform: scaleX(0);
-  transition: transform var(--draw) var(--ease-out);
+  transition: transform 620ms var(--ease-out);
 }
 [data-revealed="true"] .datum {
   transform: scaleX(1);
 }
-
-/* Plate reveal: the image is uncovered from its lower edge rather than faded,
-   so it reads as a drawing being laid down. */
+.dim-line {
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 620ms var(--ease-out);
+}
+[data-revealed="true"] .dim-line {
+  transform: scaleX(1);
+}
+.dim-tick {
+  opacity: 0;
+  transition: opacity var(--swap) ease 430ms;
+}
+[data-revealed="true"] .dim-tick {
+  opacity: 1;
+}
 .clip-reveal {
   clip-path: inset(0 0 100% 0);
-  transition: clip-path var(--draw) var(--ease-out);
+  transition: clip-path 620ms var(--ease-out);
 }
 [data-revealed="true"] .clip-reveal {
   clip-path: inset(0 0 0 0);
 }
 
-/* --- Exploded assembly ----------------------------------------------------
-   Real 3D from the platform: a perspective root, a preserve-3d assembly, and
-   layers separated along Z. Scroll writes the transforms directly to these
-   nodes, so nothing here animates on its own.
-   ---------------------------------------------------------------------- */
-
-.assembly-scene {
-  perspective: 1500px;
-  /* Centred: an off-centre origin makes the layers fan away from the middle of
-     the box and the group drifts out of the column. */
-  perspective-origin: 50% 50%;
-  /* Clips here rather than on the sticky wrapper. Clipping the wrapper would
-     cut off the heading and parts list on short viewports. */
-  overflow: hidden;
-}
-
-.assembly {
-  position: absolute;
-  inset: 0;
-  transform-style: preserve-3d;
-  transform-origin: 50% 50%;
-  /* No transition: the transform is scroll-linked, and easing it would make the
-     scene lag behind the reader's finger. */
-  will-change: transform;
-}
-
-.assembly-layer {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  /* Fixed px rather than a percentage: Z separation and perspective only read
-     correctly against a stable footprint. The assembly is scaled to fit its box
-     (see PLATE_W / PLATE_H in Assembly.jsx — keep these in sync). */
-  width: 430px;
-  height: 210px;
-  transform: translate3d(-50%, -50%, 0);
-  transform-style: preserve-3d;
-  will-change: transform;
-}
-
-/* Sheets in the assembly need a harder edge than a figure frame does. The paper
-   and the raised fill are only 0.7% apart in lightness, so the border is doing
-   all the work of separating one plate from the next — at the figure frame's
-   0.14 alpha they disappeared into the page. */
-.assembly-plate {
-  position: relative;
-  /* Recessed while still stacked, so an unplaced layer reads as sitting in the
-     shadow of the ones above it. */
-  background-color: oklch(var(--surface));
-  border: 1px solid oklch(var(--ink) / 0.45);
-  transition: border-color var(--swap) ease, background-color var(--swap) ease;
-}
-
-/* A separated layer reads as lifted clear of the sheet: near-white fill, a hard
-   edge, and the two registration ticks that mark it as a placed part. */
-.assembly-plate.is-separated {
-  background-color: oklch(var(--raised));
-  border-color: oklch(var(--ink) / 0.8);
-}
-.assembly-plate.is-separated::before,
-.assembly-plate.is-separated::after {
-  content: "";
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  border-color: oklch(var(--cyanotype));
-  border-style: solid;
-  pointer-events: none;
-}
-.assembly-plate.is-separated::before {
-  top: -1px;
-  left: -1px;
-  border-width: 1px 0 0 1px;
-}
-.assembly-plate.is-separated::after {
-  right: -1px;
-  bottom: -1px;
-  border-width: 0 1px 1px 0;
-}
-
 /* ============================================================================
    MOTION
-   Only transform, opacity, and clip-path.
    ========================================================================= */
 
+/* virvid's entrance: fade, settle and un-blur */
 [data-reveal] {
   opacity: 0;
-  transform: translate3d(0, var(--reveal-y, 10px), 0);
-  transition: opacity var(--enter) var(--ease-out),
+  filter: blur(8px);
+  transform: translate3d(0, var(--reveal-y, 12px), 0) scale(0.985);
+  transition: opacity var(--enter) var(--ease-out), filter var(--enter) var(--ease-out),
     transform var(--enter) var(--ease-out);
   transition-delay: var(--reveal-delay, 0ms);
 }
-
 [data-reveal][data-revealed="true"] {
   opacity: 1;
-  transform: translate3d(0, 0, 0);
+  filter: blur(0);
+  transform: translate3d(0, 0, 0) scale(1);
 }
 
 .text-reveal-line {
@@ -482,65 +552,150 @@
 .text-reveal-word {
   display: inline-block;
   transform: translate3d(0, 105%, 0);
-  transition: transform 420ms var(--ease-out);
+  transition: transform 620ms var(--ease-out);
   transition-delay: var(--word-delay, 0ms);
 }
 [data-revealed="true"] .text-reveal-word {
   transform: translate3d(0, 0, 0);
 }
 
+/* --- Page enter --------------------------------------------------------------
+   groq bleaches the old page out and blooms the new one in. A template remounts
+   on every navigation, so this replays per page with no JavaScript.
+   `backwards`, not `both`: once finished the animation must stop applying a
+   filter or transform, or the wrapper would become the containing block for
+   every fixed and sticky element on the page. */
+.page-enter {
+  animation: page-enter 620ms var(--ease-out) backwards;
+}
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translate3d(0, 10px, 0);
+  }
+}
+
+/* --- Marquee -------------------------------------------------------------- */
+.marquee {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
+}
+.marquee-track {
+  animation: marquee var(--marquee-duration, 40s) linear infinite;
+  will-change: transform;
+}
+.marquee-reverse {
+  animation-direction: reverse;
+}
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* --- Polaroid fan ----------------------------------------------------------
+   Each card's resting pose comes from inline custom properties; spreading on
+   hover only widens the angles. */
+.fan-card {
+  transform: translate3d(var(--x, 0), var(--y, 0), 0) rotate(var(--r, 0deg));
+  transition: transform 550ms var(--ease-out), opacity 300ms ease;
+}
+.fan:hover .fan-card {
+  transform: translate3d(calc(var(--x, 0) * 1.9), var(--y, 0), 0) rotate(calc(var(--r, 0deg) * 1.6));
+}
+.fan-card[data-leaving="true"] {
+  transform: translate3d(-70%, 30px, 0) rotate(-22deg) !important;
+  opacity: 0;
+}
+
+/* --- Big figure ----------------------------------------------------------- */
+.figure {
+  @apply font-sans text-fluid-3xl font-extrabold tracking-headline text-fg;
+  font-variant-numeric: tabular-nums;
+}
+
+.outline-text {
+  color: transparent;
+  -webkit-text-stroke: 1px oklch(var(--ink) / 0.35);
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* ============================================================================
    REDUCED MOTION
-   Fewer and gentler, not none. Opacity survives; everything positional and
-   every drawing animation lands instantly at its final state.
+   Positions land instantly; opacity survives so nothing pops. Loops stop.
    ========================================================================= */
 
 @media (prefers-reduced-motion: reduce) {
   [data-reveal] {
+    filter: none;
     transform: none;
     transition: opacity var(--swap) ease;
   }
   [data-reveal][data-revealed="true"] {
     transform: none;
   }
-
   .text-reveal-word {
     transform: none !important;
     transition: none;
   }
-
-  .dim-line,
-  .datum {
+  .datum,
+  .dim-line {
     transform: scaleX(1) !important;
     transition: none;
   }
-
   .dim-tick {
     opacity: 1 !important;
     transition: none;
   }
-
   .clip-reveal {
     clip-path: inset(0 0 0 0) !important;
     transition: none;
   }
-
-  /* The assembly is rendered in its separated state and never animates. The
-     component drops the scroll runway entirely in this mode, so there is no
-     tall empty section left behind either. */
-  .assembly-layer,
-  .assembly {
-    transition: none !important;
+  [data-revealed] .mark {
+    background-size: 100% 78%;
+    transition: none;
   }
-
+  .page-enter {
+    animation: none;
+  }
+  .btn:hover,
   .btn:active {
     transform: none;
   }
-
+  .fan-card,
+  .fan:hover .fan-card {
+    transition: opacity 200ms ease;
+  }
+  .twinkle,
+  .spin-on-hover:hover .spinner {
+    animation: none;
+  }
+  .marquee {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .marquee-track {
+    animation: none;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  .marquee-track > [aria-hidden="true"] {
+    display: none;
+  }
   .link-arrow:hover svg {
     transform: none;
   }
-
   *,
   *::before,
   *::after {

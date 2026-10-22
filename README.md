@@ -1,6 +1,6 @@
 # Ebisa Dugo — Portfolio
 
-Personal site and case-study index. Next.js App Router, statically generated. No CSS framework beyond Tailwind, no animation library, no 3D runtime.
+Personal site and case-study index. Next.js App Router, statically generated. Tailwind for styling, Framer Motion and Lenis for motion, no 3D runtime.
 
 Set `NEXT_PUBLIC_SITE_URL` to your domain before deploying — it drives canonical URLs, the sitemap, OG tags, and JSON-LD.
 
@@ -24,6 +24,10 @@ The site is drawn as an engineering document of itself. That gives the decoratio
 
 **The grid is confined to plate interiors.** A grid across a whole page is decoration; inside a frame it is the surface being measured on.
 
+**The page is ordered as an argument.** Claim (hero, with a face and a position) → first evidence (a strip of counted, linked figures and the names that shipped) → the work itself as a pile of plates that stack under the header as you scroll, outcomes before tools → what that adds up to → how it is built → how an engagement runs → where every claim can be checked without emailing → history and tools for the thorough reader → one clear next step. Every number and name in the proof layer lives in [app/data/profile.js](app/data/profile.js) and must be verifiable; the testimonials section renders nothing until real quotes exist.
+
+**Motion carries information or it goes.** The boot sheet plays once per session and holds the hero's reveals until the paper lifts. Counters land on real figures. The marquee pauses so a name can be read. The cursor announces what a click will do. Everything respects `prefers-reduced-motion`, and everything is transform, opacity, or clip-path.
+
 ---
 
 ## Architecture
@@ -33,21 +37,30 @@ app/
 ├── data/                  Content — edit here, never in components
 │   ├── profile.js         Identity, specification rows, experience, education
 │   ├── projects.js        Case studies (slug + legacy numeric id)
+│   ├── projectIndex.js    Server-only listing subsets for client components
+│   ├── writing.js         Posts, as data blocks
 │   └── stack.js           Technology groups
 ├── lib/
 │   ├── site.js            Canonical URL, JSON-LD builders
 │   ├── hooks.js           useInView, useReducedMotion, useLocalTime, useCopy
 │   └── utils.js           cn(), pad(), prettyUrl()
 ├── components/
-│   ├── layout/            Header, Footer, theme, smooth scroll, ⌘K, scale axis
+│   ├── layout/            Header, Footer, Preloader, Cursor, theme, smooth scroll, ⌘K, scale axis
 │   ├── sections/          Page-level composed sections
-│   └── ui/                Reveal, TextReveal, Measure, ProjectRow, artwork
+│   └── ui/                Reveal, TextReveal, Measure, Counter, Marquee,
+│                          StackedCase, ProjectRow, artwork
 ├── projects/[projectId]/  Statically generated case studies + OG image
+├── writing/[slug]/        Statically generated posts
+├── rss.xml/route.js       Feed, built from the same post data
 ├── sitemap.js robots.js   Generated at build time
 └── opengraph-image.js     Social card, drawn from profile data
 ```
 
-Adding a project means one object in `app/data/projects.js`. It appears in the index, on the home page (if `featured`), in the sitemap, and in the ⌘K palette, and gets its own social card.
+Adding a project means one object in `app/data/projects.js`. It appears in the index, on the home page (if `featured`), in the sitemap, and in the ⌘K palette, and gets its own social card. Adding a post means one object in `app/data/writing.js`, which gets it a page, an RSS item, and a sitemap entry; a new block type is a new case in the switch on the post page.
+
+**Client components never import the corpus.** `projects.js` is the right shape for a case-study page and the wrong shape for a list, so anything the browser needs comes from `projectIndex.js`, trimmed and handed down as props by a server component. Letting the ⌘K palette import the corpus directly put every summary, highlight, and blur placeholder into the shared bundle on every route, since the palette lives in the root layout. A guard at the top of that module now fails loudly in development if a client component reaches for it.
+
+**A claim with no evidence behind it does not go in.** `testimonials` in `app/data/profile.js` is empty on purpose and the section renders nothing while it is — invented praise would cost more than the missing section. The same rule retired the placeholder engagement dates: client work has `year: "Client"`, `projectYear()` returns `null` for it, and every year slot renders nothing rather than printing a category where a date belongs. Add a real four-digit year and the label appears everywhere it is supposed to.
 
 ---
 
@@ -83,7 +96,7 @@ Sizes are a fluid `clamp()` scale (`text-fluid-*`) with deliberate gaps between 
 
 ## Motion
 
-No animation library. Scroll entrances are CSS transitions on a `[data-reveal]` attribute that an `IntersectionObserver` flips once, so a page of reveals costs one observer each and zero per-frame main-thread work. The scale axis writes transforms directly to the DOM inside `requestAnimationFrame` rather than through React state.
+The choice between Framer Motion and CSS is a rule, not a preference. **A one-shot entrance is a CSS transition on a `[data-reveal]` attribute that an `IntersectionObserver` flips once**, so a page of reveals costs one observer each and zero per-frame main-thread work. **Anything that is a function of scroll or pointer position goes through Framer motion values** (`useScroll`/`useTransform` on the hero portrait, the process marker, the stacked plates; `useSpring` on the cursor), which write straight to the DOM without a React render. `template.jsx` uses Framer for the route transition because it needs a remount hook. The scale axis and the assembly diagram stay hand-rolled `requestAnimationFrame`, since both only ever write one transform per node.
 
 Only `transform`, `opacity`, and `clip-path` are animated — all three skip layout and paint.
 
@@ -121,10 +134,10 @@ Nothing interactive exceeds 300ms. The two longer values are first-view explanat
 
 ## Performance
 
-- Client dependencies: Lenis, clsx, tailwind-merge. That's it.
+- Client dependencies: framer-motion, lenis, clsx, tailwind-merge. Nothing else.
 - Every route statically generated, including all case studies
 - `next/image` with AVIF/WebP and blur placeholders
-- ~88 kB shared First Load JS
+- `next build` prints the per-route First Load JS. Quote that number, never a figure copied into this file — Framer Motion is the largest client cost and it moves every time a motion component is added.
 
 ---
 

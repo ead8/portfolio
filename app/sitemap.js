@@ -1,4 +1,5 @@
 import { projects } from "./data/projects";
+import { sortedPosts } from "./data/writing";
 import { SITE_URL } from "./lib/site";
 
 /**
@@ -13,6 +14,7 @@ export default function sitemap() {
     { url: SITE_URL, changeFrequency: "monthly", priority: 1 },
     { url: `${SITE_URL}/projects`, changeFrequency: "weekly", priority: 0.9 },
     { url: `${SITE_URL}/about`, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${SITE_URL}/writing`, changeFrequency: "weekly", priority: 0.7 },
   ];
 
   const projectRoutes = projects.map((project) => ({
@@ -21,8 +23,18 @@ export default function sitemap() {
     priority: project.featured ? 0.8 : 0.6,
   }));
 
-  return [...staticRoutes, ...projectRoutes].map((route) => ({
-    ...route,
+  // `lastModified` defaults to the build date but is spread *first*, so a
+  // post's real publication date wins over it — a sitemap that claims every
+  // article changed today is a sitemap crawlers learn to distrust.
+  const postRoutes = sortedPosts().map((post) => ({
+    url: `${SITE_URL}/writing/${post.slug}`,
+    changeFrequency: "yearly",
+    priority: 0.7,
+    lastModified: new Date(`${post.date}T09:00:00Z`),
+  }));
+
+  return [...staticRoutes, ...projectRoutes, ...postRoutes].map((route) => ({
     lastModified: now,
+    ...route,
   }));
 }

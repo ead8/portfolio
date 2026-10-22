@@ -8,19 +8,21 @@ import { ArrowUpRight } from "./Icons";
 import { cn } from "@/app/lib/utils";
 
 /**
- * Section heading, set out as a datum.
- *
- * The rule draws left to right beneath the annotation label, which is how a
- * baseline is established on a drawing. `label` names the section in the
- * annotation layer; there is no numbered kicker, because a number that indexes
- * nothing is scaffolding holding up nothing.
+ * Section heading: a pixel label, a heavy headline whose accented words get the
+ * lime highlighter, and an optional line of description. `action` puts a link
+ * at the far end of the label row.
  */
 export default function SectionHeader({ label, title, description, action, className }) {
   return (
     <header className={cn("mb-12 lg:mb-16", className)}>
       <Reveal>
         <div className="flex items-baseline justify-between gap-6">
-          {label && <span className="annot">{label}</span>}
+          {label && (
+            <span className="annot inline-flex items-center gap-2">
+              <span className="px-dot" aria-hidden="true" />
+              {label}
+            </span>
+          )}
           {action && (
             <Link href={action.href} className="link-arrow shrink-0">
               {action.label}
@@ -28,12 +30,9 @@ export default function SectionHeader({ label, title, description, action, class
             </Link>
           )}
         </div>
-        <span className="datum mt-2.5 block h-px w-full bg-fg" />
       </Reveal>
 
-      {title && (
-        <TextReveal as="h2" text={title} className="headline mt-7 max-w-[20ch]" />
-      )}
+      {title && <TextReveal as="h2" text={title} className="headline mt-6 max-w-[18ch]" />}
 
       {description && (
         <Reveal delay={100}>

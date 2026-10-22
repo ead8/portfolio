@@ -8,7 +8,8 @@ import { cn } from "@/app/lib/utils";
  * Headline reveal: each word rides up from behind a clipping mask, staggered.
  *
  * `text` accepts a plain string, or an array of segments so parts of a headline
- * can be accented:
+ * can be accented — an accented segment gets the lime highlighter (`.mark`),
+ * which sweeps in once the words have risen:
  *   <TextReveal text={["I build ", { text: "systems", accent: true }]} />
  *
  * Splitting happens on word boundaries with the whitespace preserved as real
@@ -37,7 +38,7 @@ export default function TextReveal({
     const accent = typeof segment === "string" ? false : segment.accent;
 
     return (
-      <span key={si} className={accent ? "text-accent" : undefined}>
+      <span key={si} className={accent ? "mark" : undefined}>
         {value.split(/(\s+)/).map((chunk, ci) => {
           // split() emits empty strings at segment boundaries — dropping them
           // avoids a doubled space where an accented span begins

@@ -4,88 +4,112 @@ import React from "react";
 import Link from "next/link";
 import Reveal from "@/app/components/ui/Reveal";
 import TextReveal from "@/app/components/ui/TextReveal";
-import { Callout, Dimension } from "@/app/components/ui/Measure";
-import { ArrowUpRight } from "@/app/components/ui/Icons";
-import { profile, specification, yearsOfExperience } from "@/app/data/profile";
+import HeroName from "@/app/components/ui/HeroName";
+import HandNote from "@/app/components/ui/HandNote";
+import PolaroidFan from "@/app/components/ui/PolaroidFan";
+import { ArrowUpRight, Download } from "@/app/components/ui/Icons";
+import { profile, yearsOfExperience } from "@/app/data/profile";
 import { useLocalTime } from "@/app/lib/hooks";
 
 /**
- * Title block.
+ * First screen.
  *
- * Laid out like the title block on a drawing sheet: the subject on the left,
- * the specification table on the right, a dimension line measuring the headline.
+ * The name runs edge to edge in heavy capitals (groq), a one-line claim sits
+ * under it with its key words highlighted (virvid), and a pile of taped
+ * polaroids of the work waits to be shuffled (novatsega + virvid's fanned
+ * cards). Notes in the margin are handwritten.
  *
- * The dimension label is a real measurement of the h1 — resize the window and it
- * changes. That is the one flourish the page opens with, and it earns a longer
- * beat because a visitor sees it once.
+ * Everything stated is checkable: the figures come from the case studies.
  */
-export default function Hero() {
+export default function Hero({ prints = [] }) {
   const localTime = useLocalTime(profile.timezone);
   const years = yearsOfExperience();
 
   return (
-    <section className="container-page pb-16 pt-16 sm:pt-20 lg:pb-20">
-      <div className="grid gap-12 lg:grid-cols-[1fr_15rem] lg:gap-16">
-        {/* Subject */}
-        <div>
-          <Dimension label="H1">
+    <section className="relative overflow-x-clip pb-20 pt-8 sm:pt-12 lg:pb-28" aria-label="Introduction">
+      <div className="container-page">
+        <Reveal className="flex flex-wrap items-center gap-x-4 gap-y-2">
+          <span className="annot inline-flex items-center gap-2">
+            <span className="px-dot" aria-hidden="true" />
+            {profile.role}
+          </span>
+          <span className="meta">Python · FastAPI · Next.js</span>
+          <span className="meta inline-flex items-center gap-2" suppressHydrationWarning>
+            {profile.location.split(",")[0]} {localTime ?? "--:--"}
+          </span>
+          {profile.available && (
+            <span className="ml-auto hidden items-center gap-2 rounded-full bg-lime px-3 py-1.5 font-mono text-[0.625rem] uppercase leading-none text-[#0d0d0b] sm:inline-flex">
+              <span className="px-dot" aria-hidden="true" />
+              {profile.availability}
+            </span>
+          )}
+        </Reveal>
+
+        <Reveal delay={80} y={24} className="mt-6 sm:mt-8">
+          <HeroName text={profile.name} />
+        </Reveal>
+
+        <div className="mt-12 grid items-start gap-14 lg:mt-16 lg:grid-cols-[1.15fr_0.85fr] lg:gap-10">
+          <div>
             <TextReveal
               as="h1"
-              className="display max-w-[24ch]"
+              className="headline max-w-[16ch]"
               text={[
-                "I build AI platforms and backends that hold up ",
-                { text: "in production", accent: true },
+                "I build AI platforms and backends that ",
+                { text: "hold up in production", accent: true },
                 ".",
               ]}
             />
-          </Dimension>
 
-          <Reveal delay={200}>
-            <p className="lede mt-8 max-w-prose">
-              Senior full-stack engineer, {years} years in. Python, FastAPI, and
-              Next.js on systems where correctness is the requirement: a
-              cross-exchange arbitrage terminal, a land-valuation pipeline, a
-              JSON validator on PyPI that runs 116&times; faster than the
-              library it replaced.
-            </p>
-          </Reveal>
+            <Reveal delay={200}>
+              <p className="lede mt-7 max-w-[54ch]">
+                {years}&nbsp;years in, I&apos;m who teams call when the prototype has to
+                become the product. Lately: an arbitrage terminal scoring 400+ live
+                markets in under a second, a land-buying platform built solo, and a
+                JSON validator on PyPI that runs 116&times; faster than the one it
+                replaced.
+              </p>
+            </Reveal>
 
-          <Reveal delay={280} className="mt-10 flex flex-wrap items-center gap-3">
-            <a
-              href={profile.calendly}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-accent"
+            <Reveal delay={280} className="mt-9 flex flex-wrap items-center gap-4">
+              <a
+                href={profile.calendly}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-accent"
+              >
+                Book an intro call
+                <ArrowUpRight className="h-4 w-4" />
+              </a>
+              <Link href="/projects" className="btn btn-secondary">
+                See the work
+              </Link>
+              <a href={profile.resume} target="_blank" rel="noopener noreferrer" className="link-arrow ml-1">
+                <Download className="h-3.5 w-3.5" />
+                Résumé
+              </a>
+            </Reveal>
+
+            <Reveal delay={420} className="mt-14 hidden lg:block">
+              <HandNote arrow="left" rotate={-4} className="text-fg-faint">
+                psst — the little orange critters
+                <br />
+                around the page? you can catch them.
+              </HandNote>
+            </Reveal>
+          </div>
+
+          <Reveal delay={160} className="relative lg:pt-2">
+            <HandNote
+              arrow="down"
+              rotate={6}
+              className="absolute -top-10 right-2 z-10 text-fg-faint sm:right-10 lg:-right-2"
             >
-              Book an intro call
-            </a>
-
-            <Link href="/projects" className="btn btn-secondary">
-              See the work
-              <ArrowUpRight className="h-4 w-4" />
-            </Link>
+              click to shuffle
+            </HandNote>
+            <PolaroidFan items={prints} />
           </Reveal>
         </div>
-
-        {/* Specification table */}
-        <Reveal delay={340} className="lg:pt-2">
-          <div className="border-t border-fg pt-3">
-            <p className="annot mb-4">Specification</p>
-            <div className="flex flex-col gap-3">
-              {specification.map((row) => (
-                <Callout key={row.label} label={row.label} value={row.value} />
-              ))}
-              <Callout
-                label="Time"
-                value={`${localTime ?? "--:--"} ${profile.utcOffset}`}
-              />
-              <Callout
-                label="Status"
-                value={profile.available ? "Available" : "Booked"}
-              />
-            </div>
-          </div>
-        </Reveal>
       </div>
     </section>
   );

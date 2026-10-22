@@ -84,7 +84,7 @@ export function Dimension({ children, label, className, animate = true }) {
         <span className="dim-tick absolute right-0 top-0 block h-4 w-px bg-annot/70" />
 
         <span className="dim-tick absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-bg px-2.5">
-          <span className="annot tabular-nums">
+          <span className="annot tabular-nums" suppressHydrationWarning>
             {label ? `${label} ` : ""}
             {shown ?? "—"}
             {shown != null ? "PX" : ""}
@@ -164,7 +164,7 @@ export function Callout({ label, value, className }) {
     <div className={cn("flex items-baseline gap-2.5", className)}>
       <span className="annot shrink-0">{label}</span>
       <span className="h-px min-w-4 flex-1 bg-annot/25" aria-hidden="true" />
-      <span className="shrink-0 font-mono text-[0.6875rem] uppercase tracking-[0.06em] text-fg">
+      <span className="shrink-0 font-mono text-[0.6875rem] uppercase tracking-[0.06em] text-fg" suppressHydrationWarning>
         {value}
       </span>
     </div>

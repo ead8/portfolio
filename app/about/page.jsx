@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
 
 import Reveal from "@/app/components/ui/Reveal";
@@ -42,7 +41,7 @@ export default function AboutPage() {
           <div>
             <Reveal delay={180}>
               <p className="lede max-w-prose">
-                I&apos;m a full-stack engineer with {years} years building
+                I&apos;m a full-stack engineer with {years}&nbsp;years building
                 scalable backends, AI platforms, and automation pipelines for
                 teams across four continents. My core stack is Python, FastAPI,
                 Django, Next.js, and TypeScript, and I&apos;ve delivered more
@@ -81,22 +80,33 @@ export default function AboutPage() {
             </Reveal>
           </div>
 
-          <Reveal delay={220}>
-            <figure>
-              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-lg border border-line">
-                <Image
-                  src={profile.avatar}
-                  alt={`${profile.name}, ${profile.role}`}
-                  fill
-                  priority
-                  sizes="(max-width: 1024px) 100vw, 380px"
-                  className="object-cover"
-                />
-              </div>
-              <figcaption className="meta mt-3">
-                {profile.location} · {profile.utcOffset}
-              </figcaption>
-            </figure>
+          <Reveal delay={220} className="lg:pt-2">
+            <div className="note rotate-2 px-6 pb-6 pt-8 transition-transform duration-500 ease-out hover:rotate-0">
+              <span className="tape -top-3 left-1/2 -ml-[38px]" style={{ "--tape-r": "-3deg" }} />
+              <p className="font-hand text-[1.75rem] font-bold leading-none">the practical bits</p>
+              <dl className="mt-5 flex flex-col gap-3.5">
+                {[
+                  ["Based in", profile.location.split(",")[0]],
+                  ["Time zone", profile.utcOffset],
+                  ["Status", profile.available ? "Open to work" : "Booked"],
+                  ["Works", "Remote"],
+                ].map(([label, value]) => (
+                  <div key={label} className="flex items-baseline justify-between gap-3 border-b border-dashed border-[#1f1a14]/30 pb-2">
+                    <dt className="text-[0.875rem] text-[#574e40]">{label}</dt>
+                    <dd className="font-mono text-[0.75rem] uppercase text-[#1f1a14]">{value}</dd>
+                  </div>
+                ))}
+              </dl>
+              <a
+                href={profile.resume}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-6 inline-flex items-center gap-1.5 font-mono text-[0.6875rem] uppercase text-[#1f1a14] underline decoration-[#1f1a14]/30 underline-offset-4 hover:decoration-[#1f1a14]"
+              >
+                Résumé, one page
+                <ArrowUpRight className="h-3.5 w-3.5" />
+              </a>
+            </div>
           </Reveal>
         </div>
       </section>
