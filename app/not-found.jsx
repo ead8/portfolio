@@ -3,7 +3,7 @@ import Reveal from "./components/ui/Reveal";
 import TextReveal from "./components/ui/TextReveal";
 import ProjectRow from "./components/ui/ProjectRow";
 import { ArrowUpRight } from "./components/ui/Icons";
-import { featuredProjects } from "./data/projects";
+import { projectIndex } from "./data/projectIndex";
 
 export const metadata = {
   title: "Page not found",
@@ -11,7 +11,9 @@ export const metadata = {
 };
 
 export default function NotFound() {
-  const suggestions = featuredProjects.slice(0, 3);
+  const suggestions = projectIndex()
+    .filter((project) => project.featured)
+    .slice(0, 3);
 
   return (
     <section className="container-page py-24 sm:py-32">

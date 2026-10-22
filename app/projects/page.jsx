@@ -1,6 +1,7 @@
 import ProjectsIndex from "@/app/components/sections/ProjectsIndex";
 import Contact from "@/app/components/sections/Contact";
 import { projects } from "@/app/data/projects";
+import { projectCategories, projectIndex } from "@/app/data/projectIndex";
 
 export const metadata = {
   title: "Work",
@@ -16,7 +17,7 @@ export const metadata = {
 export default function ProjectsPage() {
   return (
     <>
-      <ProjectsIndex />
+      <ProjectsIndex projects={projectIndex()} categories={projectCategories()} />
       <Contact />
     </>
   );

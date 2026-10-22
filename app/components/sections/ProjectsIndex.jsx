@@ -4,18 +4,21 @@ import React, { useMemo, useState } from "react";
 import ProjectRow from "@/app/components/ui/ProjectRow";
 import Reveal from "@/app/components/ui/Reveal";
 import TextReveal from "@/app/components/ui/TextReveal";
-import { projectCategories, projects } from "@/app/data/projects";
 import { cn } from "@/app/lib/utils";
 
 /**
  * Full work index.
  *
- * Filtering is client-side over an in-memory array; thirteen entries never
- * justify a round trip. Rows are not re-keyed on filter change, so switching
- * categories doesn't replay an entrance animation the visitor has already
- * watched once.
+ * Filtering is client-side over the array handed down as a prop; a list this
+ * size never justifies a round trip. Rows are not re-keyed on filter change, so
+ * switching categories doesn't replay an entrance animation the visitor has
+ * already watched once.
+ *
+ * The array is the listing subset (app/data/projectIndex.js), built on the
+ * server, so the summaries and blur hints the index never renders stay out of
+ * the browser bundle.
  */
-export default function ProjectsIndex() {
+export default function ProjectsIndex({ projects = [], categories = [] }) {
   const [category, setCategory] = useState("All");
 
   const visible = useMemo(
@@ -23,7 +26,7 @@ export default function ProjectsIndex() {
       category === "All"
         ? projects
         : projects.filter((project) => project.category === category),
-    [category]
+    [category, projects]
   );
 
   return (
@@ -46,7 +49,7 @@ export default function ProjectsIndex() {
       {/* Filter bar */}
       <div className="sticky top-[var(--header-height)] z-30 border-y border-line bg-bg/90 backdrop-blur">
         <div className="container-page no-scrollbar flex items-center gap-1 overflow-x-auto py-2.5">
-          {projectCategories.map((item) => {
+          {categories.map((item) => {
             const active = item === category;
             return (
               <button

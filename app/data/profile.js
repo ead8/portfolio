@@ -226,3 +226,146 @@ export const principles = [
     body: "Latency budgets, benchmarks, and traces before rewrites. The 40% API improvement came from profiling, not guessing.",
   },
 ];
+
+/* ---------------------------------------------------------------------------
+   PROOF LAYER
+   Everything below exists to make a stranger take the work seriously in the
+   first few seconds. Every entry must be verifiable: a name that appears in a
+   case study, a number that appears in a benchmark, a link that resolves.
+   Nothing here is invented, and nothing here should be added unless it can be
+   checked. See components/sections/ProofStrip and Receipts.
+   ------------------------------------------------------------------------ */
+
+/**
+ * Headline numbers for the proof strip under the hero. `value` is the target
+ * the counter animates to; `suffix` is appended after the count finishes.
+ * `href` makes the figure a link to where it can be checked.
+ */
+export const proofFigures = [
+  {
+    value: 116,
+    suffix: "×",
+    label: "faster JSON validation than fastjsonschema",
+    href: "/projects/jsonguard",
+  },
+  {
+    value: 400,
+    suffix: "+",
+    label: "live markets tracked in under a second",
+    href: "/projects/prediction-market-terminal",
+  },
+  {
+    value: 20,
+    suffix: "+",
+    label: "production systems shipped since 2021",
+    href: "/projects",
+  },
+  {
+    value: 4,
+    suffix: "",
+    label: "continents of clients, one timezone of replies",
+    href: "/about",
+  },
+];
+
+/**
+ * Names that have shipped work by me. Rendered as a running marquee: text
+ * only, because a wall of borrowed logos is a design cliché and several of
+ * these are private engagements with no public mark.
+ */
+export const shippedFor = [
+  { name: "OfBusiness", note: "B2B procurement, India", href: "/projects/ofbusiness" },
+  { name: "Sundial Lands", note: "Land buying, US", href: "/projects/sundial-lands" },
+  { name: "NLE Ltd", note: "Accounting, London & Paris", href: "/projects/nle-accounting" },
+  { name: "LeapForWord", note: "English literacy, India", href: "/projects/leapforword" },
+  { name: "Withfund", note: "Crowdfunding, Ethiopia", href: "/projects/withfund" },
+  { name: "LaunchPad", note: "Token launches, BNB Chain", href: "/projects/launchpad" },
+  { name: "Drixx", note: "Crypto draws", href: "/projects/drixx" },
+  { name: "MoezBinz", note: "Retail, Canada", href: "/projects/moezbinz" },
+  { name: "Outlier", note: "Model training contributor" },
+  { name: "Turing", note: "Benchmarking contributor" },
+];
+
+/**
+ * Where the claims on this site can be checked without asking me.
+ * A portfolio is a set of assertions; this is the evidence column.
+ */
+export const receipts = [
+  {
+    label: "PyPI",
+    title: "jsonguard on PyPI",
+    body: "Installable today. The benchmark script is in the repo.",
+    href: "https://pypi.org/project/jsonguard/",
+    handle: "pip install jsonguard",
+  },
+  {
+    label: "GitHub",
+    title: "Source for the open work",
+    body: "JSONGuard, RiskRabbit, the prediction-market terminal, LaunchPad, and Drixx.",
+    href: "https://github.com/ead8",
+    handle: "github.com/ead8",
+  },
+  {
+    label: "Live",
+    title: "Prediction Market Terminal",
+    body: "Polymarket and Kalshi, aggregated and arbitrage-scored in real time.",
+    href: "https://v0-prediction-market-platform.vercel.app/",
+    handle: "Open the terminal",
+  },
+  {
+    label: "Live",
+    title: "Sundial Lands",
+    body: "Solo build, in production, taking real land offers.",
+    href: "https://sundiallands.com/",
+    handle: "sundiallands.com",
+  },
+  {
+    label: "Résumé",
+    title: "One page, dated",
+    body: "The same facts as this site, in the format a hiring manager forwards.",
+    href: "/doc/resume.pdf",
+    handle: "Download PDF",
+  },
+  {
+    label: "LinkedIn",
+    title: "Work history",
+    body: "Roles, dates, and the people who can vouch for them.",
+    href: "https://www.linkedin.com/in/ebisa-dugo/",
+    handle: "in/ebisa-dugo",
+  },
+];
+
+/**
+ * How an engagement runs, first call to handover. Shown as a numbered
+ * sequence so the visitor can picture working with me before they email.
+ */
+export const process = [
+  {
+    step: "Scope",
+    title: "A short written brief before any code",
+    body: "What has to exist, what can wait, and how we will know it works. You get an architecture note you can hand to anyone.",
+  },
+  {
+    step: "Slice",
+    title: "One thin path to production first",
+    body: "The riskiest piece goes end to end early: real data, real deploy, real numbers. Surprises show up in week one instead of month three.",
+  },
+  {
+    step: "Harden",
+    title: "Measure, then make it fast",
+    body: "Latency budgets, traces, and benchmarks before any rewrite. The 40% API improvement came from a profiler, not a hunch.",
+  },
+  {
+    step: "Hand over",
+    title: "Leave it runnable without me",
+    body: "Typed contracts, migrations in version control, a README that a new hire can follow. You should be able to fire me without pain.",
+  },
+];
+
+/**
+ * Client quotes. Empty until there are real ones to show: the section that
+ * renders these hides itself when the list is empty, and it should stay that
+ * way rather than carry invented praise. Add entries as
+ *   { quote, name, role, org, href? }
+ */
+export const testimonials = [];

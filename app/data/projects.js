@@ -73,6 +73,14 @@ export const projects = [
         desc: "Aggregate market stats, category breakdowns, trending markets by 24h volume, top movers by price change, and price-distribution charts via Recharts.",
       },
     ],
+
+    // What I would change with hindsight. Kept honest and specific on purpose:
+    // a case study that only lists successes reads as marketing, and the
+    // tradeoffs are the part a senior reader is actually scanning for.
+    reflection: [
+      "The weakest link is the matching engine. Pairing markets by Jaccard similarity over their titles works because Polymarket and Kalshi mostly phrase the same question the same way — but \u201cmostly\u201d is carrying a lot of weight, and a title match can pair two markets that resolve on different dates or against different sources. Rebuilding it, I would match on resolution source and settlement window first, with title similarity as a tiebreaker, and show both rule texts beside every suggested pair so the reader can judge the pairing instead of trusting the score.",
+      "The second change is where the prices live. Users and alerts belong in Postgres, and they are there. A stream of ticks with a short useful lifetime is a time-series problem wearing a relational costume, and the retention and query patterns would be cleaner with a store built for it.",
+    ],
   },
 
   {
@@ -226,6 +234,11 @@ export const projects = [
         desc: "Configurable max_size_in_bytes, max_depth, and loosely_typed flags protect against oversized payloads and deeply nested DoS attempts.",
       },
     ],
+
+    reflection: [
+      "116× is a benchmark of a benchmark. It is measured on the simplest possible schema, and it is the number I am willing to defend because the harness is in the repository and anyone can rerun it — but no one's production schema is the simple one. The honest claim is \u201csubstantially faster on hot paths, with the harness published so you can measure your own\u201d, and the next thing this library needs is that benchmark running in a page a reader can press a button on.",
+      "It also has a real ceiling. Roughly 250 lines of core covers the schemas it was designed for and nothing beyond them; the moment someone needs `$ref` resolution or conditional subschemas they should reach for a different library. That sentence belongs in the first line of the README rather than buried at the bottom.",
+    ],
   },
 
   {
@@ -268,6 +281,11 @@ export const projects = [
         title: "FastAPI evaluation service",
         desc: "Python FastAPI service exposes the parcel scoring and valuation logic to the Next.js frontend through a typed REST interface.",
       },
+    ],
+
+    reflection: [
+      "Two services with a typed REST boundary is the correct trade when two teams own them. One person owned both here, which means the boundary bought nothing and cost a serialisation layer, a second deploy, and a whole class of bug where a field exists on one side and not the other. I would collapse it into one application and keep the separation as a module boundary in the code, where it costs nothing.",
+      "I would also make the valuation rules an explicit, versioned artefact alongside the offers they produced. When an offer is questioned months later, the question that matters is which version of the model produced it, and that should be answerable from the record rather than from memory.",
     ],
   },
 
@@ -763,14 +781,12 @@ export const projects = [
   },
 ];
 
-/** Projects surfaced on the home page, in order. */
-export const featuredProjects = projects.filter((p) => p.featured);
-
-/** Distinct categories, for the projects-index filter bar. */
-export const projectCategories = [
-  "All",
-  ...Array.from(new Set(projects.map((p) => p.category))),
-];
+/**
+ * Deriving anything a list view needs (`featured`, categories, the year label)
+ * belongs in app/data/projectIndex.js, which is the module client components are
+ * allowed to touch. Importing this one from a client component drags every
+ * summary and hint in here into the browser bundle.
+ */
 
 /**
  * Resolve a project by slug, falling back to the legacy numeric id so links
@@ -785,9 +801,24 @@ export function getProject(param) {
   );
 }
 
-/** Every addressable route param, used by generateStaticParams. */
+/**
+ * Every addressable route param, used by generateStaticParams.
+ *
+ * Legacy numeric ids are listed as well as slugs, but only so the route can
+ * resolve them *at build time* and answer with a permanent redirect to the
+ * slug (see app/projects/[projectId]/page.jsx). Dropping them from this list
+ * does not remove the URLs — Next still renders an unlisted param on demand and
+ * caches the result, which produced a second copy of the case study under an
+ * old URL instead of sending the reader on. Listing them keeps one page and one
+ * URL per project.
+ */
 export function allProjectParams() {
   return projects.flatMap((p) => [{ projectId: p.slug }, { projectId: String(p.id) }]);
+}
+
+/** True when a route param is a legacy numeric id rather than a slug. */
+export function isLegacyId(param) {
+  return /^\d+$/.test(String(param));
 }
 
 /** Next project in the index, for the "up next" footer on detail pages. */

@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 import Reveal from "@/app/components/ui/Reveal";
 import TextReveal from "@/app/components/ui/TextReveal";
@@ -9,10 +9,10 @@ import ProjectArtwork from "@/app/components/ui/ProjectArtwork";
 import Contact from "@/app/components/sections/Contact";
 import { ArrowLeft, ArrowUpRight } from "@/app/components/ui/Icons";
 
-import { allProjectParams, getProject, nextProject } from "@/app/data/projects";
+import { allProjectParams, getProject, isLegacyId, nextProject } from "@/app/data/projects";
 import { projectJsonLd } from "@/app/lib/site";
 import { Figure } from "@/app/components/ui/Measure";
-import { pad, prettyUrl } from "@/app/lib/utils";
+import { pad, prettyUrl, projectYear } from "@/app/lib/utils";
 
 /**
  * Case study.
@@ -25,8 +25,11 @@ export function generateStaticParams() {
   return allProjectParams();
 }
 
-export function generateMetadata({ params }) {
-  const project = getProject(params.projectId);
+// `params` is a Promise from Next 15 onward; reading it synchronously
+// resolves every case study to "not found".
+export async function generateMetadata({ params }) {
+  const { projectId } = await params;
+  const project = getProject(projectId);
   if (!project) return { title: "Project not found" };
 
   const url = `/projects/${project.slug}`;
@@ -49,11 +52,18 @@ export function generateMetadata({ params }) {
   };
 }
 
-export default function ProjectPage({ params }) {
-  const project = getProject(params.projectId);
+export default async function ProjectPage({ params }) {
+  const { projectId } = await params;
+  const project = getProject(projectId);
   if (!project) notFound();
 
+  // A pre-slug link (/projects/12) resolves to the same project and is sent on
+  // to the canonical URL with a permanent redirect, rather than rendering a
+  // second copy of the page that only a canonical tag distinguishes.
+  if (isLegacyId(projectId)) redirect(`/projects/${project.slug}`);
+
   const next = nextProject(project.slug);
+  const year = projectYear(project);
   const { links } = project;
 
   return (
@@ -72,8 +82,14 @@ export default function ProjectPage({ params }) {
         </Reveal>
 
         <Reveal className="mb-5 flex items-center gap-3">
-          <span className="meta">{project.year}</span>
-          <span className="h-px w-6 bg-line-strong" aria-hidden="true" />
+          {/* Undated client work drops the year and its rule rather than
+              printing a category in the year slot. */}
+          {year && (
+            <>
+              <span className="meta">{year}</span>
+              <span className="h-px w-6 bg-line-strong" aria-hidden="true" />
+            </>
+          )}
           <span className="meta">{project.category}</span>
         </Reveal>
 
@@ -177,6 +193,26 @@ export default function ProjectPage({ params }) {
             ))}
             <div className="border-t border-line" />
           </dl>
+
+          {/* Only rendered where there is something real to say. On a portfolio
+              the tradeoffs are the part a senior reader scans for, and a
+              section that is missing is a more honest signal than one padded
+              with a restated success. */}
+          {project.reflection?.length > 0 && (
+            <>
+              <Reveal>
+                <h2 className="headline mt-16">What I&apos;d do differently</h2>
+              </Reveal>
+
+              {project.reflection.map((paragraph, i) => (
+                <Reveal key={i} delay={i * 60}>
+                  <p className="mt-6 max-w-prose text-fluid-lg leading-[1.7] text-fg-muted">
+                    {paragraph}
+                  </p>
+                </Reveal>
+              ))}
+            </>
+          )}
         </div>
 
         {/* Follows the reader on desktop */}

@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import SectionHeader from "@/app/components/ui/SectionHeader";
 import Reveal from "@/app/components/ui/Reveal";
@@ -8,11 +6,13 @@ import { stackGroups } from "@/app/data/stack";
 /**
  * Stack, grouped by layer.
  *
- * A definition list, not a six-cell card grid: this is reference data someone
- * scans for one answer ("does he own the backend?"), and a table answers that
- * faster than six bordered boxes. Logos are gone — a wall of brand marks is
- * decoration, and the names carry the same information at a quarter of the
- * visual weight.
+ * A definition list, not a grid of bordered cards: this is reference data
+ * someone scans for one answer ("does he own the backend?"), and a
+ * rule-separated table answers that faster than six boxes.
+ *
+ * There is deliberately no filter. Six rows fit on one screen, so a control
+ * that hides rows would cost a click to save nothing — and the count badges it
+ * needed only repeated numbers that were already visible.
  */
 export default function Stack() {
   return (
@@ -27,11 +27,14 @@ export default function Stack() {
         <dl>
           {stackGroups.map((group, i) => (
             <Reveal key={group.id} delay={i * 50}>
-              <div className="grid gap-2 border-t border-line py-5 sm:grid-cols-[10rem_1fr] sm:gap-8">
-                <dt className="meta pt-1">{group.label}</dt>
+              <div className="grid gap-3 border-t border-line py-5 sm:grid-cols-[10rem_1fr] sm:gap-8">
+                <dt className="annot pt-1">{group.label}</dt>
                 <dd className="flex flex-wrap gap-x-5 gap-y-2">
                   {group.items.map((item) => (
-                    <span key={item.name} className="text-fluid-base text-fg-muted">
+                    <span
+                      key={item.name}
+                      className="text-fluid-sm text-fg-muted transition-colors duration-150 hover:text-fg"
+                    >
                       {item.name}
                     </span>
                   ))}
@@ -39,7 +42,6 @@ export default function Stack() {
               </div>
             </Reveal>
           ))}
-          <div className="border-t border-line" />
         </dl>
       </div>
     </section>

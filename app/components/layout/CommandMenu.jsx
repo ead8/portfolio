@@ -2,7 +2,6 @@
 
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { projects } from "@/app/data/projects";
 import { profile, socials } from "@/app/data/profile";
 import { useTheme } from "./ThemeProvider";
 import { useCopy } from "@/app/lib/hooks";
@@ -33,8 +32,13 @@ import { cn } from "@/app/lib/utils";
  * keyboard-initiated action people trigger constantly, and animation on a
  * keyboard action makes the whole interface feel laggy and disconnected from
  * the keypress. Raycast has no open/close animation for exactly this reason.
+ *
+ * The project rows arrive as a prop rather than being imported here: this
+ * component ships on every page, so importing the corpus would put all sixteen
+ * case studies — summaries, highlights, blur placeholders — into the shared
+ * bundle site-wide. See app/data/projectIndex.js.
  */
-export default function CommandMenu() {
+export default function CommandMenu({ projects = [] }) {
   const router = useRouter();
   const { theme, toggle } = useTheme();
   const [, copy] = useCopy();
@@ -71,6 +75,7 @@ export default function CommandMenu() {
         items: [
           { id: "home", label: "Home", keywords: "index start", icon: Terminal, perform: go("/") },
           { id: "work", label: "All projects", keywords: "work index portfolio case studies", icon: Layers, perform: go("/projects") },
+          { id: "writing", label: "Writing", keywords: "blog notes posts articles", icon: Terminal, perform: go("/writing") },
           { id: "about", label: "About", keywords: "bio experience background story", icon: Terminal, perform: go("/about") },
           { id: "contact", label: "Contact", keywords: "hire email reach out", icon: Mail, perform: go("/#contact") },
         ],
@@ -103,6 +108,7 @@ export default function CommandMenu() {
           },
           { id: "book", label: "Book an intro call", hint: "30 min", keywords: "calendly meeting schedule", icon: Calendar, perform: openExternal(profile.calendly) },
           { id: "resume", label: "Download résumé", hint: "PDF", keywords: "cv pdf hire", icon: Download, perform: openExternal(profile.resume) },
+          { id: "rss", label: "Subscribe by RSS", hint: "/rss.xml", keywords: "feed rss subscribe reader", icon: ArrowUpRight, perform: openExternal("/rss.xml") },
           {
             id: "theme",
             label: `Switch to ${theme === "dark" ? "light" : "dark"} theme`,
@@ -124,7 +130,7 @@ export default function CommandMenu() {
         })),
       },
     ];
-  }, [router, theme, toggle, copy, copied]);
+  }, [router, theme, toggle, copy, copied, projects]);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();

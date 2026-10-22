@@ -5,15 +5,15 @@ import Image from "next/image";
 import Link from "next/link";
 import ProjectArtwork from "./ProjectArtwork";
 import { ArrowUpRight } from "./Icons";
-import { pad } from "@/app/lib/utils";
+import { pad, projectYear } from "@/app/lib/utils";
 
 /**
  * One line in the index, set out like a drawing register: plate number,
  * thumbnail, title, classification, date.
  *
  * A register of rows rather than a grid of equal cards — it scans faster, fits
- * the whole body of work above the fold, and doesn't force thirteen different
- * projects into one icon-heading-paragraph mould. The thumbnail is static: a
+ * the whole body of work above the fold, and doesn't force every project into
+ * one icon-heading-paragraph mould. The thumbnail is static: a
  * hover zoom on every row would be constant motion for no information.
  */
 export default function ProjectRow({ project, index = 0, priority = false }) {
@@ -24,8 +24,8 @@ export default function ProjectRow({ project, index = 0, priority = false }) {
           {pad(index + 1)}
         </span>
 
-        {/* A plain bordered thumbnail. Registration ticks on all fourteen rows
-            would be noise; they belong to full plates. */}
+        {/* A plain bordered thumbnail. Registration ticks on every row would be
+            noise; they belong to full plates. */}
         <div className="relative hidden h-14 w-28 shrink-0 overflow-hidden border border-line bg-surface sm:block">
           {project.cover ? (
             <Image
@@ -63,7 +63,7 @@ export default function ProjectRow({ project, index = 0, priority = false }) {
         </div>
 
         <span className="meta hidden w-12 shrink-0 text-right tabular-nums sm:block">
-          {project.year}
+          {projectYear(project) ?? "—"}
         </span>
 
         <ArrowUpRight className="h-4 w-4 shrink-0 text-fg-faint transition-colors duration-150 group-hover:text-accent" />
